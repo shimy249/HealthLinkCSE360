@@ -8,10 +8,10 @@
 $sql = mysqli_connect('localhost','username', 'password');
 if($sql)
 {
-    mysqli_select_db($sql,'IPIMS');
-    var $i = 0; 
     if (isset($_POST['Submit']))
     {
+        mysqli_select_db($sql,'IPIMS');
+        var $i = 0; 
         while(true)
         {
         
