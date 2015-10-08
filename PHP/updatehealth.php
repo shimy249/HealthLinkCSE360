@@ -16,12 +16,12 @@ if($sql)
         {
         
             if(isset($_POST["symptom".$i]) && !empty($_POST["symptom".$i])) {
-            $symptoms = $_POST['symptoms'.$i];
-            $severity = $_POST['severity'.$i];
-            $additional = $_POST['additional'.$i];
-            $insert = "INSERT INTO healthcondition (symptoms, severity, additional)
-             VALUES ('$symptoms', '$severity', '$additional')";
-             $i++;
+                $symptoms = $_POST['symptoms'.$i];
+                $severity = $_POST['severity'.$i];
+                $additional = $_POST['additional'.$i];
+                $insert = "INSERT INTO healthcondition (symptoms, severity, additional)
+                VALUES ('$symptoms', '$severity', '$additional')";
+                $i++;
             }
         }
     }
