@@ -22,9 +22,12 @@ if($sql)
     $email = $_POST["email"];
     $username = $_POST["username"];
     $password = $_POST["password"];
+    $answer1 = $_POST["answer1"];
+    $answer2 = $_POST["answer2"];
+    $answer3 = $_POST["answer3"];
 
-    $insert = "INSERT INTO patients (patientname, dob, gender, ssn, phone, email, username, password)
-    VALUES ('$name', '$dob', '$gender', '$ssn', '$phone', '$email', '$username', '$password')";
+    $insert = "INSERT INTO patients (patientname, dob, gender, ssn, phone, email, username, password, answer1, answer2, answer3)
+    VALUES ('$name', '$dob', '$gender', '$ssn', '$phone', '$email', '$username', '$password', '$answer1', '$answer2', '$answer3')";
 
 
     if (mysqli_query($sql, $insert))
