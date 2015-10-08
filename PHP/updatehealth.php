@@ -9,16 +9,18 @@ $sql = mysqli_connect('localhost','username', 'password');
 if($sql)
 {
     mysqli_select_db($sql,'IPIMS');
-
+    var $i = 0; 
     while(true)
     {
-        $symptoms = $_POST['symptoms'];
-        $severity = $_POST['severity'];
-        $additional = $_POST['additional'];
+        
 
-        if(isset($_POST["value"]) && !empty($_POST["value"])) {
+        if(isset($_POST["symptom".$i]) && !empty($_POST["symptom".$i])) {
+            $symptoms = $_POST['symptoms'.$i];
+            $severity = $_POST['severity'.$i];
+            $additional = $_POST['additional'.$i];
             $insert = "INSERT INTO healthcondition (symptoms, severity, additional)
              VALUES ('$symptoms', '$severity', '$additional')";
+             $i++;
         }
     }
 
