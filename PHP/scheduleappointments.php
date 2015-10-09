@@ -23,7 +23,7 @@ if($sql)
                 $time = $_POST['time' . $i];
                 $date = $_POST['date' . $i];
                 $insert = "INSERT INTO appointments (time, date, doctor) Values ('$time', '$date', '$doctor')";
-                $i++;
+                $i++; 
             }
         }
 
