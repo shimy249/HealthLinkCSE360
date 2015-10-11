@@ -1,6 +1,7 @@
 	body{
 		background-color: #333333;
 		font-size: 14px;
+		font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
 
 	}
 	.main{
@@ -17,12 +18,11 @@
 		width: 400px;
 	}
 	.subsection{
+		position: relative;
 		background-color: #F8F8F8;
 		color: 225E79;
-		position: static;
 		width: 376px;
-		border-style: solid;
-		border-width: 2px;
+		border: solid 2px 225E79;
 		padding: 10px;
 		padding-bottom:0px;
 		margin-bottom: 10px;
@@ -39,6 +39,7 @@
 		border: 1px solid #3BA3D0;
 	}
 	.appointmentBox{
+		display:inline-block;
 		position: relative;
 		width: 362px;
 		border: 1px solid #3BA3D0;
@@ -49,6 +50,16 @@
 		font-weight: bold;
 		color: 00B74A;
 		margin-top: 4px;
+		margin-bottom: 10px;
+	}
+	.showHideButton{
+		position:absolute;
+		right:-1px;
+		top:-1px;
+		font-weight: bold;
+		width:27px;
+		color: 333333;
+		border: solid 1px #225E79;
 	}
 
 	h1{
@@ -59,10 +70,11 @@
 		width:auto;
 	}
 	h2{
+		display:inline-block;
 		color: 0772A1; 
 		padding: 0px;
 		margin: 0px;
-		margin-bottom: 18px;
+		margin-bottom: 16px;
 		width:auto;
 	}
 	h3{
