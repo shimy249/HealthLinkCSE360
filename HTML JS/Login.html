@@ -12,13 +12,14 @@
         <h1>Login Page</h1></center>
 </div>
 
-<form>
+<form action="../PHP/login_check.php" method="post">
     <center>
        Please Enter Username:<br>
-        <input type="text"><br>
+        <input type="text" name="username"><br>
         Please Enter Password<br>
         <input type="password"><br><br>
-        <input type="submit" value="Login">
+        <input type="submit" value="Submit" name="submit">
+        <input type="button" onclick="parent.location='form.html'" value="Register">
     </center>
 </form>
 

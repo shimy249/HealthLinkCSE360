@@ -16,9 +16,9 @@
 
 </center>
 
-<form>
+
     <center>
-        <form action="../PHP/updatehealth.php" method="post">
+        <form action="updatehealth.php?user=<?php echo $_GET["user"]?>" method="post">
         Please Select a new condition:<br>
         <select name="condition">
             <option value="Cough"> Cough </option>
@@ -26,8 +26,7 @@
         </select>
 
         <br><br>
-        </form>
-        <form>
+
         Please Enter the level of severity:<br>
             <input type="text" name="severity">
             <!--<input type="radio" name="severity" value="2">2
@@ -35,10 +34,10 @@
             <input type="radio" name="severity" value="4">4
             <input type="radio" name="severity" value="5">5-->
             <br>
-            <input type="submit" value="Add">
+            <input type="submit">
         </form>
     </center>
-</form>
+
 
 </body>
 </html>

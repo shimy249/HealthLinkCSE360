@@ -6,13 +6,13 @@
  * Time: 11:04 PM
  */
 
-$sql = mysqli_connect('localhost','username', 'password');
+$sql = mysqli_connect('localhost','appbfdlk', 'ohDAUdCL4AQZ0');
 
 if($sql)
 {
     echo "Connect successfully";
 
-    mysqli_select_db($sql,'IPIMS');
+    mysqli_select_db($sql,'appbfdlk_HealthLinkCSE360');
 
     $name = $_POST['patientname'];
     $dob = $_POST['dob'];
@@ -22,12 +22,14 @@ if($sql)
     $email = $_POST["email"];
     $username = $_POST["username"];
     $password = $_POST["password"];
-    $answer1 = $_POST["answer1"];
-    $answer2 = $_POST["answer2"];
-    $answer3 = $_POST["answer3"];
+    $address = $_POST["Address"];
 
-    $insert = "INSERT INTO patients (patientname, dob, gender, ssn, phone, email, username, password, answer1, answer2, answer3)
-    VALUES ('$name', '$dob', '$gender', '$ssn', '$phone', '$email', '$username', '$password', '$answer1', '$answer2', '$answer3')";
+    $format="%d/%m/%y";
+    $dob=strptime(dob, $format);
+    $dob=date("Y-m-d", $dob);
+
+    $insert = "INSERT INTO UserData (Name, DOB, Gender, SSN, Phone, Email, UserName,Password,Address)
+    VALUES ('$name', '$dob', '$gender', '$ssn', '$phone', '$email', '$username', '$password','$address')";
 
 
     if (mysqli_query($sql, $insert))

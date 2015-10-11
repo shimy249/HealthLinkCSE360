@@ -5,13 +5,40 @@
  * Date: 10/8/2015
  * Time: 1:41 PM
  */
-$sql = mysqli_connect('localhost','username', 'password');
-if($sql)
+ob_start();
+$conn = mysqli_connect('localhost','appbfdlk', 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLinkCSE360');
+
+$user = $_GET["user"];
+$condition = $_POST["condition"];
+$severity=$_POST["severity"];
+$date= date("Y-m-d");
+$content = $condition . "; " . $severity;
+
+$sql = "SELECT * FROM UserData WHERE UserName='".$user."'";
+$result=$conn->query($sql);
+$userID;
+
+if($result->num_rows > 0){
+    while($row = $result->fetch_assoc()){
+        $userID = $row["_id"];
+    }
+}
+
+$sql = "INSERT INTO MedicalRecords(DateEntered, Type, Content, UserId) VALUES ('$date', 'Condition', '$content', '$userID')";
+if($conn->query($sql)){
+    echo "added";
+    header('Location: healthc.php?user='.$user);
+}
+
+
+
+
+/*if($sql)
 {
     if (isset($_POST['Submit']))
     {
         mysqli_select_db($sql,'IPIMS');
-        var $i = 0; 
+        $i = 0;
         while(true)
         {
         
@@ -33,4 +60,5 @@ if($sql)
 }
 else
     echo "Connection failed";
+*/
 ?>

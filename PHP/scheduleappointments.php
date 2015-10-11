@@ -6,28 +6,43 @@
  * Time: 8:58 PM
  */
 
-$sql = mysqli_connect('localhost' , 'username' , 'password');
+$conn = mysqli_connect('localhost' , 'appbfdlk' , 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLinkCSE360');
 
-if($sql)
-{
+if($conn) {
     echo "Connect successfully";
 
-    if (isset($_POST['doctor']))
-    {
-        mysqli_select_db($sql, 'IPIMS');
 
-        while(true) {
+    $startTime = $_POST["startTime"];
+    $endTime = $_POST["endTime"];
+    $staff = $_POST["staff"];
+    $user = $_GET["user"];
 
-            if(isset($_POST["time and date" . $i] ) && !empty($_POST["time and date" . $i]))
-            {
-                $time = $_POST['time' . $i];
-                $date = $_POST['date' . $i];
-                $insert = "INSERT INTO appointments (time, date, doctor) Values ('$time', '$date', '$doctor')";
-                $i++; 
-            }
+    //get staffid
+    $sql = "SELECT * FROM UserData WHERE UserName='" . $staff . "'";
+    $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+        // output data of each row
+        while ($row = $result->fetch_assoc()) {
+            $staffID = $row["_id"];
         }
 
     }
+    //get userid
+    $sql = "SELECT * FROM UserData WHERE UserName='" . $user . "'";
+    $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+        // output data of each row
+        while ($row = $result->fetch_assoc()) {
+            $userID = $row["_id"];
+        }
+
+    }
+
+    //insert appointment
+    $sql = "INSERT INTO Appointments('PatientID', 'StaffID', 'StartTime', 'EndTime') VALUES ('$userID','$staffID', '$startTime', '$endTime')";
+    $conn->query($sql);
 }
 
 else
