@@ -14,22 +14,29 @@ if($sql)
 
     mysqli_select_db($sql,'appbfdlk_HealthLinkCSE360');
 
-    $name = $_POST['patientname'];
-    $dob = $_POST['dob'];
-    $gender = $_POST['gender'];
-    $ssn = $_POST['ssn'];
-    $phone = $_POST['phone'];
-    $email = $_POST["email"];
-    $username = $_POST["username"];
-    $password = $_POST["password"];
-    $address = $_POST["Address"];
+    $firstname = $_POST['profile_FirstName'];
+    $lastname = $_POST['profile_LastName'];
+    $email = $_POST['profile_Email'];
+    $username = $_POST['profile_Username'];
+    $password = $_POST['profile_Password'];
+    $dob = $_POST['profile_DateOfBirth'];
+    $ssn = $_POST['profile_SocialSecurity'];
+    $gender = $_POST['profile_Gender'];
+    $address = $_POST['profile_Address'];
+    $q1 = $_POST['profile_Question1'];
+    $a1 = $_POST['profile_Answer1'];
+    $q2 = $_POST['profile_Question2'];
+    $a2 = $_POST['profile_Answer2'];
+    $q3 = $_POST['profile_Question3'];
+    $a3 =  = $_POST['profile_Answer3'];
+   
 
     $format="%d/%m/%y";
     $dob=strptime(dob, $format);
     $dob=date("Y-m-d", $dob);
 
-    $insert = "INSERT INTO UserData (Name, DOB, Gender, SSN, Phone, Email, UserName,Password,Address)
-    VALUES ('$name', '$dob', '$gender', '$ssn', '$phone', '$email', '$username', '$password','$address')";
+    $insert = "INSERT INTO UserData (firstname, lastname, email, username, password, dob, ssn, gender, address, q1, a1, q2, a2, q3, a3)
+    VALUES ($firstname, $lastname, $email, $username, $password, $dob, $ssn, $gender, $address, $q1, $a1, $q2, $a2, $q3, $a3)";
 
 
     if (mysqli_query($sql, $insert))
