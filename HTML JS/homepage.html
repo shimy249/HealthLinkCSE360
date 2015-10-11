@@ -2,20 +2,36 @@
 <head>
 	<meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
 	<title>Interactive Patient Management System</title>
-	<script>
+	<script type = "text/javascript">
+			function showHide(target, self){
+				
+				var content = document.getElementById(target);
+				//var button = document.getElementById(self);
+				if (content.style.display == 'none'){
+					content.style.display = 'block';
+					self.innerHTML = 'x';
+				}
+				else{
+					content.style.display = 'none';
+					self.innerHTML = '+';
+				}
+			}
+			
 	</script>
 	<link rel="stylesheet" type="text/css" href="style.css">
   </style>
 </head>
 <body>
-<div class = "main" onclick = "hide()">
+<div class = "main">
 <div id="header">
         <center><h1>Interactive Patient Management System</h1></center>
 		<div class = "column" style='left:10px; top: 60px;'>
 		
 			<div class = "subsection">
 				<center><h2>Personal Information</h2></center>
-				<form>
+				<button class = "showHideButton" onclick = "showHide('PersonalInformation', this)">+</button>
+				<div class = "sectionContent" id = "PersonalInformation" style = "display:none;">
+					<form>
 					<div class = "sectionLine">
 						First Name:
 						<input type = "text" class = "sectionLineInput" id = "profile_FirstName" >
@@ -44,11 +60,38 @@
 						Social Security Number
 						<input type = "text" class = "sectionLineInput" id = "profile_SocialSecurity">
 					</div>
+					<div class = "sectionLine">
+						Security Question 1:
+						<input type = "text" class = "sectionLineInput" id = "profile_Question1" >
+					</div>
+					<div class = "sectionLine">
+						Security Answer 1:
+						<input type = "text" class = "sectionLineInput" id = "profile_Answer1" >
+					</div>
+					<div class = "sectionLine">
+						Security Question 2:
+						<input type = "text" class = "sectionLineInput" id = "profile_Question2" >
+					</div>
+					<div class = "sectionLine">
+						Security Answer 2:
+						<input type = "text" class = "sectionLineInput" id = "profile_Answer2" >
+					</div>
+					<div class = "sectionLine">
+						Security Question 3:
+						<input type = "text" class = "sectionLineInput" id = "profile_Question3" >
+					</div>
+					<div class = "sectionLine">
+						Security Answer 3:
+						<input type = "text" class = "sectionLineInput" id = "profile_Answer3" >
+					</div>
 					<center><input type = "submit"  class = "submitButton" value = "Update Information" action = ""></center>
-				</form>
+					</form>
+				</div>
 			</div>
 			<div class = "subsection">
 				<center><h2>Update Health Concerns</h2></center>
+				<button class = "showHideButton" onclick = "showHide('UpdateHealthConcerns', this)">x</button>
+				<div class = "sectionContent" id = "UpdateHealthConcerns">
 				<form>
 					<div class = "sectionLine">
 						Symptom: 
@@ -81,10 +124,13 @@
 					<textarea id = "AdditionalNotes" style = "width: 100%;"></textarea>
 					<center><input type = "submit" class = "submitButton" value = "Add Symptom" action = "submit"></center>
 				</form>
+				</div>
 			</div>
 			
 			<div class = "subsection">
 				<center><h2>Symptom History</h2></center>
+				<button class = "showHideButton" onclick = "showHide('SymptomHistory', this)">x</button>
+				<div class = "sectionContent" id = "SymptomHistory">
 				<form>
 						<div class = "appointmentBox">
 						 Symptom: <text class = "p1">Cough</text>
@@ -94,6 +140,7 @@
 						 Additional Notes: <text class = "p1">Sometimes I also experience flatulence when I cough.</text>
 					</div>
 				</form>
+				</div>
 			</div>
 			
 			
@@ -101,7 +148,9 @@
 		
 		<div class = "column" style='left:420px; top: 60px;'>
 			<div class = "subsection">
-				<center><h2>Schedule Appointments</h2></center>
+				<center><h2>Schedule Appointment</h2></center>
+				<button class = "showHideButton" onclick = "showHide('ScheduleAppointment', this)">x</button>
+				<div class = "sectionContent" id = "ScheduleAppointment">
 				<form>
 					<div class = "sectionLine">
 							Select a Doctor:
@@ -187,9 +236,12 @@
 					</div>
 					<center><input type = "submit"  class = "submitButton" value = "Request Appointment" action = ""></center>
 				</form>
+				</div>
 			</div>
 			<div class = "subsection">
 				<center><h2>Manage Appointments</h2></center>
+				<button class = "showHideButton" onclick = "showHide('ManageAppointments', this)">x</button>
+				<div class = "sectionContent" id = "ManageAppointments">
 				<form>
 				
 					<div class = "appointmentBox">
@@ -219,6 +271,7 @@
 					<center><input type = "submit"  class = "submitButton"  value = "Cancel Selected Appointments" action = "submit"></center>
 					
 				</form>
+				</div>
 			</div>
 		</div>
 		
