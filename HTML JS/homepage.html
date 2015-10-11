@@ -1,21 +1,9 @@
 <html>
 <head>
 	<meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
-	<title>Interactive Patient Management System</title>
-	<script type = "text/javascript">
-			function showHide(target, self){
-				
-				var content = document.getElementById(target);
-				//var button = document.getElementById(self);
-				if (content.style.display == 'none'){
-					content.style.display = 'block';
-					self.innerHTML = 'x';
-				}
-				else{
-					content.style.display = 'none';
-					self.innerHTML = '+';
-				}
-			}
+	<title>IPMS - Home </title>
+	<script type = "text/javascript" src = "main.js">
+
 			
 	</script>
 	<link rel="stylesheet" type="text/css" href="style.css">
@@ -50,15 +38,23 @@
 					</div>
 					<div class = "sectionLine">
 						Password:
-						<input type = "text" class = "sectionLineInput" id = "profile_FirstName" >
+						<input type = "text" class = "sectionLineInput" id = "profile_Password" >
 					</div>
 					<div class = "sectionLine">
-						Date Of Birth (mm/dd/yyyy):
+						Date Of Birth (MM/DD/YYYY):
 						<input type = "text" class = "sectionLineInput" id = "profile_DateOfBirth">
 					</div>
 					<div class = "sectionLine">
-						Social Security Number
+						Social Security Number:
 						<input type = "text" class = "sectionLineInput" id = "profile_SocialSecurity">
+					</div>
+					<div class = "sectionLine">
+						Gender:
+						<input type = "text" class = "sectionLineInput" id = "profile_Gender">
+					</div>
+					<div class = "sectionLine">
+						Physical Address:
+						<input type = "text" class = "sectionLineInput" id = "profile_Address">
 					</div>
 					<div class = "sectionLine">
 						Security Question 1:
@@ -132,12 +128,23 @@
 				<button class = "showHideButton" onclick = "showHide('SymptomHistory', this)">x</button>
 				<div class = "sectionContent" id = "SymptomHistory">
 				<form>
-						<div class = "appointmentBox">
+					<div class = "appointmentBox">
 						 Symptom: <text class = "p1">Cough</text>
+						 <br>
+						 Severity: <text class = "p1">3</text>
 						 <br>
 						 Date: <text class = "p1">10/11/2015</text>
 						  <br>
-						 Additional Notes: <text class = "p1">Sometimes I also experience flatulence when I cough.</text>
+						 Additional Notes: <text class = "p1">Sometimes I fart when I cough.</text>
+					</div>
+					<div class = "appointmentBox">
+						 Symptom: <text class = "p1">Fever</text>
+						 <br>
+						 Severity: <text class = "p1">4</text>
+						 <br>
+						 Date: <text class = "p1">10/11/2015</text>
+						  <br>
+						 Additional Notes: <text class = "p1">My head feels very hot when I put my hand to it</text>
 					</div>
 				</form>
 				</div>
@@ -158,8 +165,9 @@
 								<option>--Select--</option>
 								<option>Dr. House</option>
 								<option>Dr. Dre</option>
-								<option>Dr. Jeckel</option>
+								<option>Dr. Jekyll</option>
 								<option>Dr. Octopus</option>
+								<option>Dr. Seus</option>
 							</select>
 					</div>
 					<div class = "sectionLine">
