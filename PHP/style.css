@@ -29,11 +29,11 @@
 	}
 	.sectionLine{
 		position: relative;
-		height: 30px;
+		height: 27px;
 	}
 	.sectionLineInput{
 		position: absolute;
-		top: -2px;
+		top: -1px;
 		right: 0px;
 		width: 180px;
 		border: 1px solid #3BA3D0;
@@ -43,12 +43,15 @@
 		position: relative;
 		width: 362px;
 		border: 1px solid #3BA3D0;
+		color: 333333;
+		background-color: FFFFFF;
 		padding: 5px;
 		margin-bottom: 10px;
 	}
 	.submitButton{
 		font-weight: bold;
-		color: 00B74A;
+		color: 37DB79;
+		background-color: 333333;
 		margin-top: 4px;
 		margin-bottom: 10px;
 	}
@@ -98,7 +101,7 @@
 	.b3{color: 024A68}
 	.b4{color: 3BA3D0}
 	.b5{color: 63AFD0}	
-	.p1{color: 172CAF}	
+	.p1{color: 172CAF; font-weight:bold;}	
 	.p2{color: 2E3983}	
 	.p3{color: 071672}	
 	.p4{color: 4B5ED7}	
