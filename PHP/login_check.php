@@ -19,7 +19,7 @@ if($conn->connect_error){
     die("Connection failed: " . $conn->connect_error);
 }
 
-$sql = "SELECT * FROM UserData WHERE UserName='" . $_POST["username"]."'";
+$sql = "SELECT * FROM UserData WHERE UserName='" . $_POST["profile_Username"]."'";
 
 $result = $conn->query($sql);
 echo $result->num_rows;
