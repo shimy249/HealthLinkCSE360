@@ -12,10 +12,12 @@ if($conn) {
     echo "Connect successfully";
 
 
-    $startTime = $_POST["startTime"];
-    $endTime = $_POST["endTime"];
-    $staff = $_POST["staff"];
-    $user = $_GET["user"];
+    $doctor = $_POST['schedule_Doctor'];
+    $month = $_POST['schedule_Month'];
+    $day = $_POST['schedule_Day'];
+    $year = $_POST['schedule_Year'];
+    $time = $_POST['schedule_Time'];
+    $patient = $_GET["user"];
 
     //get staffid
     $sql = "SELECT * FROM UserData WHERE UserName='" . $staff . "'";
@@ -41,7 +43,7 @@ if($conn) {
     }
 
     //insert appointment
-    $sql = "INSERT INTO Appointments('PatientID', 'StaffID', 'StartTime', 'EndTime') VALUES ('$userID','$staffID', '$startTime', '$endTime')";
+    $sql = "INSERT INTO Appointments(Doctor, Month, Day, Year, Time, Patient) VALUES ('$doctor', '$month', '$day', '$year', '$time', '$patient')";
     $conn->query($sql);
 }
 
