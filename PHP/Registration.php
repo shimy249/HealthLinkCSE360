@@ -29,15 +29,9 @@ if($sql)
     $a2 = $_POST['profile_Answer2'];
     $q3 = $_POST['profile_Question3'];
     $a3 =  = $_POST['profile_Answer3'];
-   
 
-    $format="%d/%m/%y";
-    $dob=strptime(dob, $format);
-    $dob=date("Y-m-d", $dob);
-
-    $insert = "INSERT INTO UserData (firstname, lastname, email, username, password, dob, ssn, gender, address, q1, a1, q2, a2, q3, a3)
-    VALUES ($firstname, $lastname, $email, $username, $password, $dob, $ssn, $gender, $address, $q1, $a1, $q2, $a2, $q3, $a3)";
-
+    $insert = "INSERT INTO UserData (Firstname, Lastname, Email, Username, Password, DOB, SSN, Gender, Address, Q1, A1, Q2, A2, Q3, A3)
+    VALUES ('$firstname', '$lastname', '$email', '$username', '$password', '$dob', '$ssn', '$gender', '$address', '$q1', '$a1', '$q2', '$a2', '$q3', '$a3')";
 
     if (mysqli_query($sql, $insert))
         echo "Registered Successfully";
