@@ -6,6 +6,7 @@
  * Time: 11:04 PM
  */
 
+ob_start();
 $sql = mysqli_connect('localhost','appbfdlk', 'ohDAUdCL4AQZ0');
 
 if($sql)
@@ -28,13 +29,24 @@ if($sql)
     $q2 = $_POST['profile_Question2'];
     $a2 = $_POST['profile_Answer2'];
     $q3 = $_POST['profile_Question3'];
-    $a3 =  = $_POST['profile_Answer3'];
+    $a3 = $_POST['profile_Answer3'];
 
-    $insert = "INSERT INTO UserData (Firstname, Lastname, Email, Username, Password, DOB, SSN, Gender, Address, Q1, A1, Q2, A2, Q3, A3)
-    VALUES ('$firstname', '$lastname', '$email', '$username', '$password', '$dob', '$ssn', '$gender', '$address', '$q1', '$a1', '$q2', '$a2', '$q3', '$a3')";
+    $format="m/d/y";
+    $dob=strptime(dob, $format);
+    $dob=date("Y-m-d", $dob);
 
-    if (mysqli_query($sql, $insert))
+    $name=$firstname." ".$lastname;
+
+    $insert = "INSERT INTO UserData (Name, DOB, Gender, SSN, Phone, Email, UserName,Password,Address,Type)
+    VALUES ('$name', '$dob', '$gender', '$ssn', '$phone', '$email', '$username', '$password','$address','Patient')";
+
+
+    if (mysqli_query($sql, $insert)) {
         echo "Registered Successfully";
+        echo $insert;
+        $url = "index.php";
+        header("Location: ".$url);
+    }
     else
         echo "Error: " . $insert . "<br>" . mysqli_error($sql);
 

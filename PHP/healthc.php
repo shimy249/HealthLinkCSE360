@@ -11,6 +11,8 @@
         <h1>Update Health Condition</h1></center>
 </div>
 
+<a href="homepagebak.php?user=<?php echo $_GET["user"];?>">Go To Homepage</a>
+
 <center>
 
 
