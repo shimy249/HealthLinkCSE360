@@ -13,7 +13,7 @@
 <div class = "main">
 <div id="header">
         <h1>Interactive Patient Management System</h1>
-		<div style="position:absolute;right:15px;top:10px;color:white;"> Logged in as <text class = "o4"><b>rdmcclos<?php echo $_GET["user"]; ?></b></text><br></div>
+		<div style="position:absolute;right:15px;top:10px;color:white;"> Logged in as <text class = "o4"><b><?php echo $_GET["user"]; ?></b></text><br></div>
 		<div class = "column" style='left:10px; top: 60px;'>
 		
 			<div class = "subsection">
