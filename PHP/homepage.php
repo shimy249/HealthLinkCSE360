@@ -192,49 +192,49 @@
                 <center><h2>Schedule Appointment</h2></center>
                 <button class="showHideButton" onclick="showHide('ScheduleAppointment', this)">x</button>
                 <div class="sectionContent" id="ScheduleAppointment">
-                    <form action="scheduleappointments.php" method="post">
+                    <form action="scheduleappointments.php?user=<?php echo $_GET["user"]; ?>" method="post">
                         <div class="sectionLine">
                             Select a Doctor:
-                            <select class="sectionLineInput" id="schedule_Doctor" >
+                            <select class="sectionLineInput" name="schedule_Doctor" >
                                 <?php
                                 $conn = new mysqli('localhost', 'appbfdlk', 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLinkCSE360');
                                 $sql = "SELECT * FROM UserData WHERE type='Doctor'";
                                 $result = $conn->query($sql);
                                 if($result->num_rows>0) {
                                     while ($row = $result->fetch_assoc())
-                                        echo "<option value=" . $row['Name'] . "'>" . $row["Name"] . "</option>";
+                                        echo "<option value=" . $row['_id'] . "'>" . $row["Name"] . "</option>";
                                 }
                                 ?>
                             </select>
                         </div>
                         <div class="sectionLine">
                             Date:
-                            <select id="schedule_Month" style="position: absolute; top: -2px; left: 196px; width: 58px; border: 1px solid #3BA3D0;">
-                                <option value="0">MM</option>
-                                <option value="1">01</option>
-                                <option value="2">02</option>
-                                <option value="3">p1</option>
-                                <option value="4">04</option>
-                                <option value="5">05</option>
-                                <option value="6">06</option>
-                                <option value="7">07</option>
-                                <option value="8">08</option>
-                                <option value="9">09</option>
+                            <select name="schedule_Month" style="position: absolute; top: -2px; left: 196px; width: 58px; border: 1px solid #3BA3D0;">
+                                <option value="00">MM</option>
+                                <option value="01">01</option>
+                                <option value="02">02</option>
+                                <option value="03">03</option>
+                                <option value="04">04</option>
+                                <option value="05">05</option>
+                                <option value="06">06</option>
+                                <option value="07">07</option>
+                                <option value="08">08</option>
+                                <option value="09">09</option>
                                 <option value="10">10</option>
                                 <option value="11">11</option>
                                 <option value="12">12</option>
                             </select>
-                            <select id="schedule_Day" style="position: absolute; top: -2px; left: 255px; width: 60px; border: 1px solid #3BA3D0;">
+                            <select name="schedule_Day" style="position: absolute; top: -2px; left: 255px; width: 60px; border: 1px solid #3BA3D0;">
                                 <option value="0">DD</option>
-                                <option value="1">01</option>
-                                <option value="2">02</option>
-                                <option value="3">p1</option>
-                                <option value="4">04</option>
-                                <option value="5">05</option>
-                                <option value="6">06</option>
-                                <option value="7">07</option>
-                                <option value="8">08</option>
-                                <option value="9">09</option>
+                                <option value="01">01</option>
+                                <option value="02">02</option>
+                                <option value="03">03</option>
+                                <option value="04">04</option>
+                                <option value="05">05</option>
+                                <option value="06">06</option>
+                                <option value="07">07</option>
+                                <option value="08">08</option>
+                                <option value="09">09</option>
                                 <option value="10">10</option>
                                 <option value="11">11</option>
                                 <option value="12">12</option>
@@ -258,7 +258,7 @@
                                 <option value="30">30</option>
                                 <option value="31">31</option>
                             </select>
-                            <select id="schedule_Year" style="position: absolute; top: -2px; left: 316px; width: 60px; border: 1px solid #3BA3D0;">
+                            <select name="schedule_Year" style="position: absolute; top: -2px; left: 316px; width: 60px; border: 1px solid #3BA3D0;">
                                 <option value="0">YYYY</option>
                                 <option value="2015">2015</option>
                                 <option value="2016">2016</option>
@@ -266,10 +266,10 @@
                         </div>
                         <div class="sectionLine">
                             Time:
-                            <select id="schedule_Time" class="sectionLineInput">
+                            <select name="schedule_Time" class="sectionLineInput">
                                 <option value="0">--Select--</option>
-                                <option value="8">8:00 AM</option>
-                                <option value="9">9:00 AM</option>
+                                <option value="08">8:00 AM</option>
+                                <option value="09">9:00 AM</option>
                                 <option value="10">10:00 AM</option>
                                 <option value="11">11:00 AM</option>
                                 <option value="12">12:00 PM</option>
@@ -289,29 +289,65 @@
                 <div class="sectionContent" id="ManageAppointments">
                     <form>
 
-                        <div class="appointmentBox">
-                            <input type="checkbox" value="0" style="position:absolute; left:5px; top:14px;">
-                            <span style="display:inline-block; width: 30px;"></span>
-                            Doctor: <text class="p1">Dr. House</text>
-                            <span style="display:inline-block; width: 30px;"></span>
-                            Patient: <text class="p1">John Smith</text>
-                            <br><span style="display:inline-block; width: 30px;"></span>
-                            Date: <text class="p1">10/30/2015</text>
-                            <span style="display:inline-block; width: 30px;"></span>
-                            Time: <text class="p1">4:00 PM</text>
-                        </div>
 
-                        <div class="appointmentBox">
-                            <input type="checkbox" value="0" style="position:absolute; left:5px; top:14px;">
-                            <span style="display:inline-block; width: 30px;"></span>
-                            Doctor: <text class="p1">Dr. Jeckel</text>
-                            <span style="display:inline-block; width: 30px;"></span>
-                            Patient: <text class="p1">John Smith</text>
-                            <br><span style="display:inline-block; width: 30px;"></span>
-                            Date: <text class="p1">11/30/2015</text>
-                            <span style="display:inline-block; width: 30px;"></span>
-                            Time: <text class="p1">9:00 AM</text>
-                        </div>
+                        <?php
+                        $conn = mysqli_connect('localhost','appbfdlk', 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLinkCSE360');
+                        $user=$_GET["user"];
+                        $sql = "SELECT * FROM UserData WHERE UserName='".$user."'";
+                        $result=$conn->query($sql);
+                        $userID;
+
+                        if($result->num_rows > 0){
+                            while($row = $result->fetch_assoc()){
+                                $userID = $row["_id"];
+                            }
+                        }
+
+                        $sql = "SELECT * FROM Appointments WHERE PatientID='".$userID."'";
+                        $result=$conn->query($sql);
+
+                        if($result->num_rows>0){
+                            while($row=$result->fetch_assoc()){
+
+                                $sql = "SELECT * FROM UserData WHERE _id='".$row["StaffID"]."'";
+                                $x=$conn->query($sql);
+                                $y=$x ->fetch_assoc();
+                                $staff=$y["Name"];
+
+                                $sql = "SELECT * FROM UserData WHERE _id='".$row["PatientID"]."'";
+                                $x=$conn->query($sql);
+                                $y=$x ->fetch_assoc();
+                                $patient=$y["Name"];
+
+                                $datetime = $row["StartTime"];
+                                $date = DateTime::createFromFormat("Y-m-d H:i:s", $datetime);
+                                $d = $date->format('m/d/Y');
+                                $time = $date->format('g:i A');
+
+
+                                echo "<div class='appointmentBox'>";
+                                echo '<input type="checkbox" value="0" style="position:absolute; left:5px; top:14px;">';
+
+                                echo '<span style="display:inline-block; width: 30px;"></span>';
+                                echo 'Doctor: <text class="p1">'.$staff.'</text>';
+
+                                echo '<span style="display:inline-block; width: 30px;"></span>';
+                                echo 'Patient: <text class="p1">'.$patient.'</text>';
+
+                                echo '<br>';
+                                echo '<span style="display:inline-block; width: 30px;"></span>';
+                                echo 'Date: <text class="p1">'.$d.'</text>';
+
+
+                                echo '<span style="display:inline-block; width: 30px;"></span>';
+                                echo 'Time: <text class="p1">'.$time.'</text>';
+
+                                echo '</div>';
+
+                            }
+                        }
+                        echo mysqli_error($conn);
+                        ?>
 
                         <center><input type="submit"  class="submitButton"  value="Cancel Selected Appointments" action="submit"></center>
 
