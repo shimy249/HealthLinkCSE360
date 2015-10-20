@@ -124,7 +124,7 @@
             </div>
             <div class="subsection">
                 <center><h2>Current Health Concerns</h2></center>
-                <button class="showHideButton" onclick="showHide('UpdateHealthConcerns', this)">x</button>
+                <button class="showHideButton" onclick="showHide('CurrentHealthConcerns', this)">x</button>
                 <div class="sectionContent" id="CurrentHealthConcerns">
                     <form>
                         <?php
