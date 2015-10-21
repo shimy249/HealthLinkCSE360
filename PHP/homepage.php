@@ -3,17 +3,18 @@
 <head>
     <meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
     <title>IPMS - Home </title>
-    <script type="text/javascript" src="main.js">
-
-    </script>
+    <script type="text/javascript" src="main.js"></script>
     <link rel="stylesheet" type="text/css" href="style.css">
     </style></head>
-<body>
+<body onload="setTimeout(hideNotifications, 5000)">
 <div class="main">
     <div id="header">
         <h1>Interactive Patient Management System</h1>
         <div style="position:absolute;right:15px;top:10px;color:white;"> Logged in as <text class="o4"><b><?php echo $_GET["user"]; ?></b></text><br></div>
-        <div class="column" style='left:10px; top: 60px;'>
+        <div id="notifications" style="width:100%;text-align:center;">
+            <text class="b4"><?php echo $_GET["notification"] ?></text>
+        </div>
+        <div class="column" style='left:10px; top: 80px;'>
 
             <div class="subsection">
                 <center><h2>Personal Information</h2></center>
@@ -126,7 +127,7 @@
                 <center><h2>Current Health Concerns</h2></center>
                 <button class="showHideButton" onclick="showHide('CurrentHealthConcerns', this)">x</button>
                 <div class="sectionContent" id="CurrentHealthConcerns">
-                    <form>
+                    <form action="send_alert.php?user=<?php echo $_GET['user']; ?>" method="post">
                         <?php
 
 
@@ -151,9 +152,8 @@
                                 $content=$row["Content"];
                                 $times=$row["DateEntered"];
                                 list($currentCond, $currentSever) = explode("; ", $content);
-
                                 echo "<div class='appointmentBox'>";
-                                echo '<input type="checkbox" value="0" style="position:absolute; left:5px; top:14px;">';
+                                echo '<input name="symptom[]" type="checkbox" value="'. $row["_id"].'" style="position:absolute; left:5px; top:14px;">';
 
                                 echo '<span style="display:inline-block; width: 30px;"></span>';
                                 echo 'Date Entered: <text class="p1">'.$times.'</text>';
@@ -175,9 +175,9 @@
                             }
                         }
                         echo mysqli_error($conn);
-
-
                         ?>
+                        <center><input type = "submit" class = "submitButton" value = "Submit Symptoms" action = "submit">
+                        <input type = "submit" class = "submitButton" value = "Clear Symptoms" action = "submit"></center>
                     </form>
                 </div>
             </div>
@@ -187,7 +187,15 @@
 
         </div>
 
-        <div class="column" style='left:420px; top: 60px;'>
+        <div class="column" style='left:420px; top: 80px;'>
+            <div class="subsection">
+                <center><h2>Alerts</h2></center>
+                <button class="showHideButton" onclick="showHide('Alerts', this)">x</button>
+                <div class="sectionContent" id="Alerts">
+
+                    </form>
+                </div>
+            </div>
             <div class="subsection">
                 <center><h2>Schedule Appointment</h2></center>
                 <button class="showHideButton" onclick="showHide('ScheduleAppointment', this)">x</button>

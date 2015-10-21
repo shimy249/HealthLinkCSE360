@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" serverName="appbykevin.io">
+  <component name="PublishConfigData" serverName="Kevin">
     <serverData>
-      <paths name="appbykevin.io">
+      <paths name="Kevin">
         <serverdata>
           <mappings>
-            <mapping deploy="/" local="$PROJECT_DIR$" web="/HealthLinkCSE360" />
+            <mapping deploy="/public_html/HealthLinkCSE360" local="$PROJECT_DIR$" web="/" />
           </mappings>
         </serverdata>
       </paths>

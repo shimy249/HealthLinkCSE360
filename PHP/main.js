@@ -11,3 +11,7 @@
 					self.innerHTML = '+';
 				}
 			}
+			function hideNotifications(){
+				var notification = document.getElementById('notifications');
+				notification.style.display = 'none';
+			}
