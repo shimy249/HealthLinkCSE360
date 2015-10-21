@@ -192,8 +192,22 @@
                 <center><h2>Alerts</h2></center>
                 <button class="showHideButton" onclick="showHide('Alerts', this)">x</button>
                 <div class="sectionContent" id="Alerts">
+                    <?php
+                    $conn = mysqli_connect('localhost','appbfdlk', 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLinkCSE360');
+                    $user=$_GET["user"];
+                    $sql = "SELECT * FROM alerts";
+                    $result=$conn->query($sql);
+                    if($result->num_rows > 0){
+                        while($row = $result->fetch_assoc()){
+                            echo '<div class="appointmentBox">';
+                            echo '<br>Patient:'.$row['patient_name'];
+                            echo '<br>Summary:'.$row['summary'];
+                            echo '</div>';
+                        }
+                    }
+                    echo mysqli_error($conn);
+                    ?>
 
-                    </form>
                 </div>
             </div>
             <div class="subsection">
