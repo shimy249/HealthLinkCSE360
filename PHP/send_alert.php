@@ -8,6 +8,8 @@
 ob_start();
 $conn = mysqli_connect('localhost' , 'appbfdlk' , 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLinkCSE360');
 $patient = $_GET["user"];
+$summary = "";
+echo $patient;
 if($conn) {
     $alert = 0;
     foreach ($_POST['symptom'] as $symptom) {
@@ -26,7 +28,7 @@ if($conn) {
         }
     }
     if ($alert>0){
-        $summary = "";
+
         foreach ($_POST['symptom'] as $symptom) {
             $sql = "SELECT * FROM MedicalRecords WHERE _id='" . $symptom."'";
             $result = $conn->query($sql);
@@ -40,9 +42,11 @@ if($conn) {
             }
         }
         echo $summary;
+        $sql = "INSERT INTO alerts (patient_name,summary) VALUES ('$patient', '$summary')";
+        $conn->query($sql);
     }
 
-    //header('Location: homepage.php?user='.$patient.'&notification=Your symptoms were submitted');
+    header('Location: homepage.php?user='.$patient.'&notification=Your symptoms were submitted');
 }
 
 else
