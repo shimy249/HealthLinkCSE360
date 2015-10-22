@@ -26,67 +26,68 @@
                         $user=$_GET["user"];
                         $sql = "SELECT * FROM UserData WHERE UserName='".$user."'";
                         $result=$conn->query($sql);
-                        $userRow = $result->fetch_assoc()
+                        $userRow = $result->fetch_assoc();
+
                         ?>
                         <div class="sectionLine">
                             First Name:
-                            <input type="text" class="sectionLineInput" name="profile_FirstName" value = "<?php $userRow[] ?>">
+                            <input type="text" class="sectionLineInput" name="profile_FirstName" value = "<?php echo $userRow['FirstName'];?>">
                         </div>
                         <div class="sectionLine">
                             Last Name:
-                            <input type="text" class="sectionLineInput" name="profile_LastName" value = "">
+                            <input type="text" class="sectionLineInput" name="profile_LastName" value = "<?php echo $userRow['LastName'];?>">
                         </div>
                         <div class="sectionLine">
                             Email Address:
-                            <input type="text" class="sectionLineInput" name="profile_Email" value = "">
+                            <input type="text" class="sectionLineInput" name="profile_Email" value = "<?php echo $userRow['Email'];?>">
                         </div>
                         <div class="sectionLine">
                             Username:
-                            <input type="text" class="sectionLineInput" name="profile_Username" value = "">
+                            <input type="text" class="sectionLineInput" name="profile_Username" value = "<?php echo $userRow['UserName'];?>">
                         </div>
                         <div class="sectionLine">
                             Password:
-                            <input type="text" class="sectionLineInput" name="profile_Password" value = "" >
+                            <input type="text" class="sectionLineInput" name="profile_Password" value = "<?php echo $userRow['Password'];?>" >
                         </div>
                         <div class="sectionLine">
                             Date Of Birth (MM/DD/YYYY):
-                            <input type="text" class="sectionLineInput" name="profile_DateOfBirth" value = "">
+                            <input type="text" class="sectionLineInput" name="profile_DateOfBirth" value = "<?php echo $userRow['DOB'];?>">
                         </div>
                         <div class="sectionLine">
                             Social Security Number:
-                            <input type="text" class="sectionLineInput" name="profile_SocialSecurity" value = "">
+                            <input type="text" class="sectionLineInput" name="profile_SocialSecurity" value = "<?php echo $userRow['SSN'];?>">
                         </div>
                         <div class="sectionLine">
                             Gender:
-                            <input type="text" class="sectionLineInput" name="profile_Gender" value = "">
+                            <input type="text" class="sectionLineInput" name="profile_Gender" value = "<?php echo $userRow['Gender'];?>">
                         </div>
                         <div class="sectionLine">
                             Physical Address:
-                            <input type="text" class="sectionLineInput" name="profile_Address" value = "">
+                            <input type="text" class="sectionLineInput" name="profile_Address" value = "<?php echo $userRow['Address'];?>">
                         </div>
                         <div class="sectionLine">
                             Security Question 1:
-                            <input type="text" class="sectionLineInput" name="profile_Question1" value = "" >
+                            <input type="text" class="sectionLineInput" name="profile_Question1" value = "<?php echo $userRow['q1'];?>" >
                         </div>
                         <div class="sectionLine">
                             Security Answer 1:
-                            <input type="text" class="sectionLineInput" name="profile_Answer1" value = "" >
+                            <input type="text" class="sectionLineInput" name="profile_Answer1" value = "<?php echo $userRow['a1'];?>" >
                         </div>
                         <div class="sectionLine">
                             Security Question 2:
-                            <input type="text" class="sectionLineInput" name="profile_Question2" value = "" >
+                            <input type="text" class="sectionLineInput" name="profile_Question2" value = "<?php echo $userRow['q2'];?>" >
                         </div>
                         <div class="sectionLine">
                             Security Answer 2:
-                            <input type="text" class="sectionLineInput" name="profile_Answer2" value = "" >
+                            <input type="text" class="sectionLineInput" name="profile_Answer2" value = "<?php echo $userRow['a2'];?>" >
                         </div>
                         <div class="sectionLine">
                             Security Question 3:
-                            <input type="text" class="sectionLineInput" name="profile_Question3" value = "" >
+                            <input type="text" class="sectionLineInput" name="profile_Question3" value = "<?php echo $userRow['q3'];?>" >
                         </div>
                         <div class="sectionLine">
                             Security Answer 3:
-                            <input type="text" class="sectionLineInput" name="profile_Answer3"  value = "">
+                            <input type="text" class="sectionLineInput" name="profile_Answer3"  value = "<?php echo $userRow['a3'];?>">
                         </div>
                         <center><input type="submit"  class="submitButton" value="Update Information" action=""></center>
                     </form>
