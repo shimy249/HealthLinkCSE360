@@ -37,8 +37,8 @@ if($sql)
 
     $name=$firstname." ".$lastname;
 
-    $insert = "INSERT INTO UserData (Name, DOB, Gender, SSN, Phone, Email, UserName,Password,Address,Type)
-    VALUES ('$name', '$dob', '$gender', '$ssn', '$phone', '$email', '$username', '$password','$address','Patient')";
+    $insert = "INSERT INTO UserData (FirstName,LastName, DOB, Gender, SSN, Phone, Email, UserName,Password,Address,Type,q1,a1,q2,a2, q3,a3 )
+    VALUES ('$firstname','$lastname',''$name', '$dob', '$gender', '$ssn', '$phone', '$email', '$username', '$password','$address','Patient', 'q1','a1','q2','a2','q3','a3')";
 
 
     if (mysqli_query($sql, $insert)) {

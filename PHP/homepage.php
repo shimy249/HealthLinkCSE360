@@ -21,65 +21,72 @@
                 <button class="showHideButton" onclick="showHide('PersonalInformation', this)">+</button>
                 <div class="sectionContent" id="PersonalInformation" style="display:none;">
                     <form action="EditProfile.php" method="post">
+                        <?php
+                        $conn = mysqli_connect('localhost','appbfdlk', 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLinkCSE360');
+                        $user=$_GET["user"];
+                        $sql = "SELECT * FROM UserData WHERE UserName='".$user."'";
+                        $result=$conn->query($sql);
+                        $userRow = $result->fetch_assoc()
+                        ?>
                         <div class="sectionLine">
                             First Name:
-                            <input type="text" class="sectionLineInput" id="profile_FirstName" >
+                            <input type="text" class="sectionLineInput" name="profile_FirstName" value = "<?php $userRow[] ?>">
                         </div>
                         <div class="sectionLine">
                             Last Name:
-                            <input type="text" class="sectionLineInput" id="profile_LastName">
+                            <input type="text" class="sectionLineInput" name="profile_LastName" value = "">
                         </div>
                         <div class="sectionLine">
                             Email Address:
-                            <input type="text" class="sectionLineInput" id="profile_Email">
+                            <input type="text" class="sectionLineInput" name="profile_Email" value = "">
                         </div>
                         <div class="sectionLine">
                             Username:
-                            <input type="text" class="sectionLineInput" id="profile_Username">
+                            <input type="text" class="sectionLineInput" name="profile_Username" value = "">
                         </div>
                         <div class="sectionLine">
                             Password:
-                            <input type="text" class="sectionLineInput" id="profile_Password" >
+                            <input type="text" class="sectionLineInput" name="profile_Password" value = "" >
                         </div>
                         <div class="sectionLine">
                             Date Of Birth (MM/DD/YYYY):
-                            <input type="text" class="sectionLineInput" id="profile_DateOfBirth">
+                            <input type="text" class="sectionLineInput" name="profile_DateOfBirth" value = "">
                         </div>
                         <div class="sectionLine">
                             Social Security Number:
-                            <input type="text" class="sectionLineInput" id="profile_SocialSecurity">
+                            <input type="text" class="sectionLineInput" name="profile_SocialSecurity" value = "">
                         </div>
                         <div class="sectionLine">
                             Gender:
-                            <input type="text" class="sectionLineInput" id="profile_Gender">
+                            <input type="text" class="sectionLineInput" name="profile_Gender" value = "">
                         </div>
                         <div class="sectionLine">
                             Physical Address:
-                            <input type="text" class="sectionLineInput" id="profile_Address">
+                            <input type="text" class="sectionLineInput" name="profile_Address" value = "">
                         </div>
                         <div class="sectionLine">
                             Security Question 1:
-                            <input type="text" class="sectionLineInput" id="profile_Question1" >
+                            <input type="text" class="sectionLineInput" name="profile_Question1" value = "" >
                         </div>
                         <div class="sectionLine">
                             Security Answer 1:
-                            <input type="text" class="sectionLineInput" id="profile_Answer1" >
+                            <input type="text" class="sectionLineInput" name="profile_Answer1" value = "" >
                         </div>
                         <div class="sectionLine">
                             Security Question 2:
-                            <input type="text" class="sectionLineInput" id="profile_Question2" >
+                            <input type="text" class="sectionLineInput" name="profile_Question2" value = "" >
                         </div>
                         <div class="sectionLine">
                             Security Answer 2:
-                            <input type="text" class="sectionLineInput" id="profile_Answer2" >
+                            <input type="text" class="sectionLineInput" name="profile_Answer2" value = "" >
                         </div>
                         <div class="sectionLine">
                             Security Question 3:
-                            <input type="text" class="sectionLineInput" id="profile_Question3" >
+                            <input type="text" class="sectionLineInput" name="profile_Question3" value = "" >
                         </div>
                         <div class="sectionLine">
                             Security Answer 3:
-                            <input type="text" class="sectionLineInput" id="profile_Answer3" >
+                            <input type="text" class="sectionLineInput" name="profile_Answer3"  value = "">
                         </div>
                         <center><input type="submit"  class="submitButton" value="Update Information" action=""></center>
                     </form>
@@ -176,8 +183,7 @@
                         }
                         echo mysqli_error($conn);
                         ?>
-                        <center><input type = "submit" class = "submitButton" value = "Submit Symptoms" action = "submit">
-                        <input type = "submit" class = "submitButton" value = "Clear Symptoms" action = "submit"></center>
+                        <center><input type = "submit" class = "submitButton" value = "Submit Symptoms" action = "submit"></center>
                     </form>
                 </div>
             </div>
@@ -200,8 +206,8 @@
                     if($result->num_rows > 0){
                         while($row = $result->fetch_assoc()){
                             echo '<div class="appointmentBox">';
-                            echo '<br>Patient:'.$row['patient_name'];
-                            echo '<br>Summary:'.$row['summary'];
+                            echo 'Patient: <text class = "p1">'.$row['patient_name'].'</text>';
+                            echo '<br>Summary: <text class = "p1">'.$row['summary'].'</text>';
                             echo '</div>';
                         }
                     }

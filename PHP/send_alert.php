@@ -9,7 +9,6 @@ ob_start();
 $conn = mysqli_connect('localhost' , 'appbfdlk' , 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLinkCSE360');
 $patient = $_GET["user"];
 $summary = "";
-echo $patient;
 if($conn) {
     $alert = 0;
     foreach ($_POST['symptom'] as $symptom) {
@@ -41,9 +40,11 @@ if($conn) {
                 }
             }
         }
+        echo $patient;
         echo $summary;
         $sql = "INSERT INTO alerts (patient_name,summary) VALUES ('$patient', '$summary')";
         $conn->query($sql);
+
     }
 
     header('Location: homepage.php?user='.$patient.'&notification=Your symptoms were submitted');
