@@ -1,0 +1,182 @@
+<html>
+<head>
+    <meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
+    <title>IPIMS - Lab Technician</title>
+    <script type="text/javascript" src="main.js">
+    </script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    </style></head>
+<body>
+<div class="main">
+    <div id="header">
+        <center><h1>Interactive Patient Management System</h1></center>
+        <div class="column" style='left:10px; top: 60px;'>
+            <div class="subsection">
+                <center><h2>Select Patient</h2></center>
+                <button class="showHideButton" onclick="showHide('SelectPatient', this)">+</button>
+                <div class="sectionContent" id="SelectPatient">
+                    <form>
+                        <div class="sectionLine">
+                            Select Patient:
+                            <select class="sectionLineInput" id="Patients" >
+                                <option>No Patient</option>
+                                <option>John</option>
+                            </select>
+                        </div>
+                        <center><input type="submit" class="submitButton" value="Select" action="submit"></center>
+                    </form>
+                </div>
+            </div>
+            <div class="subsection">
+                <center><h2>Schedule Vacation Time</h2></center>
+                <button class="showHideButton" onclick="showHide('ScheduleVacationTime', this)">x</button>
+                <div class="sectionContent" id="ScheduleVacationTime">
+                    <form>
+                        <div class="sectionLine">
+                            Start Date:
+                            <select id="start schedule_Month" style="position: absolute; top: -2px; left: 196px; width: 58px; border: 1px solid #3BA3D0;">
+                                <option value="0">MM</option>
+                                <option value="1">01</option>
+                                <option value="2">02</option>
+                                <option value="3">03</option>
+                                <option value="4">04</option>
+                                <option value="5">05</option>
+                                <option value="6">06</option>
+                                <option value="7">07</option>
+                                <option value="8">08</option>
+                                <option value="9">09</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                            </select>
+                            <select id="start schedule_Day" style="position: absolute; top: -2px; left: 255px; width: 60px; border: 1px solid #3BA3D0;">
+                                <option value="0">DD</option>
+                                <option value="1">01</option>
+                                <option value="2">02</option>
+                                <option value="3">03</option>
+                                <option value="4">04</option>
+                                <option value="5">05</option>
+                                <option value="6">06</option>
+                                <option value="7">07</option>
+                                <option value="8">08</option>
+                                <option value="9">09</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                                <option value="13">13</option>
+                                <option value="14">14</option>
+                                <option value="15">15</option>
+                                <option value="16">16</option>
+                                <option value="17">17</option>
+                                <option value="18">18</option>
+                                <option value="19">19</option>
+                                <option value="20">20</option>
+                                <option value="21">21</option>
+                                <option value="22">22</option>
+                                <option value="23">23</option>
+                                <option value="24">24</option>
+                                <option value="25">25</option>
+                                <option value="26">26</option>
+                                <option value="27">27</option>
+                                <option value="28">28</option>
+                                <option value="29">29</option>
+                                <option value="30">30</option>
+                                <option value="31">31</option>
+                            </select>
+                            <select id="start schedule_Year" style="position: absolute; top: -2px; left: 316px; width: 60px; border: 1px solid #3BA3D0;">
+                                <option value="0">YYYY</option>
+                                <option value="2015">2015</option>
+                                <option value="2016">2016</option>
+                            </select>
+                            </div>
+                        <div class="sectionLine">
+                            End Date:
+                            <select id="end schedule_Month" style="position: absolute; top: -2px; left: 196px; width: 58px; border: 1px solid #3BA3D0;">
+                                <option value="0">MM</option>
+                                <option value="1">01</option>
+                                <option value="2">02</option>
+                                <option value="3">03</option>
+                                <option value="4">04</option>
+                                <option value="5">05</option>
+                                <option value="6">06</option>
+                                <option value="7">07</option>
+                                <option value="8">08</option>
+                                <option value="9">09</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                            </select>
+                            <select id="end schedule_Day" style="position: absolute; top: -2px; left: 255px; width: 60px; border: 1px solid #3BA3D0;">
+                                <option value="0">DD</option>
+                                <option value="1">01</option>
+                                <option value="2">02</option>
+                                <option value="3">03</option>
+                                <option value="4">04</option>
+                                <option value="5">05</option>
+                                <option value="6">06</option>
+                                <option value="7">07</option>
+                                <option value="8">08</option>
+                                <option value="9">09</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                                <option value="13">13</option>
+                                <option value="14">14</option>
+                                <option value="15">15</option>
+                                <option value="16">16</option>
+                                <option value="17">17</option>
+                                <option value="18">18</option>
+                                <option value="19">19</option>
+                                <option value="20">20</option>
+                                <option value="21">21</option>
+                                <option value="22">22</option>
+                                <option value="23">23</option>
+                                <option value="24">24</option>
+                                <option value="25">25</option>
+                                <option value="26">26</option>
+                                <option value="27">27</option>
+                                <option value="28">28</option>
+                                <option value="29">29</option>
+                                <option value="30">30</option>
+                                <option value="31">31</option>
+                            </select>
+                            <select id="end schedule_Year" style="position: absolute; top: -2px; left: 316px; width: 60px; border: 1px solid #3BA3D0;">
+                                <option value="0">YYYY</option>
+                                <option value="2015">2015</option>
+                                <option value="2016">2016</option>
+                            </select>
+                            </div>
+                        <center><input type="submit"  class="submitButton" value="Submit" action=""></center>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="column" style='left:420px; top: 60px;'>
+            <div class="subsection">
+                <center><h2>Add Report</h2></center>
+                <button class="showHideButton" onclick="showHide('AddReport', this)">+</button>
+                <div class="sectionContent" id="AddReport">
+                    <form>
+                        <div class="sectionLine">
+                            Patient Name:
+                            <input type="text" class="sectionLineInput" id="patient_Name" >
+                        </div>
+                        <div class="sectionLine">
+                            Doctor:
+                            <input type="text" class="sectionLineInput" id="Doctor_Name" >
+                        </div>
+                        <div class="sectionLine">
+                            Date:
+                            <input type="date" class="sectionLineInput" id="Date" >
+                        </div>
+                        Report:
+                        <textarea id="AdditionalNotes" style="width: 100%;"></textarea>
+                        <center><input type="submit" class="submitButton" value="Report" action="submit"></center>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
