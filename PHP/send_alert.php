@@ -36,7 +36,7 @@ if($conn) {
                 while($row = $result->fetch_assoc()) {
                     $content=$row["Content"];
                     list($currentCond, $currentSever) = explode("; ", $content);
-                    $summary = $summary.$currentCond." (".$currentSever."), ";
+                    $summary = $summary.$currentCond." (".$currentSever.") ";
                 }
             }
         }

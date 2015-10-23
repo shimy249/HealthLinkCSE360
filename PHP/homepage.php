@@ -126,7 +126,7 @@
                             </select>
                         </div>
                         Additional Notes:
-                        <textarea id="AdditionalNotes" style="width: 100%;"></textarea>
+                        <textarea id="AdditionalNotes" style="width: 100%;" name="Notes"></textarea>
                         <center><input type="submit" class="submitButton" value="Add Symptom" action="submit"></center>
                     </form>
                 </div>
@@ -159,25 +159,23 @@
 
                                 $content=$row["Content"];
                                 $times=$row["DateEntered"];
-                                list($currentCond, $currentSever) = explode("; ", $content);
+                                list($currentCond, $currentSever, $currentNotes) = explode("; ", $content);
                                 echo "<div class='appointmentBox'>";
                                 echo '<input name="symptom[]" type="checkbox" value="'. $row["_id"].'" style="position:absolute; left:5px; top:14px;">';
-
                                 echo '<span style="display:inline-block; width: 30px;"></span>';
-                                echo 'Date Entered: <text class="p1">'.$times.'</text>';
+                                echo '<div style = "display:inline-block;">';
 
-                                echo '<br>';
-                                echo '<span style="display:inline-block; width: 30px;"></span>';
-                                echo 'Symptom: <text class="p1">'.$currentCond.'</text>';
+                                    echo 'Date Entered: <text class="p1">'.$times.'</text>';
 
-                                echo '<br>';
-                                echo '<span style="display:inline-block; width: 30px;"></span>';
-                                echo 'Severity: <text class="p1">'.$currentSever.'</text>';
+                                    echo '<br>';
+                                    echo 'Symptom: <text class="p1">'.$currentCond.'</text>';
 
-                                echo '<br>';
-                                echo '<span style="display:inline-block; width: 30px;"></span>';
-                                echo 'Additional Information: <text class="p1">'.$currentCond.'</text>';
+                                    echo '<br>';
+                                    echo 'Severity: <text class="p1">'.$currentSever.'</text>';
 
+                                    echo '<br>';
+                                    echo 'Additional Information: <text class="p1">'.$currentNotes.'</text>';
+                                echo '</div>';
                                 echo '</div>';
 
                             }

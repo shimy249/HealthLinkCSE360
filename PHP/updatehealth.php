@@ -11,8 +11,9 @@ $conn = mysqli_connect('localhost','appbfdlk', 'ohDAUdCL4AQZ0', 'appbfdlk_Health
 $user = $_GET["user"];
 $condition = $_POST["Symptom"];
 $severity=$_POST["Severity"];
+$notes = $_POST['Notes'];
 $date= date("Y-m-d");
-$content = $condition . "; " . $severity;
+$content = $condition . "; " . $severity ."; ".$notes;
 
 $sql = "SELECT * FROM UserData WHERE UserName='".$user."'";
 $result=$conn->query($sql);
