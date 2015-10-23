@@ -18,6 +18,7 @@
 		width: 400px;
 	}
 	.subsection{
+		display: none;
 		position: relative;
 		background-color: #F8F8F8;
 		color: 225E79;

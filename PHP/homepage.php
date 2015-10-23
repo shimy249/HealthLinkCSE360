@@ -1,4 +1,4 @@
-
+<?php session_start(); ?>
 <html>
 <head>
     <meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
@@ -7,23 +7,26 @@
     <link rel="stylesheet" type="text/css" href="style.css">
     </style></head>
 <body onload="setTimeout(hideNotifications, 5000)">
+<?php
+$user = $_SESSION["user"];
+$type = $_SESSION["type"];
+?>
 <div class="main">
     <div id="header">
         <h1>Interactive Patient Management System</h1>
-        <div style="position:absolute;right:15px;top:10px;color:white;"> Logged in as <text class="o4"><b><?php echo $_GET["user"]; ?></b></text><br></div>
+        <div style="position:absolute;right:15px;top:10px;color:white;"> Logged in as <text class="o4"><b><?php echo $user; ?></b></text><br></div>
         <div id="notifications" style="width:100%;text-align:center;">
             <text class="b4"><?php echo $_GET["notification"] ?></text>
         </div>
         <div class="column" style='left:10px; top: 80px;'>
 
-            <div class="subsection">
+            <div class="subsection" style="display:block;">
                 <center><h2>Personal Information</h2></center>
                 <button class="showHideButton" onclick="showHide('PersonalInformation', this)">+</button>
                 <div class="sectionContent" id="PersonalInformation" style="display:none;">
-                    <form action="EditProfile.php" method="post">
+                    <form action="update_profile.php" method="post">
                         <?php
                         $conn = mysqli_connect('localhost','appbfdlk', 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLinkCSE360');
-                        $user=$_GET["user"];
                         $sql = "SELECT * FROM UserData WHERE UserName='".$user."'";
                         $result=$conn->query($sql);
                         $userRow = $result->fetch_assoc();
@@ -93,11 +96,11 @@
                     </form>
                 </div>
             </div>
-            <div class="subsection">
+            <div class="subsection" <?php if($type == 0) echo 'style="display:block;"'; ?>>
                 <center><h2>Update Health Concerns</h2></center>
                 <button class="showHideButton" onclick="showHide('UpdateHealthConcerns', this)">x</button>
                 <div class="sectionContent" id="UpdateHealthConcerns">
-                    <form action="updatehealth.php?user=<?php echo $_GET["user"];?>" method="post">
+                    <form action="updatehealth.php" method="post">
                         <div class="sectionLine">
                             Symptom:
                             <select class="sectionLineInput" name="Symptom" >
@@ -131,16 +134,15 @@
                     </form>
                 </div>
             </div>
-            <div class="subsection">
+            <div class="subsection" <?php if ($type == 0) echo 'style="display:block;"'; ?>>
                 <center><h2>Current Health Concerns</h2></center>
                 <button class="showHideButton" onclick="showHide('CurrentHealthConcerns', this)">x</button>
                 <div class="sectionContent" id="CurrentHealthConcerns">
-                    <form action="send_alert.php?user=<?php echo $_GET['user']; ?>" method="post">
+                    <form action="send_alert.php" method="post">
                         <?php
 
 
                         $conn = mysqli_connect('localhost','appbfdlk', 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLinkCSE360');
-                        $user=$_GET["user"];
                         $sql = "SELECT * FROM UserData WHERE UserName='".$user."'";
                         $result=$conn->query($sql);
                         $userID;
@@ -193,13 +195,12 @@
         </div>
 
         <div class="column" style='left:420px; top: 80px;'>
-            <div class="subsection">
+            <div class="subsection" <?php if ($type == 1) echo 'style="display:block;"'; ?>>
                 <center><h2>Alerts</h2></center>
                 <button class="showHideButton" onclick="showHide('Alerts', this)">x</button>
                 <div class="sectionContent" id="Alerts">
                     <?php
                     $conn = mysqli_connect('localhost','appbfdlk', 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLinkCSE360');
-                    $user=$_GET["user"];
                     $sql = "SELECT * FROM alerts";
                     $result=$conn->query($sql);
                     if($result->num_rows > 0){
@@ -215,11 +216,11 @@
 
                 </div>
             </div>
-            <div class="subsection">
+            <div class="subsection"<?php if ($type == 0) echo 'style="display:block;"'; ?>>
                 <center><h2>Schedule Appointment</h2></center>
                 <button class="showHideButton" onclick="showHide('ScheduleAppointment', this)">x</button>
                 <div class="sectionContent" id="ScheduleAppointment">
-                    <form action="scheduleappointments.php?user=<?php echo $_GET["user"]; ?>" method="post">
+                    <form action="scheduleappointments.php?" method="post">
                         <div class="sectionLine">
                             Select a Doctor:
                             <select class="sectionLineInput" name="schedule_Doctor" >
@@ -310,7 +311,7 @@
                     </form>
                 </div>
             </div>
-            <div class="subsection">
+            <div class="subsection"<?php if ($type == 0 || $type == 1) echo 'style="display:block;"'; ?>>
                 <center><h2>Manage Appointments</h2></center>
                 <button class="showHideButton" onclick="showHide('ManageAppointments', this)">x</button>
                 <div class="sectionContent" id="ManageAppointments">
@@ -319,7 +320,7 @@
 
                         <?php
                         $conn = mysqli_connect('localhost','appbfdlk', 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLinkCSE360');
-                        $user=$_GET["user"];
+
                         $sql = "SELECT * FROM UserData WHERE UserName='".$user."'";
                         $result=$conn->query($sql);
                         $userID;

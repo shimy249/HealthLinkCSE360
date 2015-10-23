@@ -14,7 +14,7 @@
         <center><h1>Interactive Patient Management System</h1></center>
 		<div class="column" style='left:220px; top: 60px;'>
 			
-			<div class="subsection">
+			<div class="subsection" style="display:block;">
 				<center><h2>Log In</h2></center>
 				
 				<div class="sectionContent" id="SymptomHistory">
@@ -32,7 +32,7 @@
 				</div>
 			</div>
 		
-			<div class="subsection">
+			<div class="subsection" style="display:block;">
 				<center><h2>Registration</h2></center>
 				<button class="showHideButton" onclick="showHide('PersonalInformation', this)">+</button>
 				<div class="sectionContent" id="PersonalInformation" style="display:none;">

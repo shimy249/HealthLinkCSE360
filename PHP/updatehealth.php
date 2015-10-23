@@ -6,6 +6,10 @@
  * Time: 1:41 PM
  */
 ob_start();
+session_start();
+$user = $_SESSION["user"];
+$type = $_SESSION["type"];
+
 $conn = mysqli_connect('localhost','appbfdlk', 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLinkCSE360');
 
 $user = $_GET["user"];
