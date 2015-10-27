@@ -32,6 +32,12 @@ if($conn) {
     $q3 = $_POST['profile_Question3'];
     $a3 = $_POST['profile_Answer3'];
 
+    if ($firstname == '' || $lastname == '' || $email == '' || $username == '' || $password == '' || $dob == '' || $ssn == '' || $gender == '' || $address == '' || $q1 == '' || $a1 == '' || $q2 == '' || $a2 == '' || $q3 == '' || $a3 == ''){
+        $_SESSION['notification'] = 'Please fill out all fields to update your profile';
+        header("Location: homepage.php");
+        return;
+    }
+
     $sql = "UPDATE UserData SET FirstName='" . $firstname . "',LastName='" . $lastname . "', DOB='" . $dob . "', Gender='" . $gender . "', SSN='" . $ssn . "', Phone='" . $phone . "', Email='" . $email . "', UserName='" . $username . "',Password='" . $password . "',Address='" . $address . "',Type='" . $type . "',q1='" . $q1 . "',a1='" . $a1 . "',q2='" . $q2 . "',a2='" . $a2 . "', q3='" . $q3 . "',a3='" . $a3 . "' WHERE UserName='" . $user . "'";
     if ($conn->query($sql) === TRUE) {
         echo "Record updated successfully";

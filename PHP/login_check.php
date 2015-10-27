@@ -7,6 +7,7 @@
  */
 session_start();
 ob_start();
+$_SESSION['notification'] = '';
 $servername = "localhost";
 $username = "appbfdlk";
 $password = "ohDAUdCL4AQZ0";
@@ -18,27 +19,32 @@ if($conn->connect_error){
     die("Connection failed: " . $conn->connect_error);
 }
 
-$sql = "SELECT * FROM UserData WHERE UserName='" . $_POST["profile_Username"]."'";
+$sql = "SELECT * FROM UserData WHERE UserName='" . $_POST["login_Username"]."'";
 
 $result = $conn->query($sql);
 echo $result->num_rows;
 
-if ($result->num_rows > 0) {
-    // output data of each row
-    while($row = $result->fetch_assoc()) {
-        $_SESSION["type"] = $row["Type"];
-        $_SESSION["user"] = $row["UserName"];
+if ($result->num_rows == 1) {
+    $row = $result->fetch_assoc();
+    if ($row["Password"] != $_POST["login_Password"]){
+        $_SESSION['notification'] = "Incorrect Username/Password combination";
+        echo "index";
+        header("Location: index.php");
+        return;
     }
+
+    echo $row["Password"].' '.$_POST['login_Password'];
+    $_SESSION["type"] = $row["Type"];
+    $_SESSION["user"] = $row["UserName"];
+    $_SESSION["userID"] = $row["_id"];
     $url = "homepage.php";
     echo $_SESSION["user"];
+    $_SESSION['notification'] = "Welcome ".$row['FirstName'];
     header("Location: ".$url);
-} else{
-    $url = "../HTML JS/Login.html";
-    echo $_POST["username"];
-    echo $_POST["type"];
-    echo $sql;
-    //header("Location: ". $url);
-
+} else {
+    $_SESSION['notification'] = "This Username does not exist";
+    header("Location: index.php");
+    return;
 }
 
 ?>

@@ -1,3 +1,8 @@
+<?php
+session_start();
+$notification = $_SESSION['notification'];
+$_SESSION['notification'] = '';
+?>
 <html>
 <head>
 	<meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
@@ -8,11 +13,14 @@
 	</script>
 	<link rel="stylesheet" type="text/css" href="style.css">
   </style></head>
-<body>
+<body onload="setTimeout(hideNotifications, 5000)">
 <div class="main">
 <div id="header">
         <center><h1>Interactive Patient Management System</h1></center>
-		<div class="column" style='left:220px; top: 60px;'>
+	    <div id="notifications" style="width:100%;text-align:center;">
+		    <text class="b4"><?php echo $notification; ?></text>
+	    </div>
+		<div class="column" style='left:220px; top: 80px;'>
 			
 			<div class="subsection" style="display:block;">
 				<center><h2>Log In</h2></center>
@@ -21,11 +29,11 @@
 				<form action="login_check.php" method="post">
 					<div class="sectionLine">
 						Username:
-						<input type="text" class="sectionLineInput" name="profile_Username" >
+						<input type="text" class="sectionLineInput" name="login_Username" >
 					</div>
 					<div class="sectionLine">
 						Password:
-						<input type="password" class="sectionLineInput" name="profile_Password" >
+						<input type="password" class="sectionLineInput" name="login_Password" >
 					</div>
 					<center><input type="submit"  class="submitButton" value="Log In"></center>
 				</form>

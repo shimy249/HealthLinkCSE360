@@ -1,4 +1,13 @@
-<?php session_start(); ?>
+<?php
+    session_start();
+    $user = $_SESSION["user"];
+    $type = $_SESSION["type"];
+    $userID = $_SESSION['userID'];
+    $notification = $_SESSION['notification'];
+    if(isset($_SESSION['notification'])){
+        unset($_SESSION['notification']);
+    }
+?>
 <html>
 <head>
     <meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
@@ -8,15 +17,14 @@
     </style></head>
 <body onload="setTimeout(hideNotifications, 5000)">
 <?php
-$user = $_SESSION["user"];
-$type = $_SESSION["type"];
+
 ?>
 <div class="main">
     <div id="header">
         <h1>Interactive Patient Management System</h1>
         <div style="position:absolute;right:15px;top:10px;color:white;"> Logged in as <text class="o4"><b><?php echo $user; ?></b></text><br></div>
         <div id="notifications" style="width:100%;text-align:center;">
-            <text class="b4"><?php echo $_GET["notification"] ?></text>
+            <text class="b4"><?php echo $notification ?></text>
         </div>
         <div class="column" style='left:10px; top: 80px;'>
 
@@ -96,6 +104,33 @@ $type = $_SESSION["type"];
                     </form>
                 </div>
             </div>
+
+            <div class="subsection" <?php if ($type == 1) echo 'style="display:block;"'; ?>>
+                <center><h2>Access Patient Case</h2></center>
+                <button class="showHideButton" onclick="showHide('PatientCase', this)">x</button>
+                <div class="sectionContent" id="PatientCase">
+                    <form>
+                        <div class = "sectionLine">
+                            Patient:
+                            <select name="patient_ID" class = "sectionLineInput" style = "width: 250px">
+                                <?php
+                                $conn = mysqli_connect('localhost','appbfdlk', 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLinkCSE360');
+                                $sql = "SELECT * FROM UserData WHERE Type = '0'";
+                                $result=$conn->query($sql);
+                                if($result->num_rows > 0){
+                                    while($row = $result->fetch_assoc()){
+                                        echo '<option value = "'.$row['_id'].'">'.$row['FirstName'].' '.$row['LastName'].' ('.$row['UserName'].')</option>';
+                                    }
+                                }
+                                ?>
+                            </select>
+                        </div>
+                        <center><input type = "submit" class="submitButton" value = "View Case"></center>
+
+                    </form>
+                </div>
+            </div>
+
             <div class="subsection" <?php if($type == 0) echo 'style="display:block;"'; ?>>
                 <center><h2>Update Health Concerns</h2></center>
                 <button class="showHideButton" onclick="showHide('UpdateHealthConcerns', this)">x</button>
@@ -143,15 +178,6 @@ $type = $_SESSION["type"];
 
 
                         $conn = mysqli_connect('localhost','appbfdlk', 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLinkCSE360');
-                        $sql = "SELECT * FROM UserData WHERE UserName='".$user."'";
-                        $result=$conn->query($sql);
-                        $userID;
-
-                        if($result->num_rows > 0){
-                            while($row = $result->fetch_assoc()){
-                                $userID = $row["_id"];
-                            }
-                        }
 
                         $sql = "SELECT * FROM MedicalRecords WHERE UserID='".$userID."' AND Type='Condition'";
                         $result=$conn->query($sql);
@@ -226,11 +252,11 @@ $type = $_SESSION["type"];
                             <select class="sectionLineInput" name="schedule_Doctor" >
                                 <?php
                                 $conn = new mysqli('localhost', 'appbfdlk', 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLinkCSE360');
-                                $sql = "SELECT * FROM UserData WHERE type='Doctor'";
+                                $sql = "SELECT * FROM UserData WHERE Type = 1";
                                 $result = $conn->query($sql);
                                 if($result->num_rows>0) {
                                     while ($row = $result->fetch_assoc())
-                                        echo "<option value=" . $row['_id'] . "'>" . $row["Name"] . "</option>";
+                                        echo '<option value="' . $row['_id'] . '">' . $row["FirstName"] .' '. $row["LastName"]."</option>";
                                 }
                                 ?>
                             </select>
@@ -320,18 +346,10 @@ $type = $_SESSION["type"];
 
                         <?php
                         $conn = mysqli_connect('localhost','appbfdlk', 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLinkCSE360');
+                        $sql = '';
+                        if ($type==0) $sql = "SELECT * FROM Appointments WHERE PatientID='".$userID."'";
+                        else $sql = "SELECT * FROM Appointments WHERE StaffID='".$userID."'";
 
-                        $sql = "SELECT * FROM UserData WHERE UserName='".$user."'";
-                        $result=$conn->query($sql);
-                        $userID;
-
-                        if($result->num_rows > 0){
-                            while($row = $result->fetch_assoc()){
-                                $userID = $row["_id"];
-                            }
-                        }
-
-                        $sql = "SELECT * FROM Appointments WHERE PatientID='".$userID."'";
                         $result=$conn->query($sql);
 
                         if($result->num_rows>0){
@@ -340,12 +358,12 @@ $type = $_SESSION["type"];
                                 $sql = "SELECT * FROM UserData WHERE _id='".$row["StaffID"]."'";
                                 $x=$conn->query($sql);
                                 $y=$x ->fetch_assoc();
-                                $staff=$y["Name"];
+                                $staff=$y["FirstName"]." ".$y["LastName"];
 
                                 $sql = "SELECT * FROM UserData WHERE _id='".$row["PatientID"]."'";
                                 $x=$conn->query($sql);
                                 $y=$x ->fetch_assoc();
-                                $patient=$y["Name"];
+                                $patient=$y["FirstName"]." ".$y["LastName"];
 
                                 $datetime = $row["StartTime"];
                                 $date = DateTime::createFromFormat("Y-m-d H:i:s", $datetime);
@@ -355,21 +373,16 @@ $type = $_SESSION["type"];
 
                                 echo "<div class='appointmentBox'>";
                                 echo '<input type="checkbox" value="0" style="position:absolute; left:5px; top:14px;">';
-
                                 echo '<span style="display:inline-block; width: 30px;"></span>';
-                                echo 'Doctor: <text class="p1">'.$staff.'</text>';
+                                echo '<div style = "display:inline-block;">';
 
-                                echo '<span style="display:inline-block; width: 30px;"></span>';
-                                echo 'Patient: <text class="p1">'.$patient.'</text>';
+                                echo 'Doctor: <text class="p1">'.$staff.'</text><br>';
+                                echo 'Patient: <text class="p1">'.$patient.'</text><br>';
 
-                                echo '<br>';
-                                echo '<span style="display:inline-block; width: 30px;"></span>';
-                                echo 'Date: <text class="p1">'.$d.'</text>';
-
-
-                                echo '<span style="display:inline-block; width: 30px;"></span>';
+                                echo 'Date: <text class="p1">'.$d.'</text><br>';
                                 echo 'Time: <text class="p1">'.$time.'</text>';
 
+                                echo '</div>';
                                 echo '</div>';
 
                             }
@@ -382,7 +395,7 @@ $type = $_SESSION["type"];
                     </form>
                 </div>
             </div>
-        </div>
+
 
 
     </div>

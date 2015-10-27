@@ -7,14 +7,14 @@
  */
 
 ob_start();
-$sql = mysqli_connect('localhost','appbfdlk', 'ohDAUdCL4AQZ0');
+session_start();
+$conn = mysqli_connect('localhost' , 'appbfdlk' , 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLinkCSE360');
 
-if($sql)
+if($conn)
 {
     echo "Connect successfully";
 
-    mysqli_select_db($sql,'appbfdlk_HealthLinkCSE360');
-
+    //assign post data to local vars
     $firstname = $_POST['profile_FirstName'];
     $lastname = $_POST['profile_LastName'];
     $email = $_POST['profile_Email'];
@@ -31,26 +31,35 @@ if($sql)
     $q3 = $_POST['profile_Question3'];
     $a3 = $_POST['profile_Answer3'];
 
-    $format="m/d/y";
-    $dob=strptime(dob, $format);
-    $dob=date("Y-m-d", $dob);
-
-    $name=$firstname." ".$lastname;
-
-    $insert = "INSERT INTO UserData (FirstName,LastName, DOB, Gender, SSN, Phone, Email, UserName,Password,Address,Type,q1,a1,q2,a2, q3,a3 )
+    //check if any of the fields are blank
+    if ($firstname == '' || $lastname == '' || $email == '' || $username == '' || $password == '' || $dob == '' || $ssn == '' || $gender == '' || $address == '' || $q1 == '' || $a1 == '' || $q2 == '' || $a2 == '' || $q3 == '' || $a3 == ''){
+        $_SESSION['notification'] = 'Please fill out all fields to register';
+        header("Location: index.php");
+        return;
+    }
+    //check if the username exists
+    $sql = "SELECT * FROM UserData WHERE UserName='" . $username."'";
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+        $_SESSION['notification'] = 'This Username is already taken, please try again';
+        header("Location: index.php");
+    }
+    //insertion query creating new instance
+    $sql = "INSERT INTO UserData (FirstName,LastName, DOB, Gender, SSN, Phone, Email, UserName,Password,Address,Type,q1,a1,q2,a2, q3,a3 )
     VALUES ('$firstname','$lastname', '$dob', '$gender', '$ssn', '$phone', '$email', '$username', '$password','$address',0, '$q1','$a1','$q2','$a2','$q3','$a3')";
 
 
-    if (mysqli_query($sql, $insert)) {
-        echo "Registered Successfully";
-        echo $insert;
-        $url = "index.php";
-        header("Location: ".$url);
-    }
-    else
-        echo "Error: " . $insert . "<br>" . mysqli_error($sql);
+    if ($conn->query($sql)) {
+        $_SESSION['notification'] = 'Your account was successfully created. You may now log in.';
+        header("Location: index.php");
 
+    }
+    else {
+        $_SESSION['notification'] = 'Registration Issue, please try again.';
+        header("Location: index.php");
+    }
     mysqli_close($sql);
+    return;
 }
 else
     echo "Connection failed";

@@ -12,7 +12,6 @@ $type = $_SESSION["type"];
 
 $conn = mysqli_connect('localhost','appbfdlk', 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLinkCSE360');
 
-$user = $_GET["user"];
 $condition = $_POST["Symptom"];
 $severity=$_POST["Severity"];
 $notes = $_POST['Notes'];
@@ -32,7 +31,8 @@ if($result->num_rows > 0){
 $sql = "INSERT INTO MedicalRecords(DateEntered, Type, Content, UserId) VALUES ('$date', 'Condition', '$content', '$userID')";
 if($conn->query($sql)){
     echo "added";
-    header('Location: homepage.php?user='.$user);
+    $_SESSION['notification'] = "Your symptoms were submitted";
+    header('Location: homepage.php');
 }
 
 
