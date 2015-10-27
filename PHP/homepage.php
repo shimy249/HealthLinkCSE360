@@ -21,7 +21,7 @@
 ?>
 <div class="main">
     <div id="header">
-        <h1>Interactive Patient Management System</h1>
+        <h1>IPMS - Home Page</h1>
         <div style="position:absolute;right:15px;top:10px;color:white;text-align:right;">
             Logged in as <text class="o4"><b><?php echo $user; ?></b></text><br>
             <a href = "logout.php"><text class="b4">Log out</text></a>
@@ -350,8 +350,8 @@
                         <?php
                         $conn = mysqli_connect('localhost','appbfdlk', 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLinkCSE360');
                         $sql = '';
-                        if ($type == 0) $sql = "SELECT * FROM Appointments WHERE PatientID='".$userID."'";
-                        else $sql = "SELECT * FROM Appointments WHERE StaffID='".$userID."'";
+                        if ($type == 0) $sql = "SELECT * FROM Appointments WHERE PatientID='".$userID."'ORDER BY StartTime ASC";
+                        else $sql = "SELECT * FROM Appointments WHERE StaffID='".$userID."'ORDER BY StartTime ASC";
                         $result=$conn->query($sql);
 
                         if($result->num_rows>0){
@@ -378,11 +378,12 @@
                                 echo '<span style="display:inline-block; width: 30px;"></span>';
                                 echo '<div style = "display:inline-block;">';
 
-                                echo 'Doctor: <text class="p1">'.$staff.'</text><br>';
-                                echo 'Patient: <text class="p1">'.$patient.'</text><br>';
+                                echo 'Date: <text class="p1">'.$d.'</text> ';
+                                echo 'Time: <text class="p1">'.$time.'</text><br>';
+                                if ($type == 0) echo 'Doctor: <text class="p1">'.$staff.'</text>';
+                                else if ($type == 1) echo 'Patient: <text class="p1">'.$patient.'</text>';
 
-                                echo 'Date: <text class="p1">'.$d.'</text><br>';
-                                echo 'Time: <text class="p1">'.$time.'</text>';
+
 
                                 echo '</div>';
                                 echo '</div>';
