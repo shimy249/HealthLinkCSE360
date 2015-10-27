@@ -22,7 +22,10 @@
 <div class="main">
     <div id="header">
         <h1>Interactive Patient Management System</h1>
-        <div style="position:absolute;right:15px;top:10px;color:white;"> Logged in as <text class="o4"><b><?php echo $user; ?></b></text><br></div>
+        <div style="position:absolute;right:15px;top:10px;color:white;text-align:right;">
+            Logged in as <text class="o4"><b><?php echo $user; ?></b></text><br>
+            <a href = "logout.php"><text class="b4">Log out</text></a>
+        </div>
         <div id="notifications" style="width:100%;text-align:center;">
             <text class="b4"><?php echo $notification ?></text>
         </div>
@@ -347,9 +350,8 @@
                         <?php
                         $conn = mysqli_connect('localhost','appbfdlk', 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLinkCSE360');
                         $sql = '';
-                        if ($type==0) $sql = "SELECT * FROM Appointments WHERE PatientID='".$userID."'";
+                        if ($type == 0) $sql = "SELECT * FROM Appointments WHERE PatientID='".$userID."'";
                         else $sql = "SELECT * FROM Appointments WHERE StaffID='".$userID."'";
-
                         $result=$conn->query($sql);
 
                         if($result->num_rows>0){

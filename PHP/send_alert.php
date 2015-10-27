@@ -10,7 +10,6 @@ session_start();
 $user = $_SESSION["user"];
 $type = $_SESSION["type"];
 $conn = mysqli_connect('localhost' , 'appbfdlk' , 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLinkCSE360');
-$patient = $_GET["user"];
 $summary = "";
 if($conn) {
     $alert = 0;
@@ -45,7 +44,7 @@ if($conn) {
         }
         echo $patient;
         echo $summary;
-        $sql = "INSERT INTO alerts (patient_name,summary) VALUES ('$patient', '$summary')";
+        $sql = "INSERT INTO alerts (patient_name,summary) VALUES ('$user', '$summary')";
         $conn->query($sql);
 
     }
