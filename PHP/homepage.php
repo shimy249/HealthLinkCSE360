@@ -112,7 +112,7 @@
                 <center><h2>Access Patient Case</h2></center>
                 <button class="showHideButton" onclick="showHide('PatientCase', this)">x</button>
                 <div class="sectionContent" id="PatientCase">
-                    <form>
+                    <form action="patient_view.php" method = "post">
                         <div class = "sectionLine">
                             Patient:
                             <select name="patient_ID" class = "sectionLineInput" style = "width: 250px">
