@@ -10,8 +10,7 @@ $user = $_SESSION["user"];
 $type = $_SESSION["type"];
 $userID = $_SESSION['userID'];
 $notification = $_SESSION['notification'];
-if(!isset($_SESSION['patientID'])) $_SESSION['patientID'] = $_POST['patient_ID'];
-$patientID = $_SESSION['patientID'];
+$patientID = $_GET['patient_ID'];
 if(isset($_SESSION['notification'])){
     unset($_SESSION['notification']);
 }
@@ -46,8 +45,33 @@ if($conn){
             <text class="b4"><?php echo $notification ?></text>
         </div>
         <div class="column" style='left:10px; top: 80px;'>
+            <div class="subsection" style="display:block;">
+                <center><h2>Patient Information</h2></center>
+                <button class="showHideButton" onclick="showHide('PersonalInformation', this)">x</button>
+                <div class="sectionContent" id="PersonalInformation">
+                    <form action="update_profile.php" method="post">
+                        <?php
+                        $conn = mysqli_connect('localhost','appbfdlk', 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLinkCSE360');
+                        $sql = "SELECT * FROM UserData WHERE _id='".$patientID."'";
+                        $result=$conn->query($sql);
+                        $patientRow = $result->fetch_assoc();
+
+                        ?>
+                        <div class="sectionLine">First Name: <text class = "p1"><?php echo $patientRow['FirstName'];?></text></div>
+                        <div class="sectionLine">Last Name: <text class = "p1"><?php echo $patientRow['LastName'];?></text></div>
+                        <div class="sectionLine">Email: <text class = "p1"><?php echo $patientRow['Email'];?></text></div>
+                        <div class="sectionLine">Username: <text class = "p1"><?php echo $patientRow['UserName'];?></text></div>
+                        <div class="sectionLine">Date Of Birth (MM/DD/YYYY): <text class = "p1"><?php echo $patientRow['DOB'];?></text></div>
+                        <div class="sectionLine">Social Security Number: <text class = "p1"><?php echo $patientRow['SSN'];?></text></div>
+                        <div class="sectionLine">Gender: <text class = "p1"><?php echo $patientRow['Gender'];?></text></div>
+                        <div class="sectionLine">Physical Address: <text class = "p1"><?php echo $patientRow['Email'];?></text></div>
+                    </form>
+                </div>
             </div>
+        </div>
     </div>
+
+
 </div>
 </body>
 </html>

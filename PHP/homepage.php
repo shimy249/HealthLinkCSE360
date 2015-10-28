@@ -33,8 +33,8 @@
 
             <div class="subsection" style="display:block;">
                 <center><h2>Personal Information</h2></center>
-                <button class="showHideButton" onclick="showHide('PersonalInformation', this)">+</button>
-                <div class="sectionContent" id="PersonalInformation" style="display:none;">
+                <button class="showHideButton" onclick="showHide('PersonalInformation', this)">x</button>
+                <div class="sectionContent" id="PersonalInformation">
                     <form action="update_profile.php" method="post">
                         <?php
                         $conn = mysqli_connect('localhost','appbfdlk', 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLinkCSE360');
@@ -112,7 +112,7 @@
                 <center><h2>Access Patient Case</h2></center>
                 <button class="showHideButton" onclick="showHide('PatientCase', this)">x</button>
                 <div class="sectionContent" id="PatientCase">
-                    <form action="patient_view.php" method = "post">
+                    <form action="patient_view.php" method = "get">
                         <div class = "sectionLine">
                             Patient:
                             <select name="patient_ID" class = "sectionLineInput" style = "width: 250px">
