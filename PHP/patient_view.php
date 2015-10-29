@@ -36,15 +36,17 @@ if($conn){
 ?>
 <div class="main">
     <div id="header">
-        <h1>IPMS - Patient View - <?php echo $patientName; ?></h1>
+        <h1>IPMS - Patient Case - <?php echo $patientName; ?></h1>
         <div style="position:absolute;right:15px;top:10px;color:white;text-align:right;">
             Logged in as <text class="o4"><b><?php echo $user; ?></b></text><br>
-            <a href = "logout.php"><text class="b4">Log out</text></a>
+            <a href = "homepage.php" style = "color: 00B74A;">Home page</a> | <a href = "logout.php" style = "color: 3BA3D0;">Log out</a>
         </div>
         <div id="notifications" style="width:100%;text-align:center;">
             <text class="b4"><?php echo $notification ?></text>
         </div>
+    </div>
         <div class="column" style='left:10px; top: 80px;'>
+
             <div class="subsection" style="display:block;">
                 <center><h2>Patient Information</h2></center>
                 <button class="showHideButton" onclick="showHide('PersonalInformation', this)">x</button>
@@ -68,8 +70,59 @@ if($conn){
                     </form>
                 </div>
             </div>
+
+
+            <div class="subsection"<?php if ($type == 0 || $type == 1) echo 'style="display:block;"'; ?>>
+                <center><h2>Patient Appointments</h2></center>
+                <button class="showHideButton" onclick="showHide('ManageAppointments', this)">x</button>
+                <div class="sectionContent" id="ManageAppointments">
+                    <form>
+                        <?php
+                        $conn = mysqli_connect('localhost','appbfdlk', 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLinkCSE360');
+                        $sql = '';
+                        $sql = "SELECT * FROM Appointments WHERE PatientID='".$patientID."'ORDER BY StartTime ASC";
+                        $result=$conn->query($sql);
+                        if($result->num_rows>0){
+                            while($row=$result->fetch_assoc()){
+
+                                $sql = "SELECT * FROM UserData WHERE _id='".$row["StaffID"]."'";
+                                $x=$conn->query($sql);
+                                $y=$x ->fetch_assoc();
+                                $staff=$y["FirstName"]." ".$y["LastName"];
+
+                                $sql = "SELECT * FROM UserData WHERE _id='".$row["PatientID"]."'";
+                                $x=$conn->query($sql);
+                                $y=$x ->fetch_assoc();
+                                $patient=$y["FirstName"]." ".$y["LastName"];
+
+                                $datetime = $row["StartTime"];
+                                $date = DateTime::createFromFormat("Y-m-d H:i:s", $datetime);
+                                $d = $date->format('m/d/Y');
+                                $time = $date->format('g:i A');
+
+
+                                echo "<div class='appointmentBox'>";
+                                echo '<input type="checkbox" value="0" style="position:absolute; left:5px; top:14px;">';
+                                echo '<span style="display:inline-block; width: 30px;"></span>';
+                                echo '<div style = "display:inline-block;">';
+
+                                echo 'Date: <text class="p1">'.$d.'</text> ';
+                                echo 'Time: <text class="p1">'.$time.'</text><br>';
+                                if ($type == 0) echo 'Doctor: <text class="p1">'.$staff.'</text>';
+                                else if ($type == 1) echo 'Patient: <text class="p1">'.$patient.'</text>';
+                                echo '</div>';
+                                echo '</div>';
+
+                            }
+                        }
+                        echo mysqli_error($conn);
+                        ?>
+                        <center><input type="submit"  class="submitButton"  value="Cancel Selected Appointments" action="submit"></center>
+
+                    </form>
+                </div>
+            </div>
         </div>
-    </div>
 
 
 </div>

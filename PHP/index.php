@@ -43,7 +43,7 @@ $_SESSION['notification'] = '';
 			<div class="subsection" style="display:block;">
 				<center><h2>Registration</h2></center>
 				<button class="showHideButton" onclick="showHide('PersonalInformation', this)">+</button>
-				<div class="sectionContent" id="PersonalInformation" style="display:none;">
+				<div class="sectionContent" id="PersonalInformation" style="display: none; max-height:none;">
 					<form action="Registration.php" method="post">
 						<div class="sectionLine">
 							First Name:

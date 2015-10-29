@@ -27,11 +27,18 @@
 		padding: 10px;
 		padding-bottom:0px;
 		margin-bottom: 10px;
+		padding-right: 0px;
+	}
+	.sectionContent{
+		max-height: 340px;
+		overflow-y: scroll;
+		padding-top: 5px;
 	}
 	.sectionLine{
 		position: relative;
 		height: 27px;
 	}
+
 	.sectionLineInput{
 		position: absolute;
 		top: -1px;
@@ -42,13 +49,14 @@
 	.appointmentBox{
 		display:inline-block;
 		position: relative;
-		width: 362px;
+		width: 342px;
 		border: 1px solid #3BA3D0;
 		color: 333333;
 		background-color: FFFFFF;
 		padding: 5px;
 		margin-bottom: 10px;
 	}
+
 	.submitButton{
 		font-weight: bold;
 		color: 37DB79;

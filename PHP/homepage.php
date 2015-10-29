@@ -24,7 +24,7 @@
         <h1>IPMS - Home Page</h1>
         <div style="position:absolute;right:15px;top:10px;color:white;text-align:right;">
             Logged in as <text class="o4"><b><?php echo $user; ?></b></text><br>
-            <a href = "logout.php"><text class="b4">Log out</text></a>
+             <a href = "homepage.php" style = "color: 00B74A;">Home page</a> | <a href = "logout.php" style = "color: 3BA3D0;">Log out</a>
         </div>
         <div id="notifications" style="width:100%;text-align:center;">
             <text class="b4"><?php echo $notification ?></text>
@@ -34,7 +34,7 @@
             <div class="subsection" style="display:block;">
                 <center><h2>Personal Information</h2></center>
                 <button class="showHideButton" onclick="showHide('PersonalInformation', this)">x</button>
-                <div class="sectionContent" id="PersonalInformation">
+                <div class="sectionContent" id="PersonalInformation" style="max-height:none;">
                     <form action="update_profile.php" method="post">
                         <?php
                         $conn = mysqli_connect('localhost','appbfdlk', 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLinkCSE360');
