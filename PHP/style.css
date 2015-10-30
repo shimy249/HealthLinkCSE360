@@ -9,7 +9,7 @@
 		background-color: #333333;
 		padding: 10px;
 		width: 810px;
-		height: 100%;
+
 		margin: 0 auto;
 
 	}
@@ -27,10 +27,9 @@
 		padding: 10px;
 		padding-bottom:0px;
 		margin-bottom: 10px;
-		padding-right: 0px;
 		font-size: 12px;
 	}
-	.sectionContent{
+	.overflow{
 		max-height: 300px;
 		overflow-y: scroll;
 		padding-top: 5px;
@@ -42,10 +41,11 @@
 
 	.sectionLineInput{
 		position: absolute;
-		top: -3px;
+		top: -1px;
 		right: 0px;
 		width: 180px;
 		border: 1px solid #3BA3D0;
+		font:inherit;
 	}
 	.appointmentBox{
 		display:inline-block;
@@ -98,7 +98,8 @@
 		color: #024A68;
 		padding: 0px;
 		margin: 0px;
-		margin-bottom: 6px;
+		margin-top: 6px;
+		margin-bottom: 3px;
 		width:auto;
 	}
 	h4{

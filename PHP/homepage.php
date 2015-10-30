@@ -1,11 +1,57 @@
 <?php
     session_start();
+    date_default_timezone_set ('America/Phoenix');
     $user = $_SESSION["user"];
     $type = $_SESSION["type"];
     $userID = $_SESSION['userID'];
     $notification = $_SESSION['notification'];
     if(isset($_SESSION['notification'])){
         unset($_SESSION['notification']);
+    }
+    $schedule_DoctorName;
+    $ts = getdate();
+    $date = $ts[year].'-'.$ts[mon].'-'.$ts[mday];
+
+    $refreshApt;
+    if(isset($_POST['schedule_Doctor']) && isset($_POST['schedule_Doctor'])) $refreshApt = true;
+    if(refreshApt){
+        $conn = mysqli_connect('localhost','appbfdlk', 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLinkCSE360');
+        $sql = "SELECT * FROM Vacations WHERE DoctorID = '".$_POST['schedule_Doctor']."'";
+        $result=$conn->query($sql);
+        if($result->num_rows>0) {
+            while ($row = $result->fetch_assoc()) {
+                $aDate = strtotime($_POST['schedule_Date']);
+                $bStart = $row['StartDate'];
+                $bStart = strtotime($bStart);
+                $bEnd = $row['EndDate'];
+                $bEnd = strtotime($bEnd);
+                if ($aDate >= $bStart && $aDate <= $bEnd){
+                    $_SESSION['notification'] = "This doctor is on vacation from ".$row['StartDate']. " until ".$row['EndDate'].". Please change the date or schedule with a different doctor.";
+                    header('Location: homepage.php?');
+                    return;
+                }
+            }
+        }
+        $sql = "SELECT * FROM UserData WHERE _id = '".$_POST['schedule_Doctor']."'" ;
+        $result=$conn->query($sql);
+        if ($result->num_rows > 0){
+            $row = $result->fetch_assoc();
+            $schedule_DoctorName = $row['FirstName'].' '.$row['LastName'];
+        }
+    }
+    function timeslot($aTime){
+        $ts =  $GLOBALS['ts'];
+        $date = $GLOBALS['date'];
+        echo 'hello world';
+        echo $ts['hours'].' '.$aTime;
+        $conn = mysqli_connect('localhost','appbfdlk', 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLinkCSE360');
+        $sql = "SELECT * FROM Appointments WHERE Date='".$_POST['schedule_Date']."'AND DoctorID = '".$_POST['schedule_Doctor'] ."' AND Hour = '".$aTime."'";
+
+        $result=$conn->query($sql);
+        if($result->num_rows == 0){
+            if ($date == $_POST['schedule_Date'] && $aTime < $ts['hours']) return;
+            echo '<option value="'.$aTime.'">'.$aTime.':00</option>';
+        }
     }
 ?>
 <html>
@@ -20,11 +66,10 @@
 
 ?>
 <div class="main">
-    <div id="header">
         <h1>IPMS - Home Page</h1>
         <div style="position:absolute;right:15px;top:10px;color:white;text-align:right;">
             Logged in as <text class="o4"><b><?php echo $user; ?></b></text><br>
-             <a href = "homepage.php" style = "color: 00B74A;">Home page</a> | <a href = "logout.php" style = "color: 3BA3D0;">Log out</a>
+             <a href = "homepage.php" style = "color: 00B74A;">Home page</a> | <a href = "logout.php" style = "color: 00B74A;">Log out</a>
         </div>
         <div id="notifications" style="width:100%;text-align:center;">
             <text class="b4"><?php echo $notification ?></text>
@@ -34,7 +79,7 @@
             <div class="subsection" style="display:block;">
                 <center><h2>Personal Information</h2></center>
                 <button class="showHideButton" onclick="showHide('PersonalInformation', this)">x</button>
-                <div class="sectionContent" id="PersonalInformation" style="max-height:none;">
+                <div class="sectionContent" id="PersonalInformation" >
                     <form action="update_profile.php" method="post">
                         <?php
                         $conn = mysqli_connect('localhost','appbfdlk', 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLinkCSE360');
@@ -43,65 +88,68 @@
                         $userRow = $result->fetch_assoc();
 
                         ?>
-                        <div class="sectionLine">
-                            First Name:
-                            <input type="text" class="sectionLineInput" name="profile_FirstName" value = "<?php echo $userRow['FirstName'];?>">
-                        </div>
-                        <div class="sectionLine">
-                            Last Name:
-                            <input type="text" class="sectionLineInput" name="profile_LastName" value = "<?php echo $userRow['LastName'];?>">
-                        </div>
-                        <div class="sectionLine">
-                            Email Address:
-                            <input type="text" class="sectionLineInput" name="profile_Email" value = "<?php echo $userRow['Email'];?>">
-                        </div>
-                        <div class="sectionLine">
-                            Username:
-                            <input type="text" class="sectionLineInput" name="profile_Username" value = "<?php echo $userRow['UserName'];?>">
-                        </div>
-                        <div class="sectionLine">
-                            Password:
-                            <input type="text" class="sectionLineInput" name="profile_Password" value = "<?php echo $userRow['Password'];?>" >
-                        </div>
-                        <div class="sectionLine">
-                            Date Of Birth (MM/DD/YYYY):
-                            <input type="text" class="sectionLineInput" name="profile_DateOfBirth" value = "<?php echo $userRow['DOB'];?>">
-                        </div>
-                        <div class="sectionLine">
-                            Social Security Number:
-                            <input type="text" class="sectionLineInput" name="profile_SocialSecurity" value = "<?php echo $userRow['SSN'];?>">
-                        </div>
-                        <div class="sectionLine">
-                            Gender:
-                            <input type="text" class="sectionLineInput" name="profile_Gender" value = "<?php echo $userRow['Gender'];?>">
-                        </div>
-                        <div class="sectionLine">
-                            Physical Address:
-                            <input type="text" class="sectionLineInput" name="profile_Address" value = "<?php echo $userRow['Address'];?>">
-                        </div>
-                        <div class="sectionLine">
-                            Security Question 1:
-                            <input type="text" class="sectionLineInput" name="profile_Question1" value = "<?php echo $userRow['q1'];?>" >
-                        </div>
-                        <div class="sectionLine">
-                            Security Answer 1:
-                            <input type="text" class="sectionLineInput" name="profile_Answer1" value = "<?php echo $userRow['a1'];?>" >
-                        </div>
-                        <div class="sectionLine">
-                            Security Question 2:
-                            <input type="text" class="sectionLineInput" name="profile_Question2" value = "<?php echo $userRow['q2'];?>" >
-                        </div>
-                        <div class="sectionLine">
-                            Security Answer 2:
-                            <input type="text" class="sectionLineInput" name="profile_Answer2" value = "<?php echo $userRow['a2'];?>" >
-                        </div>
-                        <div class="sectionLine">
-                            Security Question 3:
-                            <input type="text" class="sectionLineInput" name="profile_Question3" value = "<?php echo $userRow['q3'];?>" >
-                        </div>
-                        <div class="sectionLine">
-                            Security Answer 3:
-                            <input type="text" class="sectionLineInput" name="profile_Answer3"  value = "<?php echo $userRow['a3'];?>">
+                        <div class = overflow>
+                            <div class="sectionLine">
+                                First Name:
+                                <input type="text" class="sectionLineInput" name="profile_FirstName" value = "<?php echo $userRow['FirstName'];?>">
+                            </div>
+                            <div class="sectionLine">
+                                Last Name:
+                                <input type="text" class="sectionLineInput" name="profile_LastName" value = "<?php echo $userRow['LastName'];?>">
+                            </div>
+                            <div class="sectionLine">
+                                Email Address:
+                                <input type="text" class="sectionLineInput" name="profile_Email" value = "<?php echo $userRow['Email'];?>">
+                            </div>
+                            <div class="sectionLine">
+                                Username:
+                                <input type="text" class="sectionLineInput" name="profile_Username" value = "<?php echo $userRow['UserName'];?>">
+                            </div>
+                            <div class="sectionLine">
+                                Password:
+                                <input type="text" class="sectionLineInput" name="profile_Password" value = "<?php echo $userRow['Password'];?>" >
+                            </div>
+                            <div class="sectionLine">
+                                Date Of Birth (MM/DD/YYYY):
+                                <input type="text" class="sectionLineInput" name="profile_DateOfBirth" value = "<?php echo $userRow['DOB'];?>">
+                            </div>
+                            <div class="sectionLine">
+                                Social Security Number:
+                                <input type="text" class="sectionLineInput" name="profile_SocialSecurity" value = "<?php echo $userRow['SSN'];?>">
+                            </div>
+                            <div class="sectionLine">
+                                Gender:
+                                <input type="text" class="sectionLineInput" name="profile_Gender" value = "<?php echo $userRow['Gender'];?>">
+                            </div>
+                            <div class="sectionLine">
+                                Physical Address:
+                                <input type="text" class="sectionLineInput" name="profile_Address" value = "<?php echo $userRow['Address'];?>">
+                            </div>
+                            <div class="sectionLine">
+                                Security Question 1:
+                                <input type="text" class="sectionLineInput" name="profile_Question1" value = "<?php echo $userRow['q1'];?>" >
+                            </div>
+                            <div class="sectionLine">
+                                Security Answer 1:
+                                <input type="text" class="sectionLineInput" name="profile_Answer1" value = "<?php echo $userRow['a1'];?>" >
+                            </div>
+                            <div class="sectionLine">
+                                Security Question 2:
+                                <input type="text" class="sectionLineInput" name="profile_Question2" value = "<?php echo $userRow['q2'];?>" >
+                            </div>
+                            <div class="sectionLine">
+                                Security Answer 2:
+                                <input type="text" class="sectionLineInput" name="profile_Answer2" value = "<?php echo $userRow['a2'];?>" >
+                            </div>
+                            <div class="sectionLine">
+                                Security Question 3:
+                                <input type="text" class="sectionLineInput" name="profile_Question3" value = "<?php echo $userRow['q3'];?>" >
+                            </div>
+                            <div class="sectionLine">
+                                Security Answer 3:
+                                <input type="text" class="sectionLineInput" name="profile_Answer3"  value = "<?php echo $userRow['a3'];?>">
+                            </div>
+
                         </div>
                         <center><input type="submit"  class="submitButton" value="Update Information" action=""></center>
                     </form>
@@ -131,6 +179,48 @@
                         <center><input type = "submit" class="submitButton" value = "View Case"></center>
 
                     </form>
+                </div>
+            </div>
+
+            <div class="subsection" <?php if ($type == 1) echo 'style="display:block;"'; ?>>
+                <center><h2>Vacations</h2></center>
+                <button class="showHideButton" onclick="showHide('Vacations', this)">x</button>
+                <div class="sectionContent" id="Vacations">
+                    <h3>Book a Vacation</h3>
+                    <form action="schedule_vacation.php" method="post">
+                        <div class = "sectionLine">
+                            Start Date: <input type = "date" name="startDate" min = "<?php echo $ts[year].'-'.$ts[mon].'-'.$ts[mday];?>" value = "<?php echo $ts[year].'-'.$ts[mon].'-'.$ts[mday];?>" max = "<?php echo ($ts[year] + 1).'-'.$ts[mon].'-'.$ts[mday];?>" class = "sectionLineInput">
+                        </div>
+                        <div class = "sectionLine">
+                            End Date: <input type = "date" name="endDate" min = "<?php echo $ts[year].'-'.$ts[mon].'-'.$ts[mday];?>" value = "<?php echo $ts[year].'-'.$ts[mon].'-'.$ts[mday];?>" max = "<?php echo ($ts[year] + 1).'-'.$ts[mon].'-'.$ts[mday];?>" class = "sectionLineInput">
+                        </div>
+                        <center><input type = "submit" class="submitButton" value = "Schedule Vacation"></center>
+                    </form>
+                    <h3>Manage Vacations</h3>
+
+                        <form action="cancel_vacation.php" method = "post">
+                            <div class = "overflow">
+                            <?php
+                            $sql = "SELECT * FROM Vacations WHERE DoctorID='".$userID."'ORDER BY StartDate ASC";
+                            $result=$conn->query($sql);
+                            if($result->num_rows>0){
+                                while($row=$result->fetch_assoc()){
+                                    echo "<div class='appointmentBox'>";
+                                    echo '<input name = "vacations[]" type="checkbox" value="'.$row['_id'].'" class = "selectBox" style="top:3px;">';
+                                    echo '<span style="display:inline-block; width: 30px;"></span>';
+                                    echo '<div style = "display:inline-block;">';
+                                    echo 'Start Date: <text class="p1">'.$row['StartDate'].'</text> ';
+                                    echo 'End Date: <text class="p1">'.$row['EndDate'].'</text><br>';
+                                    echo '</div>';
+                                    echo '</div>';
+                                }
+                            }
+                            ?>
+                            </div>
+                            <center><input type = "submit" class="submitButton" value = "Cancel Selected Vacations"></center>
+                        </form>
+
+
                 </div>
             </div>
 
@@ -177,42 +267,40 @@
                 <button class="showHideButton" onclick="showHide('CurrentHealthConcerns', this)">x</button>
                 <div class="sectionContent" id="CurrentHealthConcerns">
                     <form action="send_alert.php" method="post">
-                        <?php
+                        <div class = "overflow">
+                            <?php
+                            $conn = mysqli_connect('localhost','appbfdlk', 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLinkCSE360');
+                            $sql = "SELECT * FROM MedicalRecords WHERE UserID='".$userID."' AND Type='Condition'";
+                            $result=$conn->query($sql);
+                            if($result->num_rows>0){
+                                while($row=$result->fetch_assoc()){
 
+                                    $content=$row["Content"];
+                                    $times=$row["DateEntered"];
+                                    list($currentCond, $currentSever, $currentNotes) = explode("; ", $content);
+                                    echo "<div class='appointmentBox'>";
+                                    echo '<input name="symptom[]" type="checkbox" value="'. $row["_id"].'" class = "selectBox">';
+                                    echo '<span style="display:inline-block; width: 30px;"></span>';
+                                    echo '<div style = "display:inline-block;">';
 
-                        $conn = mysqli_connect('localhost','appbfdlk', 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLinkCSE360');
+                                        echo 'Date Entered: <text class="p1">'.$times.'</text>';
 
-                        $sql = "SELECT * FROM MedicalRecords WHERE UserID='".$userID."' AND Type='Condition'";
-                        $result=$conn->query($sql);
+                                        echo '<br>';
+                                        echo 'Symptom: <text class="p1">'.$currentCond.'</text>';
 
-                        if($result->num_rows>0){
-                            while($row=$result->fetch_assoc()){
+                                        echo '<br>';
+                                        echo 'Severity: <text class="p1">'.$currentSever.'</text>';
 
-                                $content=$row["Content"];
-                                $times=$row["DateEntered"];
-                                list($currentCond, $currentSever, $currentNotes) = explode("; ", $content);
-                                echo "<div class='appointmentBox'>";
-                                echo '<input name="symptom[]" type="checkbox" value="'. $row["_id"].'" class = "selectBox">';
-                                echo '<span style="display:inline-block; width: 30px;"></span>';
-                                echo '<div style = "display:inline-block;">';
+                                        echo '<br>';
+                                        echo 'Additional Information: <text class="p1">'.$currentNotes.'</text>';
+                                    echo '</div>';
+                                    echo '</div>';
 
-                                    echo 'Date Entered: <text class="p1">'.$times.'</text>';
-
-                                    echo '<br>';
-                                    echo 'Symptom: <text class="p1">'.$currentCond.'</text>';
-
-                                    echo '<br>';
-                                    echo 'Severity: <text class="p1">'.$currentSever.'</text>';
-
-                                    echo '<br>';
-                                    echo 'Additional Information: <text class="p1">'.$currentNotes.'</text>';
-                                echo '</div>';
-                                echo '</div>';
-
+                                }
                             }
-                        }
-                        echo mysqli_error($conn);
-                        ?>
+                            echo mysqli_error($conn);
+                            ?>
+                        </div>
                         <center><input type = "submit" class = "submitButton" value = "Submit Symptoms" action = "submit"></center>
                     </form>
                 </div>
@@ -224,32 +312,151 @@
         </div>
 
         <div class="column" style='left:420px; top: 80px;'>
+
+            <div class="subsection" <?php if ($type == 2) echo 'style="display:block;"'; ?>>
+                <center><h2>Labwork to Complete</h2></center>
+                <button class="showHideButton" onclick="showHide('LabworkToComplete', this)">x</button>
+                <div class="sectionContent" id="LabworkToComplete">
+                    <div class = "overflow">
+                        <?php
+                        $conn = mysqli_connect('localhost','appbfdlk', 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLinkCSE360');
+                        $sql = "SELECT * FROM Labwork WHERE Report IS NULL";
+                        $result=$conn->query($sql);
+                        if($result->num_rows > 0){
+                            while($row = $result->fetch_assoc()){
+                                echo '<div class="appointmentBox">';
+                                echo 'Labwork Title: <text class = "p1">'.$row['Title'].'</text>';
+                                echo '<br>Description: <text class = "p1">'.$row['Description'].'</text>';
+                                echo '<br><a style = "color:#00B74A;" href = "view_labwork.php?labworkID='.$row['_id'].'">Complete Lab Report</a>';
+                                echo '</div>';
+                            }
+                        }
+                        else echo 'There are no pending lab reports.<br><br>'
+                        ?>
+                </div>
+                </div>
+            </div>
+
+            <div class="subsection" <?php if ($type == 2) echo 'style="display:block;"'; ?>>
+                <center><h2>Completed Labwork</h2></center>
+                <button class="showHideButton" onclick="showHide('LabworkToComplete', this)">x</button>
+                <div class="sectionContent" id="LabworkToComplete">
+                    <div class = "overflow">
+                        <?php
+                        $conn = mysqli_connect('localhost','appbfdlk', 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLinkCSE360');
+                        $sql = "SELECT * FROM Labwork WHERE Report IS NOT NULL";
+                        $result=$conn->query($sql);
+                        if($result->num_rows > 0){
+                            while($row = $result->fetch_assoc()){
+                                echo '<div class="appointmentBox">';
+                                echo 'Labwork Title: <text class = "p1">'.$row['Title'].'</text>';
+                                echo '<br>Description: <text class = "p1">'.$row['Description'].'</text>';
+                                echo '<br><a style = "color:#00B74A;" href = "view_labwork.php?labworkID='.$row['_id'].'">Edit Lab Report</a>';
+                                echo '</div>';
+                            }
+                        }
+                        else echo 'There are no pending lab reports.<br><br>'
+                        ?>
+                    </div>
+                </div>
+            </div>
+
+            <div class="subsection" <?php if ($type == 0) echo 'style="display:block;"'; ?>>
+                <center><h2>Your Prescriptions</h2></center>
+                <button class="showHideButton" onclick="showHide('PatientPrescriptions', this);">x</button>
+                <div class="sectionContent" id="PatientPrescriptions">
+                    <div class = "overflow">
+                        <?php
+                        $conn = mysqli_connect('localhost','appbfdlk', 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLinkCSE360');
+                        $sql = "SELECT * FROM Prescriptions WHERE PatientID = '".$userID."'";
+                        $result=$conn->query($sql);
+                        if($result->num_rows > 0){
+                            while($row = $result->fetch_assoc()){
+                                echo '<div class="appointmentBox">';
+                                echo 'Date: <text class = "p1">'.$row['Date'].'</text> ';
+                                echo 'Medication: <text class = "p1">'.$row['Medication'].'</text> ';
+                                echo '<br><a style = "color:#00B74A;" href = "view_prescription.php?prescriptionID='.$row['_id'].'">View/Print Prescription</a>';
+                                echo '</div>';
+                            }
+                        }
+                        else echo 'There are no prescriptions.<br><br>'
+                        ?>
+                    </div>
+                </div>
+            </div>
+
+            <div class="subsection" <?php if ($type == 0) echo 'style="display:block;"'; ?>>
+                <center><h2>Patient Labwork</h2></center>
+                <button class="showHideButton" onclick="showHide('PatientLabwork', this);">x</button>
+                <div class="sectionContent" id="PatientLabwork">
+                    <h3>Completed Lab Reports</h3>
+                    <div class = "overflow" style = "max-height:200px;">
+                        <?php
+                        $conn = mysqli_connect('localhost','appbfdlk', 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLinkCSE360');
+                        $sql = "SELECT * FROM Labwork WHERE PatientID = '".$userID."'"." AND Report IS NOT NULL";
+                        $result=$conn->query($sql);
+                        if($result->num_rows > 0){
+                            while($row = $result->fetch_assoc()){
+                                echo '<div class="appointmentBox">';
+                                echo 'Labwork Title: <text class = "p1">'.$row['Title'].'</text>';
+                                echo '<br>Description: <text class = "p1">'.$row['Description'].'</text>';
+                                if ($type==2) echo '<br><a style = "color:#00B74A;" href = "view_labwork.php?labworkID='.$row['_id'].'">Edit Lab Report</a>';
+                                else echo '<br><a style = "color:#00B74A;" href = "view_labwork.php?labworkID='.$row['_id'].'">View Lab Report</a>';
+                                echo '</div>';
+                            }
+                        }
+                        else echo 'There are no completed lab reports.<br><br>'
+                        ?>
+                    </div>
+                    <h3>Pending Lab Reports</h3>
+                    <div class = "overflow" style = "max-height:100px;">
+                        <?php
+                        $conn = mysqli_connect('localhost','appbfdlk', 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLinkCSE360');
+                        $sql = "SELECT * FROM Labwork WHERE PatientID = '".$userID."'"." AND Report IS NULL";
+                        $result=$conn->query($sql);
+                        if($result->num_rows > 0){
+                            while($row = $result->fetch_assoc()){
+                                echo '<div class="appointmentBox">';
+                                echo 'Labwork Title: <text class = "p1">'.$row['Title'].'</text>';
+                                echo '<br>Description: <text class = "p1">'.$row['Description'].'</text>';
+                                if ($type==2) echo '<br><a style = "color:#00B74A;" href = "view_labwork.php?labworkID='.$row['_id'].'">Complete Lab Report</a>';
+
+                                echo '</div>';
+                            }
+                        }
+                        else echo 'There are no pending lab reports.<br><br>'
+                        ?>
+                    </div>
+                </div>
+            </div>
+
             <div class="subsection" <?php if ($type == 1) echo 'style="display:block;"'; ?>>
                 <center><h2>Alerts</h2></center>
                 <button class="showHideButton" onclick="showHide('Alerts', this)">x</button>
                 <div class="sectionContent" id="Alerts">
-                    <?php
-                    $conn = mysqli_connect('localhost','appbfdlk', 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLinkCSE360');
-                    $sql = "SELECT * FROM alerts";
-                    $result=$conn->query($sql);
-                    if($result->num_rows > 0){
-                        while($row = $result->fetch_assoc()){
-                            echo '<div class="appointmentBox">';
-                            echo 'Patient: <text class = "p1">'.$row['patient_name'].'</text>';
-                            echo '<br>Summary: <text class = "p1">'.$row['summary'].'</text>';
-                            echo '</div>';
+                    <div class = "overflow">
+                        <?php
+                        $conn = mysqli_connect('localhost','appbfdlk', 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLinkCSE360');
+                        $sql = "SELECT * FROM alerts";
+                        $result=$conn->query($sql);
+                        if($result->num_rows > 0){
+                            while($row = $result->fetch_assoc()){
+                                echo '<div class="appointmentBox">';
+                                echo 'Patient: <text class = "p1">'.$row['patient_name'].'</text>';
+                                echo '<br>Summary: <text class = "p1">'.$row['summary'].'</text>';
+                                echo '</div>';
+                            }
                         }
-                    }
-                    echo mysqli_error($conn);
-                    ?>
-
+                        echo mysqli_error($conn);
+                        ?>
+                    </div>
                 </div>
             </div>
             <div class="subsection"<?php if ($type == 0) echo 'style="display:block;"'; ?>>
                 <center><h2>Schedule Appointment</h2></center>
                 <button class="showHideButton" onclick="showHide('ScheduleAppointment', this)">x</button>
                 <div class="sectionContent" id="ScheduleAppointment">
-                    <form action="scheduleappointments.php?" method="post">
+                    <form action="homepage.php?" method="post">
                         <div class="sectionLine">
                             Select a Doctor:
                             <select class="sectionLineInput" name="schedule_Doctor" >
@@ -264,82 +471,23 @@
                                 ?>
                             </select>
                         </div>
-                        <div class="sectionLine" >
-                            Date:
-                            <div class = "sectionLineInput" style = "border:none;">
-                            <select name="schedule_Month" style="width: 55px; border: 1px solid #3BA3D0;">
-                                <option value="00">MM</option>
-                                <option value="01">01</option>
-                                <option value="02">02</option>
-                                <option value="03">03</option>
-                                <option value="04">04</option>
-                                <option value="05">05</option>
-                                <option value="06">06</option>
-                                <option value="07">07</option>
-                                <option value="08">08</option>
-                                <option value="09">09</option>
-                                <option value="10">10</option>
-                                <option value="11">11</option>
-                                <option value="12">12</option>
-                            </select>
-                            <select name="schedule_Day" style="width: 55px; border: 1px solid #3BA3D0;">
-                                <option value="0">DD</option>
-                                <option value="01">01</option>
-                                <option value="02">02</option>
-                                <option value="03">03</option>
-                                <option value="04">04</option>
-                                <option value="05">05</option>
-                                <option value="06">06</option>
-                                <option value="07">07</option>
-                                <option value="08">08</option>
-                                <option value="09">09</option>
-                                <option value="10">10</option>
-                                <option value="11">11</option>
-                                <option value="12">12</option>
-                                <option value="13">13</option>
-                                <option value="14">14</option>
-                                <option value="15">15</option>
-                                <option value="16">16</option>
-                                <option value="17">17</option>
-                                <option value="18">18</option>
-                                <option value="19">19</option>
-                                <option value="20">20</option>
-                                <option value="21">21</option>
-                                <option value="22">22</option>
-                                <option value="23">23</option>
-                                <option value="24">24</option>
-                                <option value="25">25</option>
-                                <option value="26">26</option>
-                                <option value="27">27</option>
-                                <option value="28">28</option>
-                                <option value="29">29</option>
-                                <option value="30">30</option>
-                                <option value="31">31</option>
-                            </select>
-                            <select name="schedule_Year" style="width: 64px; border: 1px solid #3BA3D0;">
-                                <option value="0">YYYY</option>
-                                <option value="2015">2015</option>
-                                <option value="2016">2016</option>
-                            </select>
-                        </div>
-                        </div>
                         <div class="sectionLine">
-                            Time:
-                            <select name="schedule_Time" class="sectionLineInput">
-                                <option value="0">--Select--</option>
-                                <option value="08">8:00 AM</option>
-                                <option value="09">9:00 AM</option>
-                                <option value="10">10:00 AM</option>
-                                <option value="11">11:00 AM</option>
-                                <option value="12">12:00 PM</option>
-                                <option value="13">1:00 PM</option>
-                                <option value="14">2:00 PM</option>
-                                <option value="15">3:00 PM</option>
-                                <option value="16">4:00 PM</option>
-                            </select>
-
+                            Date:
+                            <input type = "date" name="schedule_Date" min = "<?php echo $ts[year].'-'.$ts[mon].'-'.$ts[mday];?>" value = "<?php echo $ts[year].'-'.$ts[mon].'-'.$ts[mday];?>" max = "<?php echo ($ts[year] + 1).'-'.$ts[mon].'-'.$ts[mday];?>" class = "sectionLineInput">
                         </div>
-                        <center><input type="submit"  class="submitButton" value="Request Appointment" action=""></center>
+                        <center><input type="submit"  class="submitButton" value="View Available Appointments"></center>
+                        </form>
+                    <form action="schedule_appointments.php?" method="post" <?php if ($refreshApt) echo 'style="display:block;"'; else echo 'style="display:none;"';?>>
+                            <input type="hidden" name="schedule_Doctor" value = "<?php echo $_POST['schedule_Doctor'] ?>">
+                            <input type="hidden" name="schedule_Date" value = "<?php echo $_POST['schedule_Date'] ?>">
+                            <center><h3>Available Appointments</h3></center><br>
+                            <div class = "sectionLine">
+                                <b><?php echo $schedule_DoctorName. ' on '.$_POST['schedule_Date']?></b><br>
+                                <select name = "schedule_Time" class = "sectionLineInput">
+                                    <?php timeslot(7);timeslot(8);timeslot(9);timeslot(10);timeslot(11);timeslot(12);timeslot(13);timeslot(14);timeslot(15);timeslot(16);?>
+                                </select>
+                            </div>
+                        <center><input type="submit"  class="submitButton" value="Create Appointment"></center>
                     </form>
                 </div>
             </div>
@@ -347,55 +495,41 @@
                 <center><h2>Manage Appointments</h2></center>
                 <button class="showHideButton" onclick="showHide('ManageAppointments', this)">x</button>
                 <div class="sectionContent" id="ManageAppointments">
-                    <form>
-
-
-                        <?php
-                        $conn = mysqli_connect('localhost','appbfdlk', 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLinkCSE360');
-                        $sql = '';
-                        if ($type == 0) $sql = "SELECT * FROM Appointments WHERE PatientID='".$userID."'ORDER BY StartTime ASC";
-                        else $sql = "SELECT * FROM Appointments WHERE StaffID='".$userID."'ORDER BY StartTime ASC";
-                        $result=$conn->query($sql);
-
-                        if($result->num_rows>0){
-                            while($row=$result->fetch_assoc()){
-
-                                $sql = "SELECT * FROM UserData WHERE _id='".$row["StaffID"]."'";
-                                $x=$conn->query($sql);
-                                $y=$x ->fetch_assoc();
-                                $staff=$y["FirstName"]." ".$y["LastName"];
-
-                                $sql = "SELECT * FROM UserData WHERE _id='".$row["PatientID"]."'";
-                                $x=$conn->query($sql);
-                                $y=$x ->fetch_assoc();
-                                $patient=$y["FirstName"]." ".$y["LastName"];
-
-                                $datetime = $row["StartTime"];
-                                $date = DateTime::createFromFormat("Y-m-d H:i:s", $datetime);
-                                $d = $date->format('m/d/Y');
-                                $time = $date->format('g:i A');
-
-
-                                echo "<div class='appointmentBox'>";
-                                echo '<input type="checkbox" value="0" class = "selectBox">';
-                                echo '<span style="display:inline-block; width: 30px;"></span>';
-                                echo '<div style = "display:inline-block;">';
-
-                                echo 'Date: <text class="p1">'.$d.'</text> ';
-                                echo 'Time: <text class="p1">'.$time.'</text><br>';
-                                if ($type == 0) echo 'Doctor: <text class="p1">'.$staff.'</text>';
-                                else if ($type == 1) echo 'Patient: <text class="p1">'.$patient.'</text>';
-
-
-
-                                echo '</div>';
-                                echo '</div>';
-
+                    <form action="cancel_appointment.php" method="post">
+                        <div class = "overflow">
+                            <?php
+                            $conn = mysqli_connect('localhost','appbfdlk', 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLinkCSE360');
+                            $sql = '';
+                            if ($type == 0) $sql = "SELECT * FROM Appointments WHERE PatientID='".$userID."'ORDER BY Date ASC";
+                            else $sql = "SELECT * FROM Appointments WHERE DoctorID='".$userID."'ORDER BY Date ASC";
+                            $result=$conn->query($sql);
+                            if($result->num_rows>0){
+                                while($row=$result->fetch_assoc()){
+                                    $sql = "SELECT * FROM UserData WHERE _id='".$row["DoctorID"]."'";
+                                    $x=$conn->query($sql);
+                                    $y=$x ->fetch_assoc();
+                                    $staff=$y["FirstName"]." ".$y["LastName"];
+                                    $sql = "SELECT * FROM UserData WHERE _id='".$row["PatientID"]."'";
+                                    $x=$conn->query($sql);
+                                    $y=$x ->fetch_assoc();
+                                    $patient=$y["FirstName"]." ".$y["LastName"];
+                                    $date = $row['Date'];
+                                    $time = $row['Hour'].':00';
+                                    echo "<div class='appointmentBox'>";
+                                    echo '<input name = "appointments[]" type="checkbox" value="'.$row['_id'].'" class = "selectBox">';
+                                    echo '<span style="display:inline-block; width: 30px;"></span>';
+                                    echo '<div style = "display:inline-block;">';
+                                    echo 'Date: <text class="p1">'.$date.'</text> ';
+                                    echo 'Time: <text class="p1">'.$time.'</text><br>';
+                                    if ($type == 0) echo 'Doctor: <text class="p1">'.$staff.'</text>';
+                                    else if ($type == 1) echo 'Patient: <text class="p1">'.$patient.'</text>';
+                                    echo '</div>';
+                                    echo '</div>';
+                                }
                             }
-                        }
-                        echo mysqli_error($conn);
-                        ?>
-
+                            else echo 'You do not have any appointments scheduled.';
+                            ?>
+                        </div>
                         <center><input type="submit"  class="submitButton"  value="Cancel Selected Appointments" action="submit"></center>
 
                     </form>

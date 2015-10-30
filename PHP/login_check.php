@@ -6,6 +6,7 @@
  * Time: 11:06 PM
  */
 session_start();
+date_default_timezone_set ('America/Phoenix');
 ob_start();
 $_SESSION['notification'] = '';
 $servername = "localhost";
