@@ -11,7 +11,7 @@
 		width: 810px;
 		height: 100%;
 		margin: 0 auto;
-		
+
 	}
 	.column{
 		position: absolute;
@@ -21,16 +21,17 @@
 		display: none;
 		position: relative;
 		background-color: #F8F8F8;
-		color: 225E79;
+		color: #333333;
 		width: 376px;
-		border: solid 2px 225E79;
+		border: solid 2px #225E79;
 		padding: 10px;
 		padding-bottom:0px;
 		margin-bottom: 10px;
 		padding-right: 0px;
+		font-size: 12px;
 	}
 	.sectionContent{
-		max-height: 340px;
+		max-height: 300px;
 		overflow-y: scroll;
 		padding-top: 5px;
 	}
@@ -41,7 +42,7 @@
 
 	.sectionLineInput{
 		position: absolute;
-		top: -1px;
+		top: -3px;
 		right: 0px;
 		width: 180px;
 		border: 1px solid #3BA3D0;
@@ -51,18 +52,17 @@
 		position: relative;
 		width: 342px;
 		border: 1px solid #3BA3D0;
-		color: 333333;
-		background-color: FFFFFF;
+		color: #333333;
+		background-color: #FFFFFF;
 		padding: 5px;
 		margin-bottom: 10px;
 	}
 
 	.submitButton{
-		font-weight: bold;
-		color: 37DB79;
-		background-color: 333333;
+		color: #37DB79;
+		background-color: #333333;
 		margin-top: 4px;
-		margin-bottom: 10px;
+		margin-bottom: 8px;
 	}
 	.showHideButton{
 		position:absolute;
@@ -71,12 +71,16 @@
 		font-weight: bold;
 		width:27px;
 		height: 25px;
-		color: 333333;
+		color: #333333;
 		border: solid 1px #225E79;
 	}
-
+	.selectBox{
+		position:absolute;
+		top:9px;
+		left: 7px;
+	}
 	h1{
-		color: FFA540; 
+		color: #FFA540;
 		padding: 0px;
 		margin: 0px;
 		margin-bottom: 6px;
@@ -84,14 +88,14 @@
 	}
 	h2{
 		display:inline-block;
-		color: 0772A1; 
+		color: #0772A1;
 		padding: 0px;
 		margin: 0px;
 		margin-bottom: 16px;
 		width:auto;
 	}
 	h3{
-		color: 00B74A; 
+		color: #024A68;
 		padding: 0px;
 		margin: 0px;
 		margin-bottom: 6px;
@@ -105,23 +109,23 @@
 		
 	}
 
-	.b1{color: 0772A1}	
-	.b2{color: 225E79}
-	.b3{color: 024A68}
-	.b4{color: 3BA3D0}
-	.b5{color: 63AFD0}	
-	.p1{color: 172CAF;font-weight:bold;}
-	.p2{color: 2E3983}	
-	.p3{color: 071672}	
-	.p4{color: 4B5ED7}	
-	.p5{color: 707ED7}	
-	.g1{color: 00B74A}	
-	.g2{color: 228A4C}	
-	.g3{color: 007730}	
-	.g4{color: 37DB79}	
-	.g5{color: 63DB93}	
-	.o1{color: FF8700}	
-	.o2{color: BF7C30}	
-	.o3{color: A65800}	
-	.o4{color: FFA540}	
-	.o5{color: FFBD73}
+	.b1{color: #0772A1}
+	.b2{color: #225E79}
+	.b3{color: #024A68}
+	.b4{color: #3BA3D0}
+	.b5{color: #63AFD0}
+	.p1{color: #172CAF;}
+	.p2{color: #2E3983}
+	.p3{color: #071672}
+	.p4{color: #4B5ED7}
+	.p5{color: #707ED7}
+	.g1{color: #00B74A}
+	.g2{color: #228A4C}
+	.g3{color: #007730}
+	.g4{color: #37DB79}
+	.g5{color: #63DB93}
+	.o1{color: #FF8700}
+	.o2{color: #BF7C30}
+	.o3{color: #A65800}
+	.o4{color: #FFA540}
+	.o5{color: #FFBD73}

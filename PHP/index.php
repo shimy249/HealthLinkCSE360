@@ -105,6 +105,19 @@ $_SESSION['notification'] = '';
 							Security Answer 3:
 							<input type="text" class="sectionLineInput" name="profile_Answer3" >
 						</div>
+                        <div class="sectionLine">
+                            User Type:
+                            <select name = "profile_Type" class = "sectionLineInput">
+                                <option value = '0'>Patient</option>
+                                <option value = '1'>Doctor</option>
+                                <option value = '2'>Lab Technician</option>
+                                <option value = '3'>Staff</option>
+                                <option value = '4'>Nurse</option>
+                            </select>
+                        </div>
+
+
+
 						<center><input type="submit"  class="submitButton" value="Register Now"></center>
 					</form>
 				</div>

@@ -108,7 +108,7 @@
                 </div>
             </div>
 
-            <div class="subsection" <?php if ($type == 1) echo 'style="display:block;"'; ?>>
+            <div class="subsection" <?php if ($type > 0) echo 'style="display:block;"'; ?>>
                 <center><h2>Access Patient Case</h2></center>
                 <button class="showHideButton" onclick="showHide('PatientCase', this)">x</button>
                 <div class="sectionContent" id="PatientCase">
@@ -192,7 +192,7 @@
                                 $times=$row["DateEntered"];
                                 list($currentCond, $currentSever, $currentNotes) = explode("; ", $content);
                                 echo "<div class='appointmentBox'>";
-                                echo '<input name="symptom[]" type="checkbox" value="'. $row["_id"].'" style="position:absolute; left:5px; top:14px;">';
+                                echo '<input name="symptom[]" type="checkbox" value="'. $row["_id"].'" class = "selectBox">';
                                 echo '<span style="display:inline-block; width: 30px;"></span>';
                                 echo '<div style = "display:inline-block;">';
 
@@ -264,9 +264,10 @@
                                 ?>
                             </select>
                         </div>
-                        <div class="sectionLine">
+                        <div class="sectionLine" >
                             Date:
-                            <select name="schedule_Month" style="position: absolute; top: -2px; left: 196px; width: 58px; border: 1px solid #3BA3D0;">
+                            <div class = "sectionLineInput" style = "border:none;">
+                            <select name="schedule_Month" style="width: 55px; border: 1px solid #3BA3D0;">
                                 <option value="00">MM</option>
                                 <option value="01">01</option>
                                 <option value="02">02</option>
@@ -281,7 +282,7 @@
                                 <option value="11">11</option>
                                 <option value="12">12</option>
                             </select>
-                            <select name="schedule_Day" style="position: absolute; top: -2px; left: 255px; width: 60px; border: 1px solid #3BA3D0;">
+                            <select name="schedule_Day" style="width: 55px; border: 1px solid #3BA3D0;">
                                 <option value="0">DD</option>
                                 <option value="01">01</option>
                                 <option value="02">02</option>
@@ -315,11 +316,12 @@
                                 <option value="30">30</option>
                                 <option value="31">31</option>
                             </select>
-                            <select name="schedule_Year" style="position: absolute; top: -2px; left: 316px; width: 60px; border: 1px solid #3BA3D0;">
+                            <select name="schedule_Year" style="width: 64px; border: 1px solid #3BA3D0;">
                                 <option value="0">YYYY</option>
                                 <option value="2015">2015</option>
                                 <option value="2016">2016</option>
                             </select>
+                        </div>
                         </div>
                         <div class="sectionLine">
                             Time:
@@ -335,6 +337,7 @@
                                 <option value="15">3:00 PM</option>
                                 <option value="16">4:00 PM</option>
                             </select>
+
                         </div>
                         <center><input type="submit"  class="submitButton" value="Request Appointment" action=""></center>
                     </form>
@@ -374,7 +377,7 @@
 
 
                                 echo "<div class='appointmentBox'>";
-                                echo '<input type="checkbox" value="0" style="position:absolute; left:5px; top:14px;">';
+                                echo '<input type="checkbox" value="0" class = "selectBox">';
                                 echo '<span style="display:inline-block; width: 30px;"></span>';
                                 echo '<div style = "display:inline-block;">';
 

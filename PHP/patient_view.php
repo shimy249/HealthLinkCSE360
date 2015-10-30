@@ -45,6 +45,7 @@ if($conn){
             <text class="b4"><?php echo $notification ?></text>
         </div>
     </div>
+
         <div class="column" style='left:10px; top: 80px;'>
 
             <div class="subsection" style="display:block;">
@@ -66,13 +67,13 @@ if($conn){
                         <div class="sectionLine">Date Of Birth (MM/DD/YYYY): <text class = "p1"><?php echo $patientRow['DOB'];?></text></div>
                         <div class="sectionLine">Social Security Number: <text class = "p1"><?php echo $patientRow['SSN'];?></text></div>
                         <div class="sectionLine">Gender: <text class = "p1"><?php echo $patientRow['Gender'];?></text></div>
-                        <div class="sectionLine">Physical Address: <text class = "p1"><?php echo $patientRow['Email'];?></text></div>
+                        <div class="sectionLine">Physical Address: <text class = "p1"><?php echo $patientRow['Address'];?></text></div>
                     </form>
                 </div>
             </div>
 
 
-            <div class="subsection"<?php if ($type == 0 || $type == 1) echo 'style="display:block;"'; ?>>
+            <div class="subsection" <?php if ($type == 3 || $type == 1) echo 'style="display:block;"'; ?>>
                 <center><h2>Patient Appointments</h2></center>
                 <button class="showHideButton" onclick="showHide('ManageAppointments', this)">x</button>
                 <div class="sectionContent" id="ManageAppointments">
@@ -102,7 +103,7 @@ if($conn){
 
 
                                 echo "<div class='appointmentBox'>";
-                                echo '<input type="checkbox" value="0" style="position:absolute; left:5px; top:14px;">';
+                                echo '<input type="checkbox" value="0" class = "selectBox">';
                                 echo '<span style="display:inline-block; width: 30px;"></span>';
                                 echo '<div style = "display:inline-block;">';
 
@@ -122,6 +123,72 @@ if($conn){
                     </form>
                 </div>
             </div>
+        </div>
+
+        <div class="column" style='left:420px; top: 80px;'>
+
+            <div class="subsection" <?php if ($type == 1) echo 'style="display:block;"'; ?>>
+                <center><h2>Prescribe Labwork</h2></center>
+                <button class="showHideButton" onclick="showHide('PrescribeLabwork', this);">x</button>
+                <div class="sectionContent" id="PrescribeLabwork">
+                    <form action="prescribe_labwork.php" method="post">
+                        <input name = "patientID" type = "hidden" value = "<?php echo $patientID; ?>">
+                        <input name = "doctorID" type = "hidden" value = "<?php echo $userID; ?>">
+                        <div class = "sectionLine">
+                            Labwork Title:
+                            <input name = "title" type = "text" class = "sectionLineInput" style = "width: 270px">
+                        </div>
+                        <div class = "sectionLine">
+                            Description <br>for Lab:
+                            <textarea name = "description" type = "text" class = "sectionLineInput" style = "width: 270px"></textarea>
+                        </div>
+                        <br>
+                        <center><input type = "submit" class = "submitButton" value = "Request Labwork"></center>
+                    </form>
+                </div>
+            </div>
+
+            <div class="subsection" style="display:block;">
+            <center><h2>Patient Labwork</h2></center>
+            <button class="showHideButton" onclick="showHide('PrescribeLabwork', this);">x</button>
+            <div class="sectionContent" id="ExistingLabwork">
+                <h3>Completed Lab Reports</h3>
+                <?php
+                $conn = mysqli_connect('localhost','appbfdlk', 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLinkCSE360');
+                $sql = "SELECT * FROM Labwork WHERE PatientID = '".$patientID."'"." AND Report IS NOT NULL";
+                $result=$conn->query($sql);
+                if($result->num_rows > 0){
+                    while($row = $result->fetch_assoc()){
+                        echo '<div class="appointmentBox">';
+                            echo 'Labwork Title: <text class = "p1">'.$row['Title'].'</text>';
+                            echo '<br>Description: <text class = "p1">'.$row['Description'].'</text>';
+                            if ($type==2) echo '<br><a href = "view_labwork.php?labworkID='.$row['_id'].'">Edit Lab Report</a>';
+                            else echo '<br><a href = "view_labwork.php?labworkID='.$row['_id'].'">View Lab Report</a>';
+                        echo '</div>';
+                    }
+                }
+                else echo 'There are no completed lab reports.<br><br>'
+                ?>
+                <h3>Pending Lab Reports</h3>
+                <?php
+                $conn = mysqli_connect('localhost','appbfdlk', 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLinkCSE360');
+                $sql = "SELECT * FROM Labwork WHERE PatientID = '".$patientID."'"." AND Report IS NULL";
+                $result=$conn->query($sql);
+                if($result->num_rows > 0){
+                    while($row = $result->fetch_assoc()){
+                        echo '<div class="appointmentBox">';
+                        echo 'Labwork Title: <text class = "p1">'.$row['Title'].'</text>';
+                        echo '<br>Description: <text class = "p1">'.$row['Description'].'</text>';
+                        if ($type==2) echo '<br><a style = "color:#00B74A;" href = "view_labwork.php?labworkID='.$row['_id'].'">Complete Lab Report</a>';
+
+                            echo '</div>';
+                    }
+                }
+                else echo 'There are no pending lab reports.<br><br>'
+                ?>
+            </div>
+        </div>
+
         </div>
 
 
