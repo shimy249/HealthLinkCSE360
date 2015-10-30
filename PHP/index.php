@@ -15,16 +15,15 @@ $_SESSION['notification'] = '';
   </style></head>
 <body onload="setTimeout(hideNotifications, 5000)">
 <div class="main">
-<div id="header">
         <center><h1>Interactive Patient Management System</h1></center>
 	    <div id="notifications" style="width:100%;text-align:center;">
 		    <text class="b4"><?php echo $notification; ?></text>
 	    </div>
 		<div class="column" style='left:220px; top: 80px;'>
-			
+
 			<div class="subsection" style="display:block;">
 				<center><h2>Log In</h2></center>
-				
+
 				<div class="sectionContent" id="SymptomHistory">
 				<form action="login_check.php" method="post">
 					<div class="sectionLine">
@@ -39,7 +38,20 @@ $_SESSION['notification'] = '';
 				</form>
 				</div>
 			</div>
-		
+
+			<div class="subsection" style="display:block;">
+				<center><h2>Forgot Username/Password</h2></center>
+				<button class="showHideButton" onclick="showHide('Forgot', this)">+</button>
+				<div class="sectionContent" id="Forgot" style="display: none; max-height:none;">
+					<form action="forgot.php" method="post">
+						<div class="sectionLine">
+							Email Address: <input type="text" class="sectionLineInput" name="email" >
+						</div>
+						<center><input type="submit" class = "submitButton" value="Submit"></center>
+					</form>
+				</div>
+			</div>
+
 			<div class="subsection" style="display:block;">
 				<center><h2>Registration</h2></center>
 				<button class="showHideButton" onclick="showHide('PersonalInformation', this)">+</button>

@@ -41,7 +41,14 @@ if($conn)
     $sql = "SELECT * FROM UserData WHERE UserName='" . $username."'";
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
-        $_SESSION['notification'] = 'This Username is already taken, please try again';
+        $_SESSION['notification'] = 'This username is already taken, please try again';
+        header("Location: index.php");
+    }
+    //check if email exists
+    $sql = "SELECT * FROM UserData WHERE Email='" . $email."'";
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+        $_SESSION['notification'] = 'This email address is already taken, please try again';
         header("Location: index.php");
     }
     //insertion query creating new instance
