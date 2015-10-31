@@ -40,7 +40,7 @@ if($conn){
         <h1>Patient - <?php echo $patientName; ?></h1>
         <div style="position:absolute;right:15px;top:10px;color:white;text-align:right;">
             Logged in as <text class="o4"><b><?php echo $user; ?></b></text><br>
-            <a href = "homepage.php" style = "color: 00B74A;">Home page</a> | <a href = "logout.php" style = "color: 00B74A;">Log out</a>
+            <a href = "homepage.php" style = "color: 63AFD0;">Home page</a> | <a href = "logout.php" style = "color: 63AFD0;">Log out</a>
         </div>
         <div id="notifications" style="width:100%;text-align:center;">
             <text class="b4"><?php echo $notification ?></text>
@@ -119,43 +119,36 @@ if($conn){
                     </form>
                 </div>
             </div>
-            <div class="subsection" <?php if ($type == 1 || $type == 3 || $type == 4) echo 'style="display:block;"'; ?>>
-                <center><h2>Patient Health Concerns</h2></center>
+
+            <div class="subsection" <?php if ($type == 1 || $type =3 || $type==4) echo 'style="display:block;"'; ?>>
+                <center><h2>Patient Symptoms</h2></center>
                 <button class="showHideButton" onclick="showHide('CurrentHealthConcerns', this)">x</button>
                 <div class="sectionContent" id="CurrentHealthConcerns">
-                    <form action="send_alert.php" method="post">
+                    <form action="diagnosis.php" method="post">
                         <div class = "overflow">
                             <?php
                             $conn = mysqli_connect('localhost','appbfdlk', 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLinkCSE360');
-                            $sql = "SELECT * FROM MedicalRecords WHERE UserID='".$patientID."' AND Type='Condition'";
+                            $sql = "SELECT * FROM Conditions WHERE PatientID='".$patientID."'";
                             $result=$conn->query($sql);
                             if($result->num_rows>0){
                                 while($row=$result->fetch_assoc()){
-                                    $content=$row["Content"];
-                                    $times=$row["DateEntered"];
-                                    list($currentCond, $currentSever, $currentNotes) = explode("; ", $content);
                                     echo "<div class='appointmentBox'>";
                                     echo '<input name="symptom[]" type="checkbox" value="'. $row["_id"].'" class = "selectBox">';
-                                    echo '<span style="display:inline-block; width: 30px;"></span>';
-                                    echo '<div style = "display:inline-block;">';
-                                    echo 'Date Entered: <text class="p1">'.$times.'</text>';
+                                    echo ' Symptom: <text class="p1">'.$row['Symptom'].' ('.$row['Severity'].')</text>';
+                                    echo ' Date: <text class="p1">'.$row['Date'].'</text>';
                                     echo '<br>';
-                                    echo 'Symptom: <text class="p1">'.$currentCond.'</text>';
-                                    echo '<br>';
-                                    echo 'Severity: <text class="p1">'.$currentSever.'</text>';
-                                    echo '<br>';
-                                    echo 'Additional Information: <text class="p1">'.$currentNotes.'</text>';
+                                    echo 'Notes: <text class="p1">'.$row['Notes'].'</text>';
                                     echo '</div>';
-                                    echo '</div>';
+
                                 }
                             }
-                            echo mysqli_error($conn);
                             ?>
                         </div>
-                        <center><input type = "submit" class = "submitButton" value = "Submit Symptoms" action = "submit"></center>
+                        <center><input type = "submit" class = "submitButton" value = "Submit and Diagnose"></center>
                     </form>
                 </div>
             </div>
+
         </div>
 
         <div class="column" style='left:420px; top: 80px;'>

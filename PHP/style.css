@@ -13,6 +13,10 @@
 		margin: 0 auto;
 
 	}
+	form{
+		margin-bottom:0px;
+		padding-bottom:5px;
+	}
 	.column{
 		position: absolute;
 		width: 400px;
@@ -25,7 +29,7 @@
 		width: 376px;
 		border: solid 2px #225E79;
 		padding: 10px;
-		padding-bottom:0px;
+		padding-bottom:5px;
 		margin-bottom: 10px;
 		font-size: 12px;
 	}
@@ -50,19 +54,20 @@
 	.appointmentBox{
 		display:inline-block;
 		position: relative;
-		width: 342px;
+		width: 320px;
 		border: 1px solid #3BA3D0;
 		color: #333333;
 		background-color: #FFFFFF;
 		padding: 5px;
-		margin-bottom: 10px;
+		margin-bottom: 3px;
+		padding-left: 22px;
 	}
 
 	.submitButton{
 		color: #37DB79;
 		background-color: #333333;
-		margin-top: 4px;
-		margin-bottom: 8px;
+		margin-top: 6px;
+		margin-bottom: 0px;
 	}
 	.showHideButton{
 		position:absolute;
@@ -77,7 +82,7 @@
 	.selectBox{
 		position:absolute;
 		top:9px;
-		left: 7px;
+		left: 0px;
 	}
 	h1{
 		color: #FFA540;
@@ -91,7 +96,7 @@
 		color: #0772A1;
 		padding: 0px;
 		margin: 0px;
-		margin-bottom: 16px;
+		margin-bottom: 8px;
 		width:auto;
 	}
 	h3{

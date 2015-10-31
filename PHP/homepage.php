@@ -69,7 +69,7 @@
         <h1>IPMS - Home Page</h1>
         <div style="position:absolute;right:15px;top:10px;color:white;text-align:right;">
             Logged in as <text class="o4"><b><?php echo $user; ?></b></text><br>
-             <a href = "homepage.php" style = "color: 00B74A;">Home page</a> | <a href = "logout.php" style = "color: 00B74A;">Log out</a>
+             <a href = "homepage.php" style = "color: 63AFD0;">Home page</a> | <a href = "logout.php" style = "color: 63AFD0;">Log out</a>
         </div>
         <div id="notifications" style="width:100%;text-align:center;">
             <text class="b4"><?php echo $notification ?></text>
@@ -225,24 +225,21 @@
             </div>
 
             <div class="subsection" <?php if($type == 0) echo 'style="display:block;"'; ?>>
-                <center><h2>Update Health Concerns</h2></center>
-                <button class="showHideButton" onclick="showHide('UpdateHealthConcerns', this)">x</button>
-                <div class="sectionContent" id="UpdateHealthConcerns">
-                    <form action="updatehealth.php" method="post">
+                <center><h2>Add Symptom</h2></center>
+                <button class="showHideButton" onclick="showHide('AddHealthConcerns', this)">x</button>
+                <div class="sectionContent" id="AddHealthConcerns">
+                    <form action="add_symptom.php" method="post">
                         <div class="sectionLine">
                             Symptom:
                             <select class="sectionLineInput" name="Symptom" >
                                 <option>--Select--</option>
-                                <option value="Cough">Cough</option>
-                                <option value="Headache">Headache</option>
-                                <option value="Sore Throat">Sore Throat</option>
-                                <option value="Nausea">Nausea</option>
-                                <option value="Diarrhoea">Diarrhoea</option>
-                                <option value="Chest Pain">Chest Pain</option>
-                                <option value="Dizziness">Dizziness</option>
-                                <option value="Body Aches">Body Aches</option>
-                                <option value="Chills">Chills</option>
-                                <option value="Stiffness">Stiffness</option>
+                                <?php
+                                $fileName = 'AllSymptoms.txt';
+                                $fileContent = file($fileName);
+                                foreach($fileContent as $line) {
+                                    echo '<option value="'.trim($line).'">'.$line.'</option>';
+                                }
+                                ?>
                             </select>
                         </div>
                         <div class="sectionLine">
@@ -258,50 +255,63 @@
                         </div>
                         Additional Notes:
                         <textarea id="AdditionalNotes" style="width: 100%;" name="Notes"></textarea>
-                        <center><input type="submit" class="submitButton" value="Add Symptom" action="submit"></center>
+                        <center><input type="submit" class="submitButton" value="Add Symptom"></center>
                     </form>
                 </div>
             </div>
             <div class="subsection" <?php if ($type == 0) echo 'style="display:block;"'; ?>>
-                <center><h2>Current Health Concerns</h2></center>
+                <center><h2>Current Symptoms</h2></center>
                 <button class="showHideButton" onclick="showHide('CurrentHealthConcerns', this)">x</button>
                 <div class="sectionContent" id="CurrentHealthConcerns">
-                    <form action="send_alert.php" method="post">
+                    <form action="diagnosis.php" method="post">
                         <div class = "overflow">
                             <?php
                             $conn = mysqli_connect('localhost','appbfdlk', 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLinkCSE360');
-                            $sql = "SELECT * FROM MedicalRecords WHERE UserID='".$userID."' AND Type='Condition'";
+                            $sql = "SELECT * FROM Conditions WHERE PatientID='".$userID."'";
                             $result=$conn->query($sql);
                             if($result->num_rows>0){
                                 while($row=$result->fetch_assoc()){
-
-                                    $content=$row["Content"];
-                                    $times=$row["DateEntered"];
-                                    list($currentCond, $currentSever, $currentNotes) = explode("; ", $content);
                                     echo "<div class='appointmentBox'>";
                                     echo '<input name="symptom[]" type="checkbox" value="'. $row["_id"].'" class = "selectBox">';
-                                    echo '<span style="display:inline-block; width: 30px;"></span>';
-                                    echo '<div style = "display:inline-block;">';
-
-                                        echo 'Date Entered: <text class="p1">'.$times.'</text>';
-
+                                        echo ' Symptom: <text class="p1">'.$row['Symptom'].' ('.$row['Severity'].')</text>';
+                                        echo ' Date: <text class="p1">'.$row['Date'].'</text>';
                                         echo '<br>';
-                                        echo 'Symptom: <text class="p1">'.$currentCond.'</text>';
-
-                                        echo '<br>';
-                                        echo 'Severity: <text class="p1">'.$currentSever.'</text>';
-
-                                        echo '<br>';
-                                        echo 'Additional Information: <text class="p1">'.$currentNotes.'</text>';
-                                    echo '</div>';
+                                        echo 'Notes: <text class="p1">'.$row['Notes'].'</text>';
                                     echo '</div>';
 
                                 }
                             }
-                            echo mysqli_error($conn);
                             ?>
                         </div>
-                        <center><input type = "submit" class = "submitButton" value = "Submit Symptoms" action = "submit"></center>
+                        <center><input type = "submit" class = "submitButton" value = "Submit and Diagnose"></center>
+                    </form>
+                </div>
+            </div>
+
+            <div class="subsection" <?php if ($type == 0) echo 'style="display:block;"'; ?>>
+                <center><h2>Diagnosis Results</h2></center>
+                <button class="showHideButton" onclick="showHide('CurrentHealthConcerns', this)">x</button>
+                <div class="sectionContent" id="CurrentHealthConcerns">
+                    <form action="diagnosis.php" method="post">
+                        <div class = "overflow">
+                            <?php
+                            $conn = mysqli_connect('localhost','appbfdlk', 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLinkCSE360');
+                            $sql = "SELECT * FROM Diagnosis WHERE PatientID='".$userID."' ORDER BY Date DESC" ;
+                            $result=$conn->query($sql);
+                            if($result->num_rows>0){
+                                while($row=$result->fetch_assoc()){
+                                    echo '<div class="appointmentBox">';
+                                    echo '<input name="symptom[]" type="checkbox" value="'. $row["_id"].'" class = "selectBox">';
+                                    echo 'Date: <text class="p1">'.$row['Date'].'</text>';
+                                    echo '<br>Symptoms: <text class="p1">'.$row['Symptoms'].'</text>';
+                                    echo '<br>';
+                                    echo 'Possible Ailments: <text class="p1">'.$row['Disease'].'</text>';
+                                    echo '</div>';
+
+                                }
+                            }
+                            ?>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -517,13 +527,10 @@
                                     $time = $row['Hour'].':00';
                                     echo "<div class='appointmentBox'>";
                                     echo '<input name = "appointments[]" type="checkbox" value="'.$row['_id'].'" class = "selectBox">';
-                                    echo '<span style="display:inline-block; width: 30px;"></span>';
-                                    echo '<div style = "display:inline-block;">';
                                     echo 'Date: <text class="p1">'.$date.'</text> ';
                                     echo 'Time: <text class="p1">'.$time.'</text><br>';
                                     if ($type == 0) echo 'Doctor: <text class="p1">'.$staff.'</text>';
                                     else if ($type == 1) echo 'Patient: <text class="p1">'.$patient.'</text>';
-                                    echo '</div>';
                                     echo '</div>';
                                 }
                             }
