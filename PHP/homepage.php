@@ -254,7 +254,7 @@
                             </select>
                         </div>
                         Additional Notes:
-                        <textarea id="AdditionalNotes" style="width: 100%;" name="Notes"></textarea>
+                        <textarea id="AdditionalNotes" style="width: 100%;background-color:#F3F3F3" name="Notes"></textarea>
                         <center><input type="submit" class="submitButton" value="Add Symptom"></center>
                     </form>
                 </div>
@@ -273,7 +273,7 @@
                                 while($row=$result->fetch_assoc()){
                                     echo "<div class='appointmentBox'>";
                                     echo '<input name="symptom[]" type="checkbox" value="'. $row["_id"].'" class = "selectBox">';
-                                        echo ' Symptom: <text class="p1">'.$row['Symptom'].' ('.$row['Severity'].')</text>';
+                                        echo ' Symptom: <text class="o3">'.$row['Symptom'].' ('.$row['Severity'].')</text>';
                                         echo ' Date: <text class="p1">'.$row['Date'].'</text>';
                                         echo '<br>';
                                         echo 'Notes: <text class="p1">'.$row['Notes'].'</text>';
@@ -303,7 +303,7 @@
                                     echo '<div class="appointmentBox">';
                                     echo '<input name="symptom[]" type="checkbox" value="'. $row["_id"].'" class = "selectBox">';
                                     echo 'Date: <text class="p1">'.$row['Date'].'</text>';
-                                    echo '<br>Symptoms: <text class="p1">'.$row['Symptoms'].'</text>';
+                                    echo '<br>Symptoms: <text class="o3">'.$row['Symptoms'].'</text>';
                                     echo '<br>';
                                     echo 'Possible Ailments: <text class="p1">'.$row['Disease'].'</text>';
                                     echo '</div>';
@@ -527,8 +527,8 @@
                                     $time = $row['Hour'].':00';
                                     echo "<div class='appointmentBox'>";
                                     echo '<input name = "appointments[]" type="checkbox" value="'.$row['_id'].'" class = "selectBox">';
-                                    echo 'Date: <text class="p1">'.$date.'</text> ';
-                                    echo 'Time: <text class="p1">'.$time.'</text><br>';
+                                    echo 'Date: <text class="o3">'.$date.'</text> ';
+                                    echo 'Time: <text class="o3">'.$time.'</text><br>';
                                     if ($type == 0) echo 'Doctor: <text class="p1">'.$staff.'</text>';
                                     else if ($type == 1) echo 'Patient: <text class="p1">'.$patient.'</text>';
                                     echo '</div>';

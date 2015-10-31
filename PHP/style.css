@@ -34,7 +34,7 @@
 		font-size: 12px;
 	}
 	.overflow{
-		max-height: 300px;
+		max-height: 280px;
 		overflow-y: scroll;
 		padding-top: 5px;
 	}
@@ -49,6 +49,7 @@
 		right: 0px;
 		width: 180px;
 		border: 1px solid #3BA3D0;
+		background-color: #F3F3F3;
 		font:inherit;
 	}
 	.appointmentBox{
@@ -57,10 +58,10 @@
 		width: 320px;
 		border: 1px solid #3BA3D0;
 		color: #333333;
-		background-color: #FFFFFF;
+		background-color: #F3F3F3;
 		padding: 5px;
 		margin-bottom: 3px;
-		padding-left: 22px;
+		padding-left: 32px;
 	}
 
 	.submitButton{
@@ -82,7 +83,7 @@
 	.selectBox{
 		position:absolute;
 		top:9px;
-		left: 0px;
+		left: 5px;
 	}
 	h1{
 		color: #FFA540;
