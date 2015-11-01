@@ -5,6 +5,7 @@
  * Date: 10/31/15
  * Time: 7:36 PM
  */
+session_start();
 $target_dir = getcwd()."/uploads/";
 
 if(isset($_FILES['file'])){
