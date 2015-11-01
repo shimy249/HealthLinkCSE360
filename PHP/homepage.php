@@ -13,7 +13,6 @@ if(isset($_SESSION['notification'])){
 $schedule_DoctorName;
 $ts = getdate();
 $date = $ts[year].'-'.$ts[mon].'-'.$ts[mday];
-
 $refreshApt;
 if(isset($_POST['schedule_Doctor']) && isset($_POST['schedule_Doctor'])) $refreshApt = true;
 if(refreshApt){
@@ -48,7 +47,6 @@ function timeslot($aTime){
     echo $ts['hours'].' '.$aTime;
     $conn = mysqli_connect('localhost','appbfdlk', 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLinkCSE360');
     $sql = "SELECT * FROM Appointments WHERE Date='".$_POST['schedule_Date']."'AND DoctorID = '".$_POST['schedule_Doctor'] ."' AND Hour = '".$aTime."'";
-
     $result=$conn->query($sql);
     if($result->num_rows == 0){
         if ($date == $_POST['schedule_Date'] && $aTime < $ts['hours']) return;
@@ -65,7 +63,6 @@ function timeslot($aTime){
     </style></head>
 <body onload="setTimeout(hideNotifications, 5000)">
 <?php
-
 ?>
 <div class="main">
     <h1>IPMS - Home Page</h1>
@@ -88,7 +85,6 @@ function timeslot($aTime){
                     $sql = "SELECT * FROM UserData WHERE UserName='".$user."'";
                     $result=$conn->query($sql);
                     $userRow = $result->fetch_assoc();
-
                     ?>
                     <div class = overflow>
                         <div class="sectionLine">
@@ -280,7 +276,6 @@ function timeslot($aTime){
                                 echo '<br>';
                                 echo 'Notes: <text class="p1">'.$row['Notes'].'</text>';
                                 echo '</div>';
-
                             }
                         }
                         ?>
@@ -309,7 +304,6 @@ function timeslot($aTime){
                                 echo '<br>';
                                 echo 'Possible Ailments: <text class="p1">'.$row['Disease'].'</text>';
                                 echo '</div>';
-
                             }
                         }
                         ?>
@@ -432,7 +426,6 @@ function timeslot($aTime){
                             echo 'Labwork Title: <text class = "p1">'.$row['Title'].'</text>';
                             echo '<br>Description: <text class = "p1">'.$row['Description'].'</text>';
                             if ($type==2) echo '<br><a style = "color:#00B74A;" href = "view_labwork.php?labworkID='.$row['_id'].'">Complete Lab Report</a>';
-
                             echo '</div>';
                         }
                     }
