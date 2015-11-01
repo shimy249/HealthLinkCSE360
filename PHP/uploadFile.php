@@ -16,7 +16,7 @@ if(isset($_FILES['file'])){
     echo $sql;
     $conn->query($sql);
     if(move_uploaded_file($_FILES['file']['tmp_name'], $unique_name)){
-        //header("Location: homepage.php"); 
+        //header("Location: homepage.php");
     }
     else{
         echo "Error occured";
