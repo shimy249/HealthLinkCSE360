@@ -182,7 +182,7 @@ if($conn){
             </div>
         </div>
 
-        <div class="subsection" <?php if ($type == 2 || $type == 5) echo 'style="display:block;"'; ?>>
+        <div class="subsection" <?php if ($type == 2 || $type == 3 || $type == 4) echo 'style="display:block;"'; ?>>
             <center><h2>Diagnosis Results</h2></center>
             <button class="showHideButton" onclick="showHide('CurrentHealthConcerns', this)">x</button>
             <div class="sectionContent" id="CurrentHealthConcerns">
@@ -210,20 +210,15 @@ if($conn){
         </div>
 
         <div class="subsection" <?php if ($type == 4) echo 'style="display:block;"'; ?>>
-            <center><h2>Upload Medical History</h2></center>
+            <center><h2>Add Medical Record</h2></center>
             <button class="showHideButton" onclick="showHide('uploadFiles', this)">x</button>
             <div class="sectionContent" id="uploadFiles">
                 <form action="uploadFile.php" method="post" enctype="multipart/form-data">
                     <div class="sectionLine">
                         File:
-                        <input type="file" class="sectionLineInput" name="file">
+                        <input type="file" class="sectionLineInput" style = "width: 300" name="file">
                     </div>
-
-                    <div class="sectionLine">
-                        PatientID:
-                        <input type="text" class = sectionLineInput name="patId" <?php echo "value='".$_GET["patient_ID"]."'" ?> readonly>
-                    </div>
-
+                        <input type="hidden" name="patId" <?php echo "value='".$_GET["patient_ID"]."'" ?> >
                     Notes:
                     <textarea id="notes" style="width: 100%;background-color:#F3F3F3" name="notes"></textarea>
                     <center><input type="submit" class="submitButton" value="Upload File"></center>
@@ -231,29 +226,31 @@ if($conn){
             </div>
         </div>
 
-        <div class="subsection" <?php if ($type == 4) echo 'style="display:block;"'; ?>>
-            <center><h2>Download File</h2></center>
+        <div class="subsection" <?php if ($type == 2 || $type == 3 || $type == 4) echo 'style="display:block;"'; ?>>
+            <center><h2>Medical History</h2></center>
             <button class="showHideButton" onclick="showHide('downloadFile', this)">x</button>
             <div class="sectionContent" id="downloadFile">
+                <div class = "overflow" style = "max-height:400px;">
                 <form action="DownFile.php" method="post">
-                    <div class="sectionLine">
-                        File:
-                        <select name="file" class = "sectionLineInput" style = "width: 250px">
                             <?php
                             $conn = mysqli_connect('localhost','appbfdlk', 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLinkCSE360');
-                            $sql = "SELECT * FROM UploadFiles WHERE userId = ".$_GET["patient_ID"];
+                            $sql = "SELECT * FROM UploadFiles WHERE userId = '".$_GET["patient_ID"]."'ORDER BY _id DESC";
                             $result=$conn->query($sql);
                             if($result->num_rows > 0){
                                 while($row = $result->fetch_assoc()){
-                                    echo '<option value="'.$row["sysName"].'">'.$row["origName"].'</option>';
+                                    $file = $row["sysName"];
+                                    $filepath = "/HealthLinkCSE360/PHP/uploads/".basename($file);
+                                    echo '<div class="appointmentBox">';
+                                    echo '<a style = "color: #00B74A" href = "'.$filepath.'">'.$row['origName'].'</a>';
+                                    echo ' <text class = "o3">'.$row['uploadTime'].'</text>';
+                                    if ($row['notes']) echo '<br><text class = "p1">'.$row['notes'].'</text>';
+                                    echo '</div>';
+
+
                                 }
                             }
                             ?>
-                        </select>
                     </div>
-
-
-                    <center><input type="submit" class="submitButton" value="Download File"></center>
 
                 </form>
             </div>
@@ -295,7 +292,7 @@ if($conn){
                         while($row = $result->fetch_assoc()){
                             echo '<div class="appointmentBox">';
                             echo 'Date: <text class = "p1">'.$row['Date'].'</text> ';
-                            echo 'Medication: <text class = "p1">'.$row['Medication'].'</text> ';
+                            echo 'Medication: <text class = "o3">'.$row['Medication'].'</text> ';
                             echo '<br><a style = "color:#00B74A;" href = "view_prescription.php?prescriptionID='.$row['_id'].'">View/Print Prescription</a>';
                             echo '</div>';
                         }
@@ -307,7 +304,6 @@ if($conn){
         </div>
 
         <div class="subsection" <?php if ($type == 2) echo 'style="display:block;"'; ?>>
-            <?php echo ($type);?>
             <center><h2>Prescribe Labwork</h2></center>
             <button class="showHideButton" onclick="showHide('PrescribeLabwork', this);">x</button>
             <div class="sectionContent" id="PrescribeLabwork">
@@ -341,9 +337,9 @@ if($conn){
                     if($result->num_rows > 0){
                         while($row = $result->fetch_assoc()){
                             echo '<div class="appointmentBox">';
-                            echo 'Labwork Title: <text class = "p1">'.$row['Title'].'</text>';
+                            echo 'Labwork Title: <text class = "o3">'.$row['Title'].'</text>';
                             echo '<br>Description: <text class = "p1">'.$row['Description'].'</text>';
-                            if ($type==2) echo '<br><a style = "color:#00B74A;" href = "view_labwork.php?labworkID='.$row['_id'].'">Edit Lab Report</a>';
+                            if ($type == 3) echo '<br><a style = "color:#00B74A;" href = "view_labwork.php?labworkID='.$row['_id'].'">Edit Lab Report</a>';
                             else echo '<br><a style = "color:#00B74A;" href = "view_labwork.php?labworkID='.$row['_id'].'">View Lab Report</a>';
                             echo '</div>';
                         }
@@ -360,7 +356,7 @@ if($conn){
                     if($result->num_rows > 0){
                         while($row = $result->fetch_assoc()){
                             echo '<div class="appointmentBox">';
-                            echo 'Labwork Title: <text class = "p1">'.$row['Title'].'</text>';
+                            echo 'Labwork Title: <text class = "o3">'.$row['Title'].'</text>';
                             echo '<br>Description: <text class = "p1">'.$row['Description'].'</text>';
                             if ($type == 4) echo '<br><a style = "color:#00B74A;" href = "view_labwork.php?labworkID='.$row['_id'].'">Complete Lab Report</a>';
                             echo '</div>';
