@@ -197,20 +197,26 @@ if($conn){
             <center><h2>Download File</h2></center>
             <button class="showHideButton" onclick="showHide('downloadFile', this)">x</button>
             <div class="sectionContent" id="downloadFile">
-                <form action="DownFile.php" method="post" enctype="multipart/form-data">
+                <form action="DownFile.php" method="post">
                     <div class="sectionLine">
                         File:
-
+                        <select name="file" class = "sectionLineInput" style = "width: 250px">
+                            <?php
+                            $conn = mysqli_connect('localhost','appbfdlk', 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLinkCSE360');
+                            $sql = "SELECT * FROM UploadFiles WHERE userId = ".$_SESSION['userID'];
+                            $result=$conn->query($sql);
+                            if($result->num_rows > 0){
+                                while($row = $result->fetch_assoc()){
+                                    echo '<option value="'.$row["sysName"].'">'.$row["origName"].'</option>';
+                                }
+                            }
+                            ?>
+                        </select>
                     </div>
 
-                    <div class="sectionLine">
-                        PatientID:
-                        <input type="text" class = sectionLineInput name="patId" <?php echo "value='".$_GET["patient_ID"]."'" ?> readonly>
-                    </div>
 
-                    Notes:
-                    <textarea id="notes" style="width: 100%;background-color:#F3F3F3" name="notes"></textarea>
                     <center><input type="submit" class="submitButton" value="Add Symptom"></center>
+
                 </form>
             </div>
         </div>
