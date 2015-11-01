@@ -170,6 +170,27 @@ if($conn){
                     </form>
                 </div>
             </div>
+            <div class="subsection" <?php if ($type == 1) echo 'style="display:block;"'; ?>>
+                <center><h2>Upload Medical History</h2></center>
+                <button class="showHideButton" onclick="showHide('uploadFiles', this)">x</button>
+                <div class="sectionContent" id="uploadFiles">
+                    <form action="uploadFile.php" method="post" enctype="multipart/form-data">
+                        <div class="sectionLine">
+                            File:
+                            <input type="file" class="sectionLineInput" name="file">
+                        </div>
+
+                        <div class="sectionLine">
+                            PatientID:
+                            <input type="text" class = sectionLineInput name="patId" <?php echo "value='".$_GET["patient_ID"]."'" ?> readonly>
+                        </div>
+
+                        Notes:
+                        <textarea id="notes" style="width: 100%;background-color:#F3F3F3" name="notes"></textarea>
+                        <center><input type="submit" class="submitButton" value="Add Symptom"></center>
+                    </form>
+                </div>
+            </div>
 
         </div>
 
