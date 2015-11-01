@@ -1,6 +1,8 @@
 <?php
 session_start();
+ob_start();
 date_default_timezone_set ('America/Phoenix');
+if (!isset($_SESSION['userID'])) {header('Location: index.php'); return;}
 $user = $_SESSION["user"];
 $type = $_SESSION["type"];
 $userID = $_SESSION['userID'];

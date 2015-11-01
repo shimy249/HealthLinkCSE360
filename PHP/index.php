@@ -1,5 +1,7 @@
 <?php
 session_start();
+ob_start();
+date_default_timezone_set ('America/Phoenix');
 $notification = $_SESSION['notification'];
 $_SESSION['notification'] = '';
 ?>
@@ -120,11 +122,11 @@ $_SESSION['notification'] = '';
                         <div class="sectionLine">
                             User Type:
                             <select name = "profile_Type" class = "sectionLineInput">
-                                <option value = '0'>Patient</option>
-                                <option value = '1'>Doctor</option>
-                                <option value = '2'>Lab Technician</option>
-                                <option value = '3'>Staff</option>
-                                <option value = '4'>Nurse</option>
+                                <option value = '1'>Patient</option>
+                                <option value = '2'>Doctor</option>
+                                <option value = '3'>Lab Technician</option>
+                                <option value = '4'>Staff</option>
+                                <option value = '5'>Nurse</option>
                             </select>
                         </div>
 

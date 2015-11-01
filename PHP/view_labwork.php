@@ -1,6 +1,8 @@
 <?php
 session_start();
+ob_start();
 date_default_timezone_set ('America/Phoenix');
+if (!isset($_SESSION['userID'])) {header('Location: index.php'); return;}
 $user = $_SESSION["user"];
 $type = $_SESSION["type"];
 $userID = $_SESSION['userID'];
@@ -62,8 +64,8 @@ $Doctor = $result->fetch_assoc();
         <h3>Doctor</h3> <?php echo $Doctor['FirstName'] .' '.$Doctor['LastName'] ;?>
         <h3>Date</h3> <?php echo $Labwork['Date'];?>
         <h3>Description</h3> <?php echo $Labwork['Description'];?>
-        <h3>Results</h3> <?php if ($type != 2) echo $Labwork['Report'];?>
-        <form action="update_labwork.php?labworkID=<?php echo $labworkID; ?>" method = "post" <?php if ($type != 2) echo 'style="display:none"';?>>
+        <h3>Results</h3> <?php if ($type != 3) echo $Labwork['Report'];?>
+        <form action="update_labwork.php?labworkID=<?php echo $labworkID; ?>" method = "post" <?php if ($type != 3) echo 'style="display:none"';?>>
             <textarea style = "width: 100%; height: 300px;" name = "report"><?php echo $Labwork['Report'];?></textarea>
             <center><input type = "submit" class = "submitButton" value = "Save"</center>
         </form>

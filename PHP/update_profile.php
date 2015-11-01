@@ -5,10 +5,10 @@
  * Date: 10/22/2015
  * Time: 6:51 PM
  */
-ob_start();
 session_start();
-$conn = mysqli_connect('localhost','appbfdlk', 'ohDAUdCL4AQZ0');
-
+ob_start();
+date_default_timezone_set ('America/Phoenix');
+if (!isset($_SESSION['userID'])) {header('Location: index.php'); return;}
 if($conn) {
     echo "Connect successfully";
 
@@ -46,6 +46,5 @@ if($conn) {
     } else {
         echo "Error updating record: " . $conn->error;
     }
-   mysqli_close($conn);
 }
 ?>

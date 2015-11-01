@@ -1,5 +1,6 @@
 <?php
 session_start();
+ob_start();
 $notification = $_SESSION['notification'];
 $_SESSION['notification'] = '';
 $email = $_POST['email'];
