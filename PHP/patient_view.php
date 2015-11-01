@@ -188,7 +188,7 @@ if($conn){
 
                     Notes:
                     <textarea id="notes" style="width: 100%;background-color:#F3F3F3" name="notes"></textarea>
-                    <center><input type="submit" class="submitButton" value="Add Symptom"></center>
+                    <center><input type="submit" class="submitButton" value="Upload File"></center>
                 </form>
             </div>
         </div>
@@ -203,7 +203,7 @@ if($conn){
                         <select name="file" class = "sectionLineInput" style = "width: 250px">
                             <?php
                             $conn = mysqli_connect('localhost','appbfdlk', 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLinkCSE360');
-                            $sql = "SELECT * FROM UploadFiles WHERE userId = ".$_SESSION['userID'];
+                            $sql = "SELECT * FROM UploadFiles WHERE userId = ".$_GET["patient_ID"];
                             $result=$conn->query($sql);
                             if($result->num_rows > 0){
                                 while($row = $result->fetch_assoc()){
@@ -215,7 +215,7 @@ if($conn){
                     </div>
 
 
-                    <center><input type="submit" class="submitButton" value="Add Symptom"></center>
+                    <center><input type="submit" class="submitButton" value="Download File"></center>
 
                 </form>
             </div>
