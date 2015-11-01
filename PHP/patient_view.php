@@ -75,41 +75,81 @@ if($conn){
         </div>
 
 
-        <div class="subsection"<?php if ($type == 2 || $type == 5) echo 'style="display:block;"'; ?>>
+        <div class="subsection"<?php if ($type == 1 || $type == 2) echo 'style="display:block;"'; ?>>
             <center><h2>Patient Appointments</h2></center>
             <button class="showHideButton" onclick="showHide('ManageAppointments', this)">x</button>
             <div class="sectionContent" id="ManageAppointments">
                 <form action="cancel_appointment.php" method="post">
-                    <div class = "overflow">
+                    <h3>Past Appointments</h3>
+                    <div class = "overflow" style="max-height: 150px;">
                         <?php
                         $conn = mysqli_connect('localhost','appbfdlk', 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLinkCSE360');
                         $sql = '';
-                        $sql = "SELECT * FROM Appointments WHERE PatientID='".$patientID."'ORDER BY Date ASC";
+                        $sql = "SELECT * FROM Appointments WHERE PatientID='".$patientID."'AND  Date <= '".$date."'ORDER BY Date ASC";
                         $result=$conn->query($sql);
                         if($result->num_rows>0){
                             while($row=$result->fetch_assoc()){
                                 $sql = "SELECT * FROM UserData WHERE _id='".$row["DoctorID"]."'";
                                 $x=$conn->query($sql);
-                                $y=$x ->fetch_assoc();
-                                $staff=$y["FirstName"]." ".$y["LastName"];
-                                $sql = "SELECT * FROM UserData WHERE _id='".$row["PatientID"]."'";
-                                $x=$conn->query($sql);
-                                $y=$x ->fetch_assoc();
-                                $patient=$y["FirstName"]." ".$y["LastName"];
-                                $date = $row['Date'];
-                                $time = $row['Hour'].':00';
-                                echo "<div class='appointmentBox'>";
-                                echo '<input name = "appointments[]" type="checkbox" value="'.$row['_id'].'" class = "selectBox">';
-                                echo 'Date: <text class="o3">'.$date.'</text> ';
-                                echo 'Time: <text class="o3">'.$time.'</text><br>';
-                                echo 'Patient: <text class="p1">'.$patient.'</text>';
-                                echo '</div>';
+                                if ($x->num_rows > 0) {
+                                    $y = $x->fetch_assoc();
+                                    $staff = $y["FirstName"] . " " . $y["LastName"];
+                                    $sql = "SELECT * FROM UserData WHERE _id='" . $row["PatientID"] . "'";
+                                    $x = $conn->query($sql);
+                                    if ($x->num_rows > 0) {
+                                        $y = $x->fetch_assoc();
+                                        $patient = $y["FirstName"] . " " . $y["LastName"];
+                                        $date = $row['Date'];
+                                        $time = $row['Hour'] . ':00';
+                                        echo "<div class='appointmentBox'>";
+                                        echo 'Date: <text class="o3">' . $date . '</text> ';
+                                        echo 'Time: <text class="o3">' . $time . '</text><br>';
+                                        if ($type == 1) echo 'Doctor: <text class="p1">' . $staff . '</text>';
+                                        else if ($type == 2) echo 'Patient: <text class="p1">' . $patient . '</text>';
+                                        echo '</div>';
+                                    }
+                                }
                             }
                         }
-                        else echo 'You do not have any appointments scheduled.';
+                        ?>
+                    </div>
+                    <h3>Upcoming Appointments</h3>
+                    <div class = "overflow" style="max-height: 150px;">
+                        <?php
+                        $conn = mysqli_connect('localhost','appbfdlk', 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLinkCSE360');
+                        $sql = '';
+                        $sql = "SELECT * FROM Appointments WHERE PatientID='".$patientID."'AND  Date > '".$date."'ORDER BY Date ASC";
+                        $result=$conn->query($sql);
+                        if($result->num_rows>0){
+                            while($row=$result->fetch_assoc()){
+                                $sql = "SELECT * FROM UserData WHERE _id='".$row["DoctorID"]."'";
+                                $x=$conn->query($sql);
+                                if ($x->num_rows > 0) {
+                                    $y = $x->fetch_assoc();
+                                    $staff = $y["FirstName"] . " " . $y["LastName"];
+                                    $sql = "SELECT * FROM UserData WHERE _id='" . $row["PatientID"] . "'";
+                                    $x = $conn->query($sql);
+                                    if ($x->num_rows > 0) {
+                                        $y = $x->fetch_assoc();
+                                        $patient = $y["FirstName"] . " " . $y["LastName"];
+                                        $date = $row['Date'];
+                                        $time = $row['Hour'] . ':00';
+                                        echo "<div class='appointmentBox'>";
+                                        echo '<input name = "appointments[]" type="checkbox" value="' . $row['_id'] . '" class = "selectBox">';
+                                        echo 'Date: <text class="o3">' . $date . '</text> ';
+                                        echo 'Time: <text class="o3">' . $time . '</text><br>';
+                                        if ($type == 1) echo 'Doctor: <text class="p1">' . $staff . '</text>';
+                                        else if ($type == 2) echo 'Patient: <text class="p1">' . $patient . '</text>';
+                                        echo '</div>';
+                                    }
+                                }
+                            }
+                        }
                         ?>
                     </div>
                     <center><input type="submit"  class="submitButton"  value="Cancel Selected Appointments" action="submit"></center>
+
+
 
                 </form>
             </div>
@@ -169,7 +209,7 @@ if($conn){
             </div>
         </div>
 
-        <div class="subsection" <?php if ($type == 1) echo 'style="display:block;"'; ?>>
+        <div class="subsection" <?php if ($type == 4) echo 'style="display:block;"'; ?>>
             <center><h2>Upload Medical History</h2></center>
             <button class="showHideButton" onclick="showHide('uploadFiles', this)">x</button>
             <div class="sectionContent" id="uploadFiles">
@@ -191,7 +231,7 @@ if($conn){
             </div>
         </div>
 
-        <div class="subsection" <?php if ($type == 1) echo 'style="display:block;"'; ?>>
+        <div class="subsection" <?php if ($type == 4) echo 'style="display:block;"'; ?>>
             <center><h2>Download File</h2></center>
             <button class="showHideButton" onclick="showHide('downloadFile', this)">x</button>
             <div class="sectionContent" id="downloadFile">
