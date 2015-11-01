@@ -6,9 +6,12 @@
  * Time: 6:12 PM
  */
 session_start();
+ob_start();
 date_default_timezone_set ('America/Phoenix');
+if (!isset($_SESSION['userID'])) {header('Location: index.php'); return;}
 $user = $_SESSION["user"];
 $type = $_SESSION["type"];
+echo $type;
 $userID = $_SESSION['userID'];
 $notification = $_SESSION['notification'];
 $patientID = $_GET['patient_ID'];
@@ -33,7 +36,6 @@ if($conn){
     </style></head>
 <body onload="setTimeout(hideNotifications, 5000)">
 <?php
-
 ?>
 <div class="main">
     <div id="header">
@@ -59,7 +61,6 @@ if($conn){
                     $sql = "SELECT * FROM UserData WHERE _id='".$patientID."'";
                     $result=$conn->query($sql);
                     $patientRow = $result->fetch_assoc();
-
                     ?>
                     First Name: <text class = "p1"><?php echo $patientRow['FirstName'];?></text><br>
                     Last Name: <text class = "p1"><?php echo $patientRow['LastName'];?></text><br>
@@ -74,8 +75,8 @@ if($conn){
         </div>
 
 
-        <div class="subsection"<?php if ($type == 0 || $type == 1) echo 'style="display:block;"'; ?>>
-            <center><h2>Manage Appointments</h2></center>
+        <div class="subsection"<?php if ($type == 2 || $type == 5) echo 'style="display:block;"'; ?>>
+            <center><h2>Patient Appointments</h2></center>
             <button class="showHideButton" onclick="showHide('ManageAppointments', this)">x</button>
             <div class="sectionContent" id="ManageAppointments">
                 <form action="cancel_appointment.php" method="post">
@@ -101,8 +102,7 @@ if($conn){
                                 echo '<input name = "appointments[]" type="checkbox" value="'.$row['_id'].'" class = "selectBox">';
                                 echo 'Date: <text class="o3">'.$date.'</text> ';
                                 echo 'Time: <text class="o3">'.$time.'</text><br>';
-                                if ($type == 0) echo 'Doctor: <text class="p1">'.$staff.'</text>';
-                                else if ($type == 1) echo 'Patient: <text class="p1">'.$patient.'</text>';
+                                echo 'Patient: <text class="p1">'.$patient.'</text>';
                                 echo '</div>';
                             }
                         }
@@ -115,7 +115,7 @@ if($conn){
             </div>
         </div>
 
-        <div class="subsection" <?php if ($type == 1 || $type =3 || $type==4) echo 'style="display:block;"'; ?>>
+        <div class="subsection" <?php if ($type == 2 || $type ==3 || $type == 5) echo 'style="display:block;"'; ?>>
             <center><h2>Patient Symptoms</h2></center>
             <button class="showHideButton" onclick="showHide('CurrentHealthConcerns', this)">x</button>
             <div class="sectionContent" id="CurrentHealthConcerns">
@@ -134,7 +134,6 @@ if($conn){
                                 echo '<br>';
                                 echo 'Notes: <text class="p1">'.$row['Notes'].'</text>';
                                 echo '</div>';
-
                             }
                         }
                         ?>
@@ -143,7 +142,7 @@ if($conn){
             </div>
         </div>
 
-        <div class="subsection" <?php if ($type == 1) echo 'style="display:block;"'; ?>>
+        <div class="subsection" <?php if ($type == 2 || $type == 5) echo 'style="display:block;"'; ?>>
             <center><h2>Diagnosis Results</h2></center>
             <button class="showHideButton" onclick="showHide('CurrentHealthConcerns', this)">x</button>
             <div class="sectionContent" id="CurrentHealthConcerns">
@@ -162,7 +161,6 @@ if($conn){
                                 echo '<br>';
                                 echo 'Possible Ailments: <text class="p1">'.$row['Disease'].'</text>';
                                 echo '</div>';
-
                             }
                         }
                         ?>
@@ -224,7 +222,7 @@ if($conn){
     </div>
 
     <div class="column" style='left:420px; top: 80px;'>
-        <div class="subsection" <?php if ($type == 1) echo 'style="display:block;"'; ?>>
+        <div class="subsection" <?php if ($type == 2) echo 'style="display:block;"'; ?>>
             <center><h2>Prescribe Medication</h2></center>
             <button class="showHideButton" onclick="showHide('PrescribeMedication', this);">x</button>
             <div class="sectionContent" id="PrescribeMedication">
@@ -268,7 +266,8 @@ if($conn){
             </div>
         </div>
 
-        <div class="subsection" <?php if ($type == 1) echo 'style="display:block;"'; ?>>
+        <div class="subsection" <?php if ($type == 2) echo 'style="display:block;"'; ?>>
+            <?php echo ($type);?>
             <center><h2>Prescribe Labwork</h2></center>
             <button class="showHideButton" onclick="showHide('PrescribeLabwork', this);">x</button>
             <div class="sectionContent" id="PrescribeLabwork">
@@ -323,8 +322,7 @@ if($conn){
                             echo '<div class="appointmentBox">';
                             echo 'Labwork Title: <text class = "p1">'.$row['Title'].'</text>';
                             echo '<br>Description: <text class = "p1">'.$row['Description'].'</text>';
-                            if ($type==2) echo '<br><a style = "color:#00B74A;" href = "view_labwork.php?labworkID='.$row['_id'].'">Complete Lab Report</a>';
-
+                            if ($type == 4) echo '<br><a style = "color:#00B74A;" href = "view_labwork.php?labworkID='.$row['_id'].'">Complete Lab Report</a>';
                             echo '</div>';
                         }
                     }
