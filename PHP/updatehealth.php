@@ -5,8 +5,10 @@
  * Date: 10/8/2015
  * Time: 1:41 PM
  */
-ob_start();
 session_start();
+ob_start();
+date_default_timezone_set ('America/Phoenix');
+if (!isset($_SESSION['userID'])) {header('Location: index.php'); return;}
 $user = $_SESSION["user"];
 $type = $_SESSION["type"];
 

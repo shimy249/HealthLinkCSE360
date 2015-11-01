@@ -6,8 +6,8 @@
  * Time: 7:45 AM
  */
 session_start();
-date_default_timezone_set ('America/Phoenix');
 ob_start();
+date_default_timezone_set ('America/Phoenix');
 
 $conn = mysqli_connect('localhost' , 'appbfdlk' , 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLinkCSE360');
 

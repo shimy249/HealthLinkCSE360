@@ -6,8 +6,8 @@
  * Time: 11:06 PM
  */
 session_start();
-date_default_timezone_set ('America/Phoenix');
 ob_start();
+date_default_timezone_set ('America/Phoenix');
 $_SESSION['notification'] = '';
 $servername = "localhost";
 $username = "appbfdlk";
@@ -23,7 +23,6 @@ if($conn->connect_error){
 $sql = "SELECT * FROM UserData WHERE UserName='" . $_POST["login_Username"]."'";
 
 $result = $conn->query($sql);
-echo $result->num_rows;
 
 if ($result->num_rows == 1) {
     $row = $result->fetch_assoc();
@@ -31,7 +30,7 @@ if ($result->num_rows == 1) {
         $_SESSION['notification'] = "Incorrect Username/Password combination";
         echo "index";
         header("Location: index.php");
-        return;
+        exit;
     }
 
     echo $row["Password"].' '.$_POST['login_Password'];
@@ -42,6 +41,7 @@ if ($result->num_rows == 1) {
     echo $_SESSION["user"];
     $_SESSION['notification'] = "Welcome ".$row['FirstName'];
     header("Location: ".$url);
+    return;
 } else {
     $_SESSION['notification'] = "This Username does not exist";
     header("Location: index.php");

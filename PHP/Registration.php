@@ -6,8 +6,9 @@
  * Time: 11:04 PM
  */
 
-ob_start();
 session_start();
+ob_start();
+date_default_timezone_set ('America/Phoenix');
 $conn = mysqli_connect('localhost' , 'appbfdlk' , 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLinkCSE360');
 
 if($conn)
@@ -43,6 +44,7 @@ if($conn)
     if ($result->num_rows > 0) {
         $_SESSION['notification'] = 'This username is already taken, please try again';
         header("Location: index.php");
+        return;
     }
     //check if email exists
     $sql = "SELECT * FROM UserData WHERE Email='" . $email."'";
@@ -50,6 +52,7 @@ if($conn)
     if ($result->num_rows > 0) {
         $_SESSION['notification'] = 'This email address is already taken, please try again';
         header("Location: index.php");
+        return;
     }
     //insertion query creating new instance
     $sql = "INSERT INTO UserData (FirstName,LastName, DOB, Gender, SSN, Phone, Email, UserName,Password,Address,Type,q1,a1,q2,a2, q3,a3 )
@@ -65,7 +68,6 @@ if($conn)
         $_SESSION['notification'] = 'Registration Issue, please try again.';
         header("Location: index.php");
     }
-    mysqli_close($sql);
     return;
 }
 else
