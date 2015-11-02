@@ -631,10 +631,10 @@ function timeslot($aTime){
 
         ?>
 
-        <div class = "subsection" <?php if ($type !=1) echo 'style="display:block;"'; ?>>
+        <div class = "subsection" <?php if ($type == 4) echo 'style="display:block;"'; ?>>
             <center><h2>Statistical Report</h2></center>
-            <button class="showHideButton" onclick="showHide('StatInfo', this)">+</button>
-            <div class="sectionContent" id="StatInfo" style="display: none; max-height:none;">
+            <button class="showHideButton" onclick="showHide('StatInfo', this)">x</button>
+            <div class="sectionContent" id="StatInfo" style="display: block; max-height:none;">
                 <h3>Number of Patients</h3> <?php echo $patientCount. "   (". $male. " male ". $female." female)";?>
                 <h3>Number of Doctors</h3> <?php echo $docCount;?>
                 <h3>Number of Other Medical Staff</h3> <?php echo $staffCount;?>
@@ -646,8 +646,6 @@ function timeslot($aTime){
             </div>
 
         </div>
-
-
 
     </div>
 </div>
