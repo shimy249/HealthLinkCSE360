@@ -117,7 +117,7 @@ function timeslot($aTime){
                         </div>
                         <div class="sectionLine">
                             Gender:
-                            <input type="text" class="sectionLineInput" name="profile_Gender" value = "<?php echo $userRow['Gender'];?>">
+                            <select class="sectionLineInput" name="profile_Gender"><option value = "M">Male</option><option value = "F">Female</option></select>
                         </div>
                         <div class="sectionLine">
                             Physical Address:

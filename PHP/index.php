@@ -89,7 +89,7 @@ $_SESSION['notification'] = '';
 						</div>
 						<div class="sectionLine">
 							Gender:
-							<input type="text" class="sectionLineInput" name="profile_Gender">
+							<select class="sectionLineInput" name="profile_Gender"><option value = "M">Male</option><option value = "F">Female</option></select>
 						</div>
 						<div class="sectionLine">
 							Physical Address:
