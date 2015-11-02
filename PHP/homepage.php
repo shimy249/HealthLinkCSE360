@@ -13,7 +13,6 @@ if(isset($_SESSION['notification'])){
 $schedule_DoctorName;
 $ts = getdate();
 $date = $ts[year].'-'.$ts[mon].'-'.$ts[mday];
-
 $refreshApt;
 if(isset($_POST['schedule_Doctor']) && isset($_POST['schedule_Doctor'])) $refreshApt = true;
 if(refreshApt){
@@ -48,7 +47,6 @@ function timeslot($aTime){
     echo $ts['hours'].' '.$aTime;
     $conn = mysqli_connect('localhost','appbfdlk', 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLinkCSE360');
     $sql = "SELECT * FROM Appointments WHERE Date='".$_POST['schedule_Date']."'AND DoctorID = '".$_POST['schedule_Doctor'] ."' AND Hour = '".$aTime."'";
-
     $result=$conn->query($sql);
     if($result->num_rows == 0){
         if ($date == $_POST['schedule_Date'] && $aTime < $ts['hours']) return;
@@ -65,7 +63,6 @@ function timeslot($aTime){
     </style></head>
 <body onload="setTimeout(hideNotifications, 5000)">
 <?php
-
 ?>
 <div class="main">
     <h1>IPMS - Home Page</h1>
@@ -88,7 +85,6 @@ function timeslot($aTime){
                     $sql = "SELECT * FROM UserData WHERE UserName='".$user."'";
                     $result=$conn->query($sql);
                     $userRow = $result->fetch_assoc();
-
                     ?>
                     <div class = overflow>
                         <div class="sectionLine">
@@ -121,7 +117,7 @@ function timeslot($aTime){
                         </div>
                         <div class="sectionLine">
                             Gender:
-                            <input type="text" class="sectionLineInput" name="profile_Gender" value = "<?php echo $userRow['Gender'];?>">
+                            <select class="sectionLineInput" name="profile_Gender"><option value = "M">Male</option><option value = "F">Female</option></select>
                         </div>
                         <div class="sectionLine">
                             Physical Address:
@@ -168,7 +164,7 @@ function timeslot($aTime){
                         <select name="patient_ID" class = "sectionLineInput" style = "width: 250px">
                             <?php
                             $conn = mysqli_connect('localhost','appbfdlk', 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLinkCSE360');
-                            $sql = "SELECT * FROM UserData WHERE Type = '0'";
+                            $sql = "SELECT * FROM UserData WHERE Type = '1'";
                             $result=$conn->query($sql);
                             if($result->num_rows > 0){
                                 while($row = $result->fetch_assoc()){
@@ -184,7 +180,7 @@ function timeslot($aTime){
             </div>
         </div>
 
-        <div class="subsection" <?php if ($type == 1) echo 'style="display:block;"'; ?>>
+        <div class="subsection" <?php if ($type == 2) echo 'style="display:block;"'; ?>>
             <center><h2>Vacations</h2></center>
             <button class="showHideButton" onclick="showHide('Vacations', this)">x</button>
             <div class="sectionContent" id="Vacations">
@@ -226,7 +222,7 @@ function timeslot($aTime){
             </div>
         </div>
 
-        <div class="subsection" <?php if($type == 0) echo 'style="display:block;"'; ?>>
+        <div class="subsection" <?php if($type == 1) echo 'style="display:block;"'; ?>>
             <center><h2>Add Symptom</h2></center>
             <button class="showHideButton" onclick="showHide('AddHealthConcerns', this)">x</button>
             <div class="sectionContent" id="AddHealthConcerns">
@@ -261,7 +257,7 @@ function timeslot($aTime){
                 </form>
             </div>
         </div>
-        <div class="subsection" <?php if ($type == 0) echo 'style="display:block;"'; ?>>
+        <div class="subsection" <?php if ($type == 1) echo 'style="display:block;"'; ?>>
             <center><h2>Current Symptoms</h2></center>
             <button class="showHideButton" onclick="showHide('CurrentHealthConcerns', this)">x</button>
             <div class="sectionContent" id="CurrentHealthConcerns">
@@ -280,7 +276,6 @@ function timeslot($aTime){
                                 echo '<br>';
                                 echo 'Notes: <text class="p1">'.$row['Notes'].'</text>';
                                 echo '</div>';
-
                             }
                         }
                         ?>
@@ -290,7 +285,7 @@ function timeslot($aTime){
             </div>
         </div>
 
-        <div class="subsection" <?php if ($type == 0) echo 'style="display:block;"'; ?>>
+        <div class="subsection" <?php if ($type == 1) echo 'style="display:block;"'; ?>>
             <center><h2>Current Health Concerns</h2></center>
             <button class="showHideButton" onclick="showHide('CurrentHealthConcerns', this)">x</button>
             <div class="sectionContent" id="CurrentHealthConcerns">
@@ -309,7 +304,6 @@ function timeslot($aTime){
                                 echo '<br>';
                                 echo 'Possible Ailments: <text class="p1">'.$row['Disease'].'</text>';
                                 echo '</div>';
-
                             }
                         }
                         ?>
@@ -325,7 +319,7 @@ function timeslot($aTime){
 
     <div class="column" style='left:420px; top: 80px;'>
 
-        <div class="subsection" <?php if ($type == 3) echo 'style="display:block;"'; ?>>
+        <div class="subsection" <?php if ($type == 4) echo 'style="display:block;"'; ?>>
             <center><h2>Labwork to Complete</h2></center>
             <button class="showHideButton" onclick="showHide('LabworkToComplete', this)">x</button>
             <div class="sectionContent" id="LabworkToComplete">
@@ -349,7 +343,7 @@ function timeslot($aTime){
             </div>
         </div>
 
-        <div class="subsection" <?php if ($type == 3) echo 'style="display:block;"'; ?>>
+        <div class="subsection" <?php if ($type == 4) echo 'style="display:block;"'; ?>>
             <center><h2>Completed Labwork</h2></center>
             <button class="showHideButton" onclick="showHide('LabworkToComplete', this)">x</button>
             <div class="sectionContent" id="LabworkToComplete">
@@ -373,7 +367,7 @@ function timeslot($aTime){
             </div>
         </div>
 
-        <div class="subsection" <?php if ($type == 0) echo 'style="display:block;"'; ?>>
+        <div class="subsection" <?php if ($type == 1) echo 'style="display:block;"'; ?>>
             <center><h2>Your Prescriptions</h2></center>
             <button class="showHideButton" onclick="showHide('PatientPrescriptions', this);">x</button>
             <div class="sectionContent" id="PatientPrescriptions">
@@ -397,7 +391,7 @@ function timeslot($aTime){
             </div>
         </div>
 
-        <div class="subsection" <?php if ($type == 0) echo 'style="display:block;"'; ?>>
+        <div class="subsection" <?php if ($type == 1) echo 'style="display:block;"'; ?>>
             <center><h2>Patient Labwork</h2></center>
             <button class="showHideButton" onclick="showHide('PatientLabwork', this);">x</button>
             <div class="sectionContent" id="PatientLabwork">
@@ -432,7 +426,6 @@ function timeslot($aTime){
                             echo 'Labwork Title: <text class = "p1">'.$row['Title'].'</text>';
                             echo '<br>Description: <text class = "p1">'.$row['Description'].'</text>';
                             if ($type==2) echo '<br><a style = "color:#00B74A;" href = "view_labwork.php?labworkID='.$row['_id'].'">Complete Lab Report</a>';
-
                             echo '</div>';
                         }
                     }
@@ -442,7 +435,7 @@ function timeslot($aTime){
             </div>
         </div>
 
-        <div class="subsection" <?php if ($type == 1) echo 'style="display:block;"'; ?>>
+        <div class="subsection" <?php if ($type == 2) echo 'style="display:block;"'; ?>>
             <center><h2>Alerts</h2></center>
             <button class="showHideButton" onclick="showHide('Alerts', this)">x</button>
             <div class="sectionContent" id="Alerts">
@@ -468,7 +461,7 @@ function timeslot($aTime){
                 </div>
             </div>
         </div>
-        <div class="subsection"<?php if ($type == 0) echo 'style="display:block;"'; ?>>
+        <div class="subsection"<?php if ($type == 1) echo 'style="display:block;"'; ?>>
             <center><h2>Schedule Appointment</h2></center>
             <button class="showHideButton" onclick="showHide('ScheduleAppointment', this)">x</button>
             <div class="sectionContent" id="ScheduleAppointment">
@@ -478,7 +471,7 @@ function timeslot($aTime){
                         <select class="sectionLineInput" name="schedule_Doctor" >
                             <?php
                             $conn = new mysqli('localhost', 'appbfdlk', 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLinkCSE360');
-                            $sql = "SELECT * FROM UserData WHERE Type = 1";
+                            $sql = "SELECT * FROM UserData WHERE Type = 2";
                             $result = $conn->query($sql);
                             if($result->num_rows>0) {
                                 while ($row = $result->fetch_assoc())
@@ -507,7 +500,7 @@ function timeslot($aTime){
                 </form>
             </div>
         </div>
-        <div class="subsection"<?php if ($type == 0 || $type == 1) echo 'style="display:block;"'; ?>>
+        <div class="subsection"<?php if ($type == 1 || $type == 2) echo 'style="display:block;"'; ?>>
             <center><h2>Manage Appointments</h2></center>
             <button class="showHideButton" onclick="showHide('ManageAppointments', this)">x</button>
             <div class="sectionContent" id="ManageAppointments">
@@ -517,7 +510,7 @@ function timeslot($aTime){
                         <?php
                         $conn = mysqli_connect('localhost','appbfdlk', 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLinkCSE360');
                         $sql = '';
-                        if ($type == 0) $sql = "SELECT * FROM Appointments WHERE PatientID='".$userID."'AND  Date <= '".$date."'ORDER BY Date ASC";
+                        if ($type == 1) $sql = "SELECT * FROM Appointments WHERE PatientID='".$userID."'AND  Date <= '".$date."'ORDER BY Date ASC";
                         else $sql = "SELECT * FROM Appointments WHERE DoctorID='".$userID."'AND  Date <= '".$date."'ORDER BY Date ASC";
                         $result=$conn->query($sql);
                         if($result->num_rows>0){
@@ -537,8 +530,8 @@ function timeslot($aTime){
                                         echo "<div class='appointmentBox'>";
                                         echo 'Date: <text class="o3">' . $date . '</text> ';
                                         echo 'Time: <text class="o3">' . $time . '</text><br>';
-                                        if ($type == 0) echo 'Doctor: <text class="p1">' . $staff . '</text>';
-                                        else if ($type == 1) echo 'Patient: <text class="p1">' . $patient . '</text>';
+                                        if ($type == 1) echo 'Doctor: <text class="p1">' . $staff . '</text>';
+                                        else if ($type == 2) echo 'Patient: <text class="p1">' . $patient . '</text>';
                                         echo '</div>';
                                     }
                                 }
@@ -551,7 +544,7 @@ function timeslot($aTime){
                         <?php
                         $conn = mysqli_connect('localhost','appbfdlk', 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLinkCSE360');
                         $sql = '';
-                        if ($type == 0) $sql = "SELECT * FROM Appointments WHERE PatientID='".$userID."'AND  Date > '".$date."'ORDER BY Date ASC";
+                        if ($type == 1) $sql = "SELECT * FROM Appointments WHERE PatientID='".$userID."'AND  Date > '".$date."'ORDER BY Date ASC";
                         else $sql = "SELECT * FROM Appointments WHERE DoctorID='".$userID."'AND  Date > '".$date."'ORDER BY Date ASC";
                         $result=$conn->query($sql);
                         if($result->num_rows>0){
@@ -572,8 +565,8 @@ function timeslot($aTime){
                                         echo '<input name = "appointments[]" type="checkbox" value="' . $row['_id'] . '" class = "selectBox">';
                                         echo 'Date: <text class="o3">' . $date . '</text> ';
                                         echo 'Time: <text class="o3">' . $time . '</text><br>';
-                                        if ($type == 0) echo 'Doctor: <text class="p1">' . $staff . '</text>';
-                                        else if ($type == 1) echo 'Patient: <text class="p1">' . $patient . '</text>';
+                                        if ($type == 1) echo 'Doctor: <text class="p1">' . $staff . '</text>';
+                                        else if ($type == 2) echo 'Patient: <text class="p1">' . $patient . '</text>';
                                         echo '</div>';
                                     }
                                 }
