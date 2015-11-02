@@ -245,8 +245,6 @@ if($conn){
                                     echo ' <text class = "o3">'.$row['uploadTime'].'</text>';
                                     if ($row['notes']) echo '<br><text class = "p1">'.$row['notes'].'</text>';
                                     echo '</div>';
-
-
                                 }
                             }
                             ?>
