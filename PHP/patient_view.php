@@ -356,7 +356,7 @@ if($conn){
                             echo '<div class="appointmentBox">';
                             echo 'Labwork Title: <text class = "o3">'.$row['Title'].'</text>';
                             echo '<br>Description: <text class = "p1">'.$row['Description'].'</text>';
-                            if ($type == 4) echo '<br><a style = "color:#00B74A;" href = "view_labwork.php?labworkID='.$row['_id'].'">Complete Lab Report</a>';
+                            if ($type == 3) echo '<br><a style = "color:#00B74A;" href = "view_labwork.php?labworkID='.$row['_id'].'">Complete Lab Report</a>';
                             echo '</div>';
                         }
                     }

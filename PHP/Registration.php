@@ -62,11 +62,12 @@ if($conn)
     if ($conn->query($sql)) {
         $_SESSION['notification'] = 'Your account was successfully created. You may now log in.';
         header("Location: index.php");
-
+        return;
     }
     else {
         $_SESSION['notification'] = 'Registration Issue, please try again.';
         header("Location: index.php");
+        return;
     }
     return;
 }

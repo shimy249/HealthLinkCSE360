@@ -9,10 +9,11 @@ session_start();
 ob_start();
 date_default_timezone_set ('America/Phoenix');
 if (!isset($_SESSION['userID'])) {header('Location: index.php'); return;}
+$conn = mysqli_connect('localhost', 'appbfdlk', 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLinkCSE360');
 if($conn) {
     echo "Connect successfully";
 
-    $conn = mysqli_connect('localhost', 'appbfdlk', 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLinkCSE360');
+
 
     $user = $_SESSION["user"];
     $type = $_SESSION["type"];
@@ -40,11 +41,12 @@ if($conn) {
 
     $sql = "UPDATE UserData SET FirstName='" . $firstname . "',LastName='" . $lastname . "', DOB='" . $dob . "', Gender='" . $gender . "', SSN='" . $ssn . "', Phone='" . $phone . "', Email='" . $email . "', UserName='" . $username . "',Password='" . $password . "',Address='" . $address . "',Type='" . $type . "',q1='" . $q1 . "',a1='" . $a1 . "',q2='" . $q2 . "',a2='" . $a2 . "', q3='" . $q3 . "',a3='" . $a3 . "' WHERE UserName='" . $user . "'";
     if ($conn->query($sql) === TRUE) {
-        echo "Record updated successfully";
+        $_SESSION['notification'] = "Personal Information updated successfully";
         $url = "homepage.php";
         header("Location: ".$url);
+        return;
     } else {
-        echo "Error updating record: " . $conn->error;
+        $_SESSION['notification'] = "Error updating record: " . $conn->error;
     }
 }
 ?>
