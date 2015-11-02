@@ -85,7 +85,7 @@ $sql = "INSERT INTO Diagnosis(PatientID,Symptoms,Date,Disease) VALUES ('$userID'
 $conn->query($sql);
 
 if ($alert>0){
-    $sql = "INSERT INTO Alerts (PatientID,Symptoms, Date, Time) VALUES ('$user', '$symptoms','$date','$time')";
+    $sql = "INSERT INTO Alerts (PatientID,Symptoms, Date, Time) VALUES ('$userID', '$symptoms','$date','$time')";
     $conn->query($sql);
 }
 header('Location: homepage.php?');

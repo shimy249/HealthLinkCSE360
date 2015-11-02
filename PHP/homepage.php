@@ -319,7 +319,7 @@ function timeslot($aTime){
 
     <div class="column" style='left:420px; top: 80px;'>
 
-        <div class="subsection" <?php if ($type == 4) echo 'style="display:block;"'; ?>>
+        <div class="subsection" <?php if ($type == 3) echo 'style="display:block;"'; ?>>
             <center><h2>Labwork to Complete</h2></center>
             <button class="showHideButton" onclick="showHide('LabworkToComplete', this)">x</button>
             <div class="sectionContent" id="LabworkToComplete">
@@ -343,7 +343,7 @@ function timeslot($aTime){
             </div>
         </div>
 
-        <div class="subsection" <?php if ($type == 4) echo 'style="display:block;"'; ?>>
+        <div class="subsection" <?php if ($type == 3) echo 'style="display:block;"'; ?>>
             <center><h2>Completed Labwork</h2></center>
             <button class="showHideButton" onclick="showHide('LabworkToComplete', this)">x</button>
             <div class="sectionContent" id="LabworkToComplete">

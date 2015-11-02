@@ -14,5 +14,6 @@ $report = nl2br($_POST['report']);
 $conn = mysqli_connect('localhost','appbfdlk', 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLinkCSE360');
 $sql = "UPDATE Labwork SET Report = '".$report."'";
 $conn->query($sql);
-header("Location: view_labwork.php?labworkID=".$labworkID);
+
+header("Location: homepage.php");
 ?>
