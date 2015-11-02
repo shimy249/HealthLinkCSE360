@@ -42,6 +42,7 @@ if($conn) {
     $sql = "UPDATE UserData SET FirstName='" . $firstname . "',LastName='" . $lastname . "', DOB='" . $dob . "', Gender='" . $gender . "', SSN='" . $ssn . "', Phone='" . $phone . "', Email='" . $email . "', UserName='" . $username . "',Password='" . $password . "',Address='" . $address . "',Type='" . $type . "',q1='" . $q1 . "',a1='" . $a1 . "',q2='" . $q2 . "',a2='" . $a2 . "', q3='" . $q3 . "',a3='" . $a3 . "' WHERE UserName='" . $user . "'";
     if ($conn->query($sql) === TRUE) {
         $_SESSION['notification'] = "Personal Information updated successfully";
+        $_SESSION["user"] = $username;
         $url = "homepage.php";
         header("Location: ".$url);
         return;
