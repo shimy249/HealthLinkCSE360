@@ -37,7 +37,9 @@ if ($result->num_rows == 1) {
     $_SESSION["type"] = $row["Type"];
     $_SESSION["user"] = $row["UserName"];
     $_SESSION["userID"] = $row["_id"];
-    $url = "homepage.php";
+    $url;
+    if ($row['Type'] == 7) $url = "admin_home.php";
+    else $url = "homepage.php";
     echo $_SESSION["user"];
     $_SESSION['notification'] = "Welcome ".$row['FirstName'];
     header("Location: ".$url);

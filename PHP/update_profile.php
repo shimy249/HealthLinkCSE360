@@ -13,8 +13,6 @@ $conn = mysqli_connect('localhost', 'appbfdlk', 'ohDAUdCL4AQZ0', 'appbfdlk_Healt
 if($conn) {
     echo "Connect successfully";
 
-
-
     $user = $_SESSION["user"];
     $type = $_SESSION["type"];
     $firstname = $_POST['profile_FirstName'];
@@ -26,6 +24,10 @@ if($conn) {
     $ssn = $_POST['profile_SocialSecurity'];
     $gender = $_POST['profile_Gender'];
     $address = $_POST['profile_Address'];
+    $city = $_POST['profile_City'];
+    $state = $_POST['profile_State'];
+    $zip = $_POST['profile_Zip'];
+    $phone = $_POST['profile_Phone'];
     $q1 = $_POST['profile_Question1'];
     $a1 = $_POST['profile_Answer1'];
     $q2 = $_POST['profile_Question2'];
@@ -33,17 +35,26 @@ if($conn) {
     $q3 = $_POST['profile_Question3'];
     $a3 = $_POST['profile_Answer3'];
 
-    if ($firstname == '' || $lastname == '' || $email == '' || $username == '' || $password == '' || $dob == '' || $ssn == '' || $gender == '' || $address == '' || $q1 == '' || $a1 == '' || $q2 == '' || $a2 == '' || $q3 == '' || $a3 == ''){
+    //depending if personal profile update or by admin
+    $notification = "Personal Information updated successfully";
+    $modifyID = $_SESSION['userID'];
+    $url = 'homepage.php';
+    if (isset($_POST['modify_id'])) {
+        $modifyID = $_POST['modify_id'];
+        $url = 'admin_home.php';
+        $notification = "User account information successfully updated";
+    }
+
+    if ($firstname == '' || $lastname == '' || $email == '' || $username == '' || $password == '' || $dob == '' || $ssn == '' || $gender == '' || $address == '' || $city == '' || $state == '' || $zip == '' || $phone == '' || $q1 == '' || $a1 == '' || $q2 == '' || $a2 == '' || $q3 == '' || $a3 == ''){
         $_SESSION['notification'] = 'Please fill out all fields to update your profile';
         header("Location: homepage.php");
         return;
     }
 
-    $sql = "UPDATE UserData SET FirstName='" . $firstname . "',LastName='" . $lastname . "', DOB='" . $dob . "', Gender='" . $gender . "', SSN='" . $ssn . "', Phone='" . $phone . "', Email='" . $email . "', UserName='" . $username . "',Password='" . $password . "',Address='" . $address . "',Type='" . $type . "',q1='" . $q1 . "',a1='" . $a1 . "',q2='" . $q2 . "',a2='" . $a2 . "', q3='" . $q3 . "',a3='" . $a3 . "' WHERE UserName='" . $user . "'";
+    $sql = "UPDATE UserData SET FirstName='" . $firstname . "',LastName='" . $lastname . "', DOB='" . $dob . "', Gender='" . $gender . "', SSN='" . $ssn . "', Phone='" . $phone . "', Email='" . $email . "', UserName='" . $username . "',Password='" . $password . "',Address='" . $address . "',City='" . $city. "',State='" . $state . "',Zip='" . $zip . "',Type='" . $type . "',q1='" . $q1 . "',a1='" . $a1 . "',q2='" . $q2 . "',a2='" . $a2 . "', q3='" . $q3 . "',a3='" . $a3 . "' WHERE _id='" . $modifyID . "'";
     if ($conn->query($sql) === TRUE) {
-        $_SESSION['notification'] = "Personal Information updated successfully";
-        $_SESSION["user"] = $username;
-        $url = "homepage.php";
+        $_SESSION['notification'] = $notification;
+        if (!isset($_POST['modify_id'])) $_SESSION["user"] = $username;
         header("Location: ".$url);
         return;
     } else {
