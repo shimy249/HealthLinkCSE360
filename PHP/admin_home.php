@@ -277,7 +277,70 @@ if (isset($_POST['modify_id'])) $modifyID = $_POST['modify_id'];
 
 
     <div class="column" style='left:420px; top: 80px;'>
+        <!-- Statistical Report -->
+        <div class = "subsection" <?php if ($type == 7) echo 'style="display:block;"'; ?>>
+            <center><h2>Statistical Report</h2></center>
+            <button class="showHideButton" onclick="showHide('StatInfo', this)">x</button>
+            <div class="sectionContent" id="StatInfo" style="display: block; max-height:none;">
+                <?php
 
+
+                $conn = mysqli_connect('localhost','appbfdlk', 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLinkCSE360');
+
+                $sql = "SELECT * FROM UserData WHERE Type=1";
+                $res = $conn->query($sql);
+                $patientCount = $res->num_rows;
+
+                $sql = "SELECT * FROM UserData WHERE Type=1&&Gender LIKE 'm'";
+                $res = $conn->query($sql);
+                $male = $res->num_rows;
+
+                $sql = "SELECT * FROM UserData WHERE Type=1&&Gender LIKE 'f'";
+                $res = $conn->query($sql);
+                $female = $res->num_rows;
+
+
+                $sql = "SELECT * FROM UserData WHERE Type=2";
+                $res = $conn->query($sql);
+                $docCount = $res->num_rows;
+
+                $sql = "SELECT * FROM UserData WHERE Type=3";
+                $res = $conn->query($sql);
+                $staffCount = $res->num_rows;
+
+                $sql = "SELECT * FROM Appointments WHERE Date>=CURRENT_DATE";
+                $res = $conn->query($sql);
+                $aptCount = $res->num_rows;
+
+                $sql = "SELECT * FROM MedicalRecords";
+                $res = $conn->query($sql);
+                $recordCount = $res->num_rows;
+
+                $sql = "SELECT * FROM Conditions";
+                $res = $conn->query($sql);
+                $diagCount = $res->num_rows;
+
+                $sql = "SELECT * FROM Labwork WHERE Report IS NOT NULL";
+                $res = $conn->query($sql);
+                $labReport = $res->num_rows;
+
+                $sql = "SELECT * FROM Prescriptions";
+                $res = $conn->query($sql);
+                $prescriptions = $res->num_rows;
+
+
+                ?>
+                <h3>Number of Patients</h3> <?php echo $patientCount. "   (". $male. " male ". $female." female)";?>
+                <h3>Number of Doctors</h3> <?php echo $docCount;?>
+                <h3>Number of Other Medical Staff</h3> <?php echo $staffCount;?>
+                <h3>Number of Future Appointments</h3> <?php echo $aptCount;?>
+                <h3>Number of Medical Record Entries</h3> <?php echo $recordCount;?>
+                <h3>Number of Diagnosis Issued</h3> <?php echo $diagCount;?>
+                <h3>Number of Lab Reports Created</h3> <?php echo $labReport;?>
+                <h3>Number of Prescriptions Issued</h3> <?php echo $prescriptions;?>
+            </div>
+
+        </div>
     </div>
 </div>
 </body>

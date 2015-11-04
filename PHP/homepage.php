@@ -10,6 +10,9 @@ $notification = $_SESSION['notification'];
 if(isset($_SESSION['notification'])){
     unset($_SESSION['notification']);
 }
+if(isset($_SESSION['diseaseID'])){
+    unset($_SESSION['diseaseID']);
+}
 $schedule_DoctorName;
 $ts = getdate();
 $date = $ts[year].'-'.$ts[mon].'-'.$ts[mday];
@@ -75,6 +78,7 @@ function timeslot($aTime){
     </div>
     <div class="column" style='left:10px; top: 80px;'>
 
+        <!-- Personal Information -->
         <div class="subsection" style="display:block;">
             <center><h2>Personal Information</h2></center>
             <button class="showHideButton" onclick="showHide('PersonalInformation', this)">x</button>
@@ -170,6 +174,7 @@ function timeslot($aTime){
             </div>
         </div>
 
+        <!-- Access Patient Case -->
         <div class="subsection" <?php if ($type > 1) echo 'style="display:block;"'; ?>>
             <center><h2>Access Patient Case</h2></center>
             <button class="showHideButton" onclick="showHide('PatientCase', this)">x</button>
@@ -196,6 +201,7 @@ function timeslot($aTime){
             </div>
         </div>
 
+        <!-- Vacations -->
         <div class="subsection" <?php if ($type == 2) echo 'style="display:block;"'; ?>>
             <center><h2>Vacations</h2></center>
             <button class="showHideButton" onclick="showHide('Vacations', this)">x</button>
@@ -238,11 +244,14 @@ function timeslot($aTime){
             </div>
         </div>
 
+        <!-- Add Symptom -->
         <div class="subsection" <?php if($type == 1) echo 'style="display:block;"'; ?>>
-            <center><h2>Add Symptom</h2></center>
+            <center><h2>Add Health Concerns</h2></center>
             <button class="showHideButton" onclick="showHide('AddHealthConcerns', this)">x</button>
             <div class="sectionContent" id="AddHealthConcerns">
                 <form action="add_symptom.php" method="post">
+                    <input type="hidden" name="patientID" value="<?php echo $userID?>">
+                    <input type = "hidden" name="source" value="homepage.php">
                     <div class="sectionLine">
                         Symptom:
                         <select class="sectionLineInput" name="Symptom" >
@@ -273,11 +282,14 @@ function timeslot($aTime){
                 </form>
             </div>
         </div>
+
+        <!-- Current Symptoms -->
         <div class="subsection" <?php if ($type == 1) echo 'style="display:block;"'; ?>>
-            <center><h2>Current Symptoms</h2></center>
+            <center><h2>Current Health Concerns</h2></center>
             <button class="showHideButton" onclick="showHide('CurrentHealthConcerns', this)">x</button>
             <div class="sectionContent" id="CurrentHealthConcerns">
-                <form action="diagnosis.php" method="post">
+                <form action="cancel_symptoms.php" method="post">
+                    <input type = "hidden" name="source" value="homepage.php">
                     <div class = "overflow">
                         <?php
                         $conn = mysqli_connect('localhost','appbfdlk', 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLinkCSE360');
@@ -296,38 +308,10 @@ function timeslot($aTime){
                         }
                         ?>
                     </div>
-                    <center><input type = "submit" class = "submitButton" value = "Submit and Diagnose"></center>
+                    <center><input type = "submit" class = "submitButton" value = "Remove Symptoms"></center>
                 </form>
             </div>
         </div>
-
-        <div class="subsection" <?php if ($type == 1) echo 'style="display:block;"'; ?>>
-            <center><h2>Current Health Concerns</h2></center>
-            <button class="showHideButton" onclick="showHide('CurrentHealthConcerns', this)">x</button>
-            <div class="sectionContent" id="CurrentHealthConcerns">
-                <form action="diagnosis.php" method="post">
-                    <div class = "overflow">
-                        <?php
-                        $conn = mysqli_connect('localhost','appbfdlk', 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLinkCSE360');
-                        $sql = "SELECT * FROM Diagnosis WHERE PatientID='".$userID."' ORDER BY Date DESC" ;
-                        $result=$conn->query($sql);
-                        if($result->num_rows>0){
-                            while($row=$result->fetch_assoc()){
-                                echo '<div class="appointmentBox">';
-                                echo '<input name="symptom[]" type="checkbox" value="'. $row["_id"].'" class = "selectBox">';
-                                echo 'Date: <text class="p1">'.$row['Date'].'</text>';
-                                echo '<br>Symptoms: <text class="o3">'.$row['Symptoms'].'</text>';
-                                echo '<br>';
-                                echo 'Possible Ailments: <text class="p1">'.$row['Disease'].'</text>';
-                                echo '</div>';
-                            }
-                        }
-                        ?>
-                    </div>
-                </form>
-            </div>
-        </div>
-
 
 
 
@@ -335,6 +319,7 @@ function timeslot($aTime){
 
     <div class="column" style='left:420px; top: 80px;'>
 
+        <!-- Labwork to Complete -->
         <div class="subsection" <?php if ($type == 3) echo 'style="display:block;"'; ?>>
             <center><h2>Labwork to Complete</h2></center>
             <button class="showHideButton" onclick="showHide('LabworkToComplete', this)">x</button>
@@ -359,6 +344,7 @@ function timeslot($aTime){
             </div>
         </div>
 
+        <!-- Completed Labwork -->
         <div class="subsection" <?php if ($type == 3) echo 'style="display:block;"'; ?>>
             <center><h2>Completed Labwork</h2></center>
             <button class="showHideButton" onclick="showHide('LabworkToComplete', this)">x</button>
@@ -383,6 +369,7 @@ function timeslot($aTime){
             </div>
         </div>
 
+        <!-- Your Prescriptions -->
         <div class="subsection" <?php if ($type == 1) echo 'style="display:block;"'; ?>>
             <center><h2>Your Prescriptions</h2></center>
             <button class="showHideButton" onclick="showHide('PatientPrescriptions', this);">x</button>
@@ -407,8 +394,9 @@ function timeslot($aTime){
             </div>
         </div>
 
+        <!-- Your Labwork -->
         <div class="subsection" <?php if ($type == 1) echo 'style="display:block;"'; ?>>
-            <center><h2>Patient Labwork</h2></center>
+            <center><h2>Your Labwork</h2></center>
             <button class="showHideButton" onclick="showHide('PatientLabwork', this);">x</button>
             <div class="sectionContent" id="PatientLabwork">
                 <h3>Completed Lab Reports</h3>
@@ -451,24 +439,26 @@ function timeslot($aTime){
             </div>
         </div>
 
+        <!-- Alerts -->
         <div class="subsection" <?php if ($type == 2) echo 'style="display:block;"'; ?>>
-            <center><h2>Alerts</h2></center>
+            <center><h2>Emergency Ward</h2></center>
             <button class="showHideButton" onclick="showHide('Alerts', this)">x</button>
             <div class="sectionContent" id="Alerts">
                 <div class = "overflow">
                     <?php
                     $conn = mysqli_connect('localhost','appbfdlk', 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLinkCSE360');
-                    $sql = "SELECT * FROM Alerts ORDER BY _id DESC";
+                    $sql = "SELECT * FROM EmergencyAppointments ORDER BY Date DESC";
                     $result=$conn->query($sql);
                     if($result->num_rows > 0){
                         while($row = $result->fetch_assoc()){
-                            $sql = "SELECT * FROM UserData WHERE _id ='".$userID."'";
+                            $sql = "SELECT * FROM UserData WHERE _id ='".$row['PatientID']."'";
                             $x = $conn->query($sql);
                             $y = $x->fetch_assoc();
                             $name = $y['FirstName']. ' '.$y['LastName'];
                             echo '<div class="appointmentBox">';
-                            echo '<text class = "p1">'.$name.'</text>'.' on '.'<text class = "o3">'.$row['Date'].'</text>'.' at '.'<text class = "o3">'.$row['Time'].'</text>';
-                            echo '<br>Health Concerns: <text class = "p1">'.$row['Symptoms'].'</text>';
+                            echo 'Patient: <text class = "p1">'.$name.'</text>';
+                            echo '<br>Arriving: <text class = "o3">'.$row['Date'].'</text>'.' at '.'<text class = "o3">'.$row['Time'].'</text>';
+                            echo '<br>System Diagnosis: <text class = "p1">'.$row['Diagnosis'].'</text>';
                             echo '</div>';
                         }
                     }
@@ -477,45 +467,33 @@ function timeslot($aTime){
                 </div>
             </div>
         </div>
-        <div class="subsection"<?php if ($type == 1) echo 'style="display:block;"'; ?>>
-            <center><h2>Schedule Appointment</h2></center>
-            <button class="showHideButton" onclick="showHide('ScheduleAppointment', this)">x</button>
-            <div class="sectionContent" id="ScheduleAppointment">
-                <form action="homepage.php?" method="post">
+
+        <!-- Create Appointment -->
+        <div class="subsection" <?php if($type == 1) echo 'style="display:block;"'; ?>>
+            <center><h2>Create Appointment</h2></center>
+            <button class="showHideButton" onclick="showHide('CreateAppointment', this)">x</button>
+            <div class="sectionContent" id="CreateAppointment">
+                <form action="appointment_page.php" method="post">
                     <div class="sectionLine">
-                        Select a Doctor:
-                        <select class="sectionLineInput" name="schedule_Doctor" >
+                        Primary Symptom:
+                        <select class="sectionLineInput" name="symptom" >
+                            <option>--Select--</option>
                             <?php
-                            $conn = new mysqli('localhost', 'appbfdlk', 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLinkCSE360');
-                            $sql = "SELECT * FROM UserData WHERE Type = 2";
-                            $result = $conn->query($sql);
-                            if($result->num_rows>0) {
-                                while ($row = $result->fetch_assoc())
-                                    echo '<option value="' . $row['_id'] . '">' . $row["FirstName"] .' '. $row["LastName"]."</option>";
+                            $fileName = 'AllSymptoms.txt';
+                            $fileContent = file($fileName);
+                            foreach($fileContent as $line) {
+                                echo '<option value="'.trim($line).'">'.$line.'</option>';
                             }
                             ?>
                         </select>
                     </div>
-                    <div class="sectionLine">
-                        Date:
-                        <input type = "date" name="schedule_Date" min = "<?php echo $ts[year].'-'.$ts[mon].'-'.$ts[mday];?>" value = "<?php echo $ts[year].'-'.$ts[mon].'-'.$ts[mday];?>" max = "<?php echo ($ts[year] + 1).'-'.$ts[mon].'-'.$ts[mday];?>" class = "sectionLineInput">
-                    </div>
-                    <center><input type="submit"  class="submitButton" value="View Available Appointments"></center>
+                    <center><input type="submit" class="submitButton" value="Request Appointment"></center>
                 </form>
-                <form action="schedule_appointments.php?" method="post" <?php if ($refreshApt) echo 'style="display:block;"'; else echo 'style="display:none;"';?>>
-                    <input type="hidden" name="schedule_Doctor" value = "<?php echo $_POST['schedule_Doctor'] ?>">
-                    <input type="hidden" name="schedule_Date" value = "<?php echo $_POST['schedule_Date'] ?>">
-                    <center><h3>Available Appointments</h3></center><br>
-                    <div class = "sectionLine">
-                        <b><?php echo $schedule_DoctorName. ' on '.$_POST['schedule_Date']?></b><br>
-                        <select name = "schedule_Time" class = "sectionLineInput">
-                            <?php timeslot(7);timeslot(8);timeslot(9);timeslot(10);timeslot(11);timeslot(12);timeslot(13);timeslot(14);timeslot(15);timeslot(16);?>
-                        </select>
-                    </div>
-                    <center><input type="submit"  class="submitButton" value="Create Appointment"></center>
-                </form>
+
             </div>
         </div>
+
+        <!-- Manage Appointments -->
         <div class="subsection"<?php if ($type == 1 || $type == 2) echo 'style="display:block;"'; ?>>
             <center><h2>Manage Appointments</h2></center>
             <button class="showHideButton" onclick="showHide('ManageAppointments', this)">x</button>
@@ -543,11 +521,13 @@ function timeslot($aTime){
                                         $patient = $y["FirstName"] . " " . $y["LastName"];
                                         $date = $row['Date'];
                                         $time = $row['Hour'] . ':00';
+                                        $diagnosis = $row['Diagnosis'];
                                         echo "<div class='appointmentBox'>";
                                         echo 'Date: <text class="o3">' . $date . '</text> ';
                                         echo 'Time: <text class="o3">' . $time . '</text><br>';
                                         if ($type == 1) echo 'Doctor: <text class="p1">' . $staff . '</text>';
                                         else if ($type == 2) echo 'Patient: <text class="p1">' . $patient . '</text>';
+                                        echo '<br>System Diagnosis: <text class = "g1">'.$diagnosis.'</text>';
                                         echo '</div>';
                                     }
                                 }
@@ -577,12 +557,14 @@ function timeslot($aTime){
                                         $patient = $y["FirstName"] . " " . $y["LastName"];
                                         $date = $row['Date'];
                                         $time = $row['Hour'] . ':00';
+                                        $diagnosis = $row['Diagnosis'];
                                         echo "<div class='appointmentBox'>";
                                         echo '<input name = "appointments[]" type="checkbox" value="' . $row['_id'] . '" class = "selectBox">';
                                         echo 'Date: <text class="o3">' . $date . '</text> ';
                                         echo 'Time: <text class="o3">' . $time . '</text><br>';
                                         if ($type == 1) echo 'Doctor: <text class="p1">' . $staff . '</text>';
                                         else if ($type == 2) echo 'Patient: <text class="p1">' . $patient . '</text>';
+                                        echo '<br>System Diagnosis: <text class = "g1">'.$diagnosis.'</text>';
                                         echo '</div>';
                                     }
                                 }
@@ -598,70 +580,7 @@ function timeslot($aTime){
             </div>
         </div>
 
-        <?php
 
-
-        $conn = mysqli_connect('localhost','appbfdlk', 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLinkCSE360');
-
-        $sql = "SELECT * FROM UserData WHERE Type=1";
-        $res = $conn->query($sql);
-        $patientCount = $res->num_rows;
-
-        $sql = "SELECT * FROM UserData WHERE Type=1&&Gender LIKE 'm'";
-        $res = $conn->query($sql);
-        $male = $res->num_rows;
-
-        $sql = "SELECT * FROM UserData WHERE Type=1&&Gender LIKE 'f'";
-        $res = $conn->query($sql);
-        $female = $res->num_rows;
-
-
-        $sql = "SELECT * FROM UserData WHERE Type=2";
-        $res = $conn->query($sql);
-        $docCount = $res->num_rows;
-
-        $sql = "SELECT * FROM UserData WHERE Type=3";
-        $res = $conn->query($sql);
-        $staffCount = $res->num_rows;
-
-        $sql = "SELECT * FROM Appointments WHERE Date>=CURRENT_DATE";
-        $res = $conn->query($sql);
-        $aptCount = $res->num_rows;
-
-        $sql = "SELECT * FROM MedicalRecords";
-        $res = $conn->query($sql);
-        $recordCount = $res->num_rows;
-
-        $sql = "SELECT * FROM Conditions";
-        $res = $conn->query($sql);
-        $diagCount = $res->num_rows;
-
-        $sql = "SELECT * FROM Labwork WHERE Report IS NOT NULL";
-        $res = $conn->query($sql);
-        $labReport = $res->num_rows;
-
-        $sql = "SELECT * FROM Prescriptions";
-        $res = $conn->query($sql);
-        $prescriptions = $res->num_rows;
-
-
-        ?>
-
-        <div class = "subsection" <?php if ($type == 4) echo 'style="display:block;"'; ?>>
-            <center><h2>Statistical Report</h2></center>
-            <button class="showHideButton" onclick="showHide('StatInfo', this)">x</button>
-            <div class="sectionContent" id="StatInfo" style="display: block; max-height:none;">
-                <h3>Number of Patients</h3> <?php echo $patientCount. "   (". $male. " male ". $female." female)";?>
-                <h3>Number of Doctors</h3> <?php echo $docCount;?>
-                <h3>Number of Other Medical Staff</h3> <?php echo $staffCount;?>
-                <h3>Number of Future Appointments</h3> <?php echo $aptCount;?>
-                <h3>Number of Medical Record Entries</h3> <?php echo $recordCount;?>
-                <h3>Number of Diagnosis Issued</h3> <?php echo $diagCount;?>
-                <h3>Number of Lab Reports Created</h3> <?php echo $labReport;?>
-                <h3>Number of Prescriptions Issued</h3> <?php echo $prescriptions;?>
-            </div>
-
-        </div>
 
     </div>
 </div>

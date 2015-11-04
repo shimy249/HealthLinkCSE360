@@ -74,7 +74,7 @@ if($conn){
             </div>
         </div>
 
-
+        <!-- Patient Appointments -->
         <div class="subsection"<?php if ($type == 1 || $type == 2) echo 'style="display:block;"'; ?>>
             <center><h2>Patient Appointments</h2></center>
             <button class="showHideButton" onclick="showHide('ManageAppointments', this)">x</button>
@@ -155,15 +155,56 @@ if($conn){
             </div>
         </div>
 
-        <div class="subsection" <?php if ($type == 2 || $type ==3 || $type == 5) echo 'style="display:block;"'; ?>>
-            <center><h2>Patient Symptoms</h2></center>
+        <!-- Update Health Concerns -->
+        <div class="subsection" <?php if($type == 2 || $type == 5 || $type == 6) echo 'style="display:block;"'; ?>>
+            <center><h2>Add Health Concerns</h2></center>
+            <button class="showHideButton" onclick="showHide('AddHealthConcerns', this)">x</button>
+            <div class="sectionContent" id="AddHealthConcerns">
+                <form action="add_symptom.php" method="post">
+                    <input type="hidden" name="patientID" value="<?php echo $patientID?>">
+                    <input type = "hidden" name="source" value="patient_view.php?patient_ID=<?php echo $patientID?>">
+                    <div class="sectionLine">
+                        Symptom:
+                        <select class="sectionLineInput" name="Symptom" >
+                            <option>--Select--</option>
+                            <?php
+                            $fileName = 'AllSymptoms.txt';
+                            $fileContent = file($fileName);
+                            foreach($fileContent as $line) {
+                                echo '<option value="'.trim($line).'">'.$line.'</option>';
+                            }
+                            ?>
+                        </select>
+                    </div>
+                    <div class="sectionLine">
+                        Severity:
+                        <select class="sectionLineInput"  name="Severity" >
+                            <option>--Select--</option>
+                            <option value="1">1 - Hardly Noticeable</option>
+                            <option value="2">2 - Mild</option>
+                            <option value="3">3 - Moderate</option>
+                            <option value="4">4 - Severe</option>
+                            <option value="5">5 - Extreme</option>
+                        </select>
+                    </div>
+                    Additional Notes:
+                    <textarea id="AdditionalNotes" style="width: 100%;background-color:#F3F3F3" name="Notes"></textarea>
+                    <center><input type="submit" class="submitButton" value="Add Symptom"></center>
+                </form>
+            </div>
+        </div>
+
+        <!-- Current Health Concerns -->
+        <div class="subsection" <?php if ($type == 2 || $type ==3 || $type == 4 || $type == 5 || $type == 6) echo 'style="display:block;"'; ?>>
+            <center><h2>Current Health Concerns</h2></center>
             <button class="showHideButton" onclick="showHide('CurrentHealthConcerns', this)">x</button>
             <div class="sectionContent" id="CurrentHealthConcerns">
-                <form action="diagnosis.php" method="post">
+                <form action="cancel_symptoms.php" method="post">
+                    <input type = "hidden" name="source" value="patient_view.php?patient_ID=<?php echo $patientID?>">
                     <div class = "overflow">
                         <?php
                         $conn = mysqli_connect('localhost','appbfdlk', 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLinkCSE360');
-                        $sql = "SELECT * FROM Conditions WHERE PatientID='".$patientID."'";
+                        $sql = "SELECT * FROM Conditions WHERE PatientID='".$userID."'";
                         $result=$conn->query($sql);
                         if($result->num_rows>0){
                             while($row=$result->fetch_assoc()){
@@ -178,37 +219,16 @@ if($conn){
                         }
                         ?>
                     </div>
+                    <?php
+                    if ($type == 2 || $type == 5 || $type == 6)
+                        echo  '<center><input type = "submit" class = "submitButton" value = "Remove Symptoms"></center>';
+                    ?>
+
                 </form>
             </div>
         </div>
 
-        <div class="subsection" <?php if ($type == 2 || $type == 3 || $type == 4) echo 'style="display:block;"'; ?>>
-            <center><h2>Diagnosis Results</h2></center>
-            <button class="showHideButton" onclick="showHide('CurrentHealthConcerns', this)">x</button>
-            <div class="sectionContent" id="CurrentHealthConcerns">
-                <form action="diagnosis.php" method="post">
-                    <div class = "overflow">
-                        <?php
-                        $conn = mysqli_connect('localhost','appbfdlk', 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLinkCSE360');
-                        $sql = "SELECT * FROM Diagnosis WHERE PatientID='".$patientID."' ORDER BY Date DESC" ;
-                        $result=$conn->query($sql);
-                        if($result->num_rows>0){
-                            while($row=$result->fetch_assoc()){
-                                echo '<div class="appointmentBox">';
-                                echo '<input name="symptom[]" type="checkbox" value="'. $row["_id"].'" class = "selectBox">';
-                                echo 'Date: <text class="p1">'.$row['Date'].'</text>';
-                                echo '<br>Symptoms: <text class="o3">'.$row['Symptoms'].'</text>';
-                                echo '<br>';
-                                echo 'Possible Ailments: <text class="p1">'.$row['Disease'].'</text>';
-                                echo '</div>';
-                            }
-                        }
-                        ?>
-                    </div>
-                </form>
-            </div>
-        </div>
-
+        <!-- Add Medical Record -->
         <div class="subsection" <?php if ($type == 4) echo 'style="display:block;"'; ?>>
             <center><h2>Add Medical Record</h2></center>
             <button class="showHideButton" onclick="showHide('uploadFiles', this)">x</button>

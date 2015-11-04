@@ -12,6 +12,8 @@ if (!isset($_SESSION['userID'])) {header('Location: index.php'); return;}
 $user = $_SESSION["user"];
 $type = $_SESSION["type"];
 $userID = $_SESSION["userID"];
+$patientID = $_POST['patientID'];
+$source = $_POST['source'];
 $ts = getdate();
 $date = $ts[year].'-'.$ts[mon].'-'.$ts[mday];
 $symptom = $_POST['Symptom'];
@@ -22,7 +24,7 @@ echo $userID. $symptom. $severity. $notes. $date;
 
 if ($symptom == '' || $severity == ''){
     $_SESSION['notification'];
-    header('Location: homepage.php');
+    header("Location: ".$source);
     return;
 }
 
@@ -30,7 +32,7 @@ $conn = mysqli_connect('localhost' , 'appbfdlk' , 'ohDAUdCL4AQZ0', 'appbfdlk_Hea
 if($conn) {
     $sql = "INSERT INTO Conditions(PatientID, Symptom,Severity, Notes, Date) VALUES ('$userID', '$symptom', '$severity', '$notes', '$date')";
     $conn->query($sql);
-    header('Location: homepage.php?');
+    header("Location: ".$source);
     echo mysqli_error($conn);
 }
 else
