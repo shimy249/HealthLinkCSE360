@@ -160,7 +160,7 @@ if($conn){
                     <input type = "hidden" name="source" value="patient_view.php?patient_ID=<?php echo $patientID?>">
                     <div class="sectionLine">
                         Symptom:
-                        <select class="sectionLineInput" name="Symptom" >
+                        <select class="sectionLineInput" required name="Symptom" >
                             <option>--Select--</option>
                             <?php
                             $conn = mysqli_connect('localhost' , 'appbfdlk' , 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLinkCSE360');
@@ -176,7 +176,7 @@ if($conn){
                     </div>
                     <div class="sectionLine">
                         Severity:
-                        <select class="sectionLineInput"  name="Severity" >
+                        <select class="sectionLineInput" required  name="Severity" >
                             <option>--Select--</option>
                             <option value="1">1 - Hardly Noticeable</option>
                             <option value="2">2 - Mild</option>
@@ -234,7 +234,7 @@ if($conn){
                 <form action="uploadFile.php" method="post" enctype="multipart/form-data">
                     <div class="sectionLine">
                         File:
-                        <input type="file" class="sectionLineInput" style = "width: 300" name="file">
+                        <input type="file" class="sectionLineInput" required style = "width: 300" name="file">
                     </div>
                     <input type="hidden" name="patId" <?php echo "value='".$_GET["patient_ID"]."'" ?> >
                     Notes:
@@ -284,10 +284,10 @@ if($conn){
                     <input name = "doctorID" type = "hidden" value = "<?php echo $userID; ?>">
                     <div class = "sectionLine">
                         Medication Name:
-                        <input name = "medication" type = "text" class = "sectionLineInput" style = "width: 220px">
+                        <input name = "medication" type = "text" class = "sectionLineInput" required style = "width: 220px">
                     </div>
                     Presription Instructions:<br>
-                    <textarea name = "instructions" type = "text" style = "width: 100%; height: 100px;font-size:inherit;">Strength: &#13;&#10;Form: &#13;&#10;Quantity: &#13;&#10;Dosage: &#13;&#10;Refills: &#13;&#10;Additional Instructions: </textarea>
+                    <textarea name = "instructions" required style = "width: 100%; height: 100px;font-size:inherit;">Strength: &#13;&#10;Form: &#13;&#10;Quantity: &#13;&#10;Dosage: &#13;&#10;Refills: &#13;&#10;Additional Instructions: </textarea>
 
                     <br>
                     <center><input type = "submit" class = "submitButton" value = "Prescribe Medication"></center>
@@ -329,11 +329,11 @@ if($conn){
                     <input name = "doctorID" type = "hidden" value = "<?php echo $userID; ?>">
                     <div class = "sectionLine">
                         Labwork Title:
-                        <input name = "title" type = "text" class = "sectionLineInput" style = "width: 270px">
+                        <input name = "title" type = "text" class = "sectionLineInput" required style = "width: 270px">
                     </div>
                     <div class = "sectionLine">
                         Description <br>for Lab:
-                        <textarea name = "description" type = "text" class = "sectionLineInput" style = "width: 270px"></textarea>
+                        <textarea name = "description" required class = "sectionLineInput" required style = "width: 270px"></textarea>
                     </div>
                     <br>
                     <center><input type = "submit" class = "submitButton" value = "Request Labwork"></center>

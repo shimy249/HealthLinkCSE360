@@ -8,10 +8,7 @@
 session_start();
 ob_start();
 date_default_timezone_set ('America/Phoenix');
-if (!isset($_SESSION['userID'])) {header('Location: index.php'); return;}
-if (isset($_SESSION['user'])) unset($_SESSION['user']);
-if (isset($_SESSION['type'])) unset($_SESSION['type']);
-if (isset($_SESSION['userID'])) unset($_SESSION['userID']);
+session_destroy();
 $_SESSION['notification'] = 'You have been logged out.';
 header('Location: index.php');
 ?>

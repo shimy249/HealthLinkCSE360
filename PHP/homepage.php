@@ -95,79 +95,79 @@ function timeslot($aTime){
                     <div class = overflow>
                         <div class="sectionLine">
                             First Name:
-                            <input type="text" class="sectionLineInput" name="profile_FirstName" value = "<?php echo $userRow['FirstName'];?>">
+                            <input type="text" class="sectionLineInput" required name="profile_FirstName" value = "<?php echo $userRow['FirstName'];?>">
                         </div>
                         <div class="sectionLine">
                             Last Name:
-                            <input type="text" class="sectionLineInput" name="profile_LastName" value = "<?php echo $userRow['LastName'];?>">
+                            <input type="text" class="sectionLineInput" required name="profile_LastName" value = "<?php echo $userRow['LastName'];?>">
                         </div>
                         <div class="sectionLine">
                             Email Address:
-                            <input type="text" class="sectionLineInput" name="profile_Email" value = "<?php echo $userRow['Email'];?>">
+                            <input type="text" class="sectionLineInput" required name="profile_Email" value = "<?php echo $userRow['Email'];?>">
                         </div>
                         <div class="sectionLine">
                             Username:
-                            <input type="text" class="sectionLineInput" name="profile_Username" value = "<?php echo $userRow['UserName'];?>">
+                            <input type="text" class="sectionLineInput" required name="profile_Username" value = "<?php echo $userRow['UserName'];?>">
                         </div>
                         <div class="sectionLine">
                             Password:
-                            <input type="text" class="sectionLineInput" name="profile_Password" value = "<?php echo $userRow['Password'];?>" >
+                            <input type="text" class="sectionLineInput" required name="profile_Password" value = "<?php echo $userRow['Password'];?>" >
                         </div>
                         <div class="sectionLine">
                             Date Of Birth:
-                            <input type = "date" name="profile_DateOfBirth" min = "<?php echo ($ts[year] - 100).'-'.$ts[mon].'-'.$ts[mday];?>" value = "<?php echo $userRow['DOB'];?>" max = "<?php echo ($ts[year] -18).'-'.$ts[mon].'-'.$ts[mday];?>" class = "sectionLineInput">
+                            <input type = "date" name="profile_DateOfBirth" min = "<?php echo ($ts[year] - 100).'-'.$ts[mon].'-'.$ts[mday];?>" value = "<?php echo $userRow['DOB'];?>" max = "<?php echo ($ts[year] -18).'-'.$ts[mon].'-'.$ts[mday];?>" class = "sectionLineInput" required>
                         </div>
                         <div class="sectionLine">
                             Social Security Number:
-                            <input type="text" class="sectionLineInput" name="profile_SocialSecurity" value = "<?php echo $userRow['SSN'];?>">
+                            <input type="text" class="sectionLineInput" required name="profile_SocialSecurity" value = "<?php echo $userRow['SSN'];?>">
                         </div>
                         <div class="sectionLine">
                             Gender:
-                            <select class="sectionLineInput" name="profile_Gender"><option value = "M">Male</option><option value = "F">Female</option></select>
+                            <select class="sectionLineInput" required name="profile_Gender"><option value = "M">Male</option><option value = "F">Female</option></select>
                         </div>
                         <div class="sectionLine">
                             Street Address:
-                            <input type="text" class="sectionLineInput" name="profile_Address" value = "<?php echo $userRow['Address'];?>">
+                            <input type="text" class="sectionLineInput" required name="profile_Address" value = "<?php echo $userRow['Address'];?>">
                         </div>
                         <div class="sectionLine">
                             City:
-                            <input type="text" class="sectionLineInput" name="profile_City" value = "<?php echo $userRow['City'];?>">
+                            <input type="text" class="sectionLineInput" required name="profile_City" value = "<?php echo $userRow['City'];?>">
                         </div>
                         <div class="sectionLine">
                             State:
-                            <select name="profile_State" class="sectionLineInput">	<option value="AL">AL</option>	<option value = "" checked = 1>--Select--</option><option value="AK">AK</option>	<option value="AZ">AZ</option>	<option value="AR">AR</option>	<option value="CA">CA</option>	<option value="CO">CO</option>	<option value="CT">CT</option>	<option value="DE">DE</option>	<option value="DC">DC</option>	<option value="FL">FL</option>	<option value="GA">GA</option>	<option value="HI">HI</option>	<option value="ID">ID</option>	<option value="IL">IL</option>	<option value="IN">IN</option>	<option value="IA">IA</option>	<option value="KS">KS</option>	<option value="KY">KY</option>	<option value="LA">LA</option>	<option value="ME">ME</option>	<option value="MD">MD</option>	<option value="MA">MA</option>	<option value="MI">MI</option>	<option value="MN">MN</option>	<option value="MS">MS</option>	<option value="MO">MO</option>	<option value="MT">MT</option>	<option value="NE">NE</option>	<option value="NV">NV</option>	<option value="NH">NH</option>	<option value="NJ">NJ</option>	<option value="NM">NM</option>	<option value="NY">NY</option>	<option value="NC">NC</option>	<option value="ND">ND</option>	<option value="OH">OH</option>	<option value="OK">OK</option>	<option value="OR">OR</option>	<option value="PA">PA</option>	<option value="RI">RI</option>	<option value="SC">SC</option>	<option value="SD">SD</option>	<option value="TN">TN</option>	<option value="TX">TX</option>	<option value="UT">UT</option>	<option value="VT">VT</option>	<option value="VA">VA</option>	<option value="WA">WA</option>	<option value="WV">WV</option>	<option value="WI">WI</option>	<option value="WY">WY</option></select>
+                            <select name="profile_State" class="sectionLineInput" required>	<option value="AL">AL</option>	<option value = "" checked = 1>--Select--</option><option value="AK">AK</option>	<option value="AZ">AZ</option>	<option value="AR">AR</option>	<option value="CA">CA</option>	<option value="CO">CO</option>	<option value="CT">CT</option>	<option value="DE">DE</option>	<option value="DC">DC</option>	<option value="FL">FL</option>	<option value="GA">GA</option>	<option value="HI">HI</option>	<option value="ID">ID</option>	<option value="IL">IL</option>	<option value="IN">IN</option>	<option value="IA">IA</option>	<option value="KS">KS</option>	<option value="KY">KY</option>	<option value="LA">LA</option>	<option value="ME">ME</option>	<option value="MD">MD</option>	<option value="MA">MA</option>	<option value="MI">MI</option>	<option value="MN">MN</option>	<option value="MS">MS</option>	<option value="MO">MO</option>	<option value="MT">MT</option>	<option value="NE">NE</option>	<option value="NV">NV</option>	<option value="NH">NH</option>	<option value="NJ">NJ</option>	<option value="NM">NM</option>	<option value="NY">NY</option>	<option value="NC">NC</option>	<option value="ND">ND</option>	<option value="OH">OH</option>	<option value="OK">OK</option>	<option value="OR">OR</option>	<option value="PA">PA</option>	<option value="RI">RI</option>	<option value="SC">SC</option>	<option value="SD">SD</option>	<option value="TN">TN</option>	<option value="TX">TX</option>	<option value="UT">UT</option>	<option value="VT">VT</option>	<option value="VA">VA</option>	<option value="WA">WA</option>	<option value="WV">WV</option>	<option value="WI">WI</option>	<option value="WY">WY</option></select>
                         </div>
                         <div class="sectionLine">
                             Zip:
-                            <input type="text" class="sectionLineInput" name="profile_Zip" value = "<?php echo $userRow['Zip'];?>">
+                            <input type="text" class="sectionLineInput" required name="profile_Zip" value = "<?php echo $userRow['Zip'];?>">
                         </div>
                         <div class="sectionLine">
                             Phone:
-                            <input type="text" class="sectionLineInput" name="profile_Phone" value = "<?php echo $userRow['Phone'];?>">
+                            <input type="text" class="sectionLineInput" required name="profile_Phone" value = "<?php echo $userRow['Phone'];?>">
                         </div>
                         <div class="sectionLine">
                             Security Question 1:
-                            <input type="text" class="sectionLineInput" name="profile_Question1" value = "<?php echo $userRow['q1'];?>" >
+                            <input type="text" class="sectionLineInput" required name="profile_Question1" value = "<?php echo $userRow['q1'];?>" >
                         </div>
                         <div class="sectionLine">
                             Security Answer 1:
-                            <input type="text" class="sectionLineInput" name="profile_Answer1" value = "<?php echo $userRow['a1'];?>" >
+                            <input type="text" class="sectionLineInput" required name="profile_Answer1" value = "<?php echo $userRow['a1'];?>" >
                         </div>
                         <div class="sectionLine">
                             Security Question 2:
-                            <input type="text" class="sectionLineInput" name="profile_Question2" value = "<?php echo $userRow['q2'];?>" >
+                            <input type="text" class="sectionLineInput" required name="profile_Question2" value = "<?php echo $userRow['q2'];?>" >
                         </div>
                         <div class="sectionLine">
                             Security Answer 2:
-                            <input type="text" class="sectionLineInput" name="profile_Answer2" value = "<?php echo $userRow['a2'];?>" >
+                            <input type="text" class="sectionLineInput" required name="profile_Answer2" value = "<?php echo $userRow['a2'];?>" >
                         </div>
                         <div class="sectionLine">
                             Security Question 3:
-                            <input type="text" class="sectionLineInput" name="profile_Question3" value = "<?php echo $userRow['q3'];?>" >
+                            <input type="text" class="sectionLineInput" required name="profile_Question3" value = "<?php echo $userRow['q3'];?>" >
                         </div>
                         <div class="sectionLine">
                             Security Answer 3:
-                            <input type="text" class="sectionLineInput" name="profile_Answer3"  value = "<?php echo $userRow['a3'];?>">
+                            <input type="text" class="sectionLineInput" required name="profile_Answer3"  value = "<?php echo $userRow['a3'];?>">
                         </div>
 
                     </div>
@@ -184,7 +184,7 @@ function timeslot($aTime){
                 <form action="patient_view.php" method = "get">
                     <div class = "sectionLine">
                         Patient:
-                        <select name="patient_ID" class = "sectionLineInput" style = "width: 250px">
+                        <select name="patient_ID" class = "sectionLineInput" required style = "width: 250px">
                             <?php
                             $conn = mysqli_connect('localhost','appbfdlk', 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLinkCSE360');
                             $sql = "SELECT * FROM UserData WHERE Type = '1'";
@@ -211,10 +211,10 @@ function timeslot($aTime){
                 <h3>Book a Vacation</h3>
                 <form action="schedule_vacation.php" method="post">
                     <div class = "sectionLine">
-                        Start Date: <input type = "date" name="startDate" min = "<?php echo $ts[year].'-'.$ts[mon].'-'.$ts[mday];?>" value = "<?php echo $ts[year].'-'.$ts[mon].'-'.$ts[mday];?>" max = "<?php echo ($ts[year] + 1).'-'.$ts[mon].'-'.$ts[mday];?>" class = "sectionLineInput">
+                        Start Date: <input type = "date" name="startDate" min = "<?php echo $ts[year].'-'.$ts[mon].'-'.$ts[mday];?>" value = "<?php echo $ts[year].'-'.$ts[mon].'-'.$ts[mday];?>" max = "<?php echo ($ts[year] + 1).'-'.$ts[mon].'-'.$ts[mday];?>" class = "sectionLineInput" required>
                     </div>
                     <div class = "sectionLine">
-                        End Date: <input type = "date" name="endDate" min = "<?php echo $ts[year].'-'.$ts[mon].'-'.$ts[mday];?>" value = "<?php echo $ts[year].'-'.$ts[mon].'-'.$ts[mday];?>" max = "<?php echo ($ts[year] + 1).'-'.$ts[mon].'-'.$ts[mday];?>" class = "sectionLineInput">
+                        End Date: <input type = "date" name="endDate" min = "<?php echo $ts[year].'-'.$ts[mon].'-'.$ts[mday];?>" value = "<?php echo $ts[year].'-'.$ts[mon].'-'.$ts[mday];?>" max = "<?php echo ($ts[year] + 1).'-'.$ts[mon].'-'.$ts[mday];?>" class = "sectionLineInput" required>
                     </div>
                     <center><input type = "submit" class="submitButton" value = "Schedule Vacation"></center>
                 </form>
@@ -253,7 +253,7 @@ function timeslot($aTime){
                     <input type = "hidden" name="source" value="homepage.php">
                     <div class="sectionLine">
                         Symptom:
-                        <select class="sectionLineInput" name="Symptom" >
+                        <select class="sectionLineInput" required name="Symptom" >
                             <option>--Select--</option>
                             <?php
                             $conn = mysqli_connect('localhost' , 'appbfdlk' , 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLinkCSE360');
@@ -269,7 +269,7 @@ function timeslot($aTime){
                     </div>
                     <div class="sectionLine">
                         Severity:
-                        <select class="sectionLineInput"  name="Severity" >
+                        <select class="sectionLineInput" required  name="Severity" >
                             <option>--Select--</option>
                             <option value="1">1 - Hardly Noticeable</option>
                             <option value="2">2 - Mild</option>
@@ -501,7 +501,7 @@ function timeslot($aTime){
                 <form action="appointment_page.php" method="post">
                     <div class="sectionLine">
                         Primary Symptom:
-                        <select class="sectionLineInput" name="symptom" >
+                        <select class="sectionLineInput" required name="symptom" >
                             <option>--Select--</option>
                             <?php
                             $conn = mysqli_connect('localhost' , 'appbfdlk' , 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLinkCSE360');
