@@ -256,10 +256,13 @@ function timeslot($aTime){
                         <select class="sectionLineInput" name="Symptom" >
                             <option>--Select--</option>
                             <?php
-                            $fileName = 'AllSymptoms.txt';
-                            $fileContent = file($fileName);
-                            foreach($fileContent as $line) {
-                                echo '<option value="'.trim($line).'">'.$line.'</option>';
+                            $conn = mysqli_connect('localhost' , 'appbfdlk' , 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLinkCSE360');
+                            $sql = "SELECT * FROM AllSymptoms ORDER BY Name";
+                            $result = $conn->query($sql);
+                            if ($result->num_rows>0){
+                                while ($row = $result->fetch_assoc()){
+                                    echo '<option value = "'.$row['Name'].'">'.$row['Name'].'</option>';
+                                }
                             }
                             ?>
                         </select>
@@ -501,10 +504,13 @@ function timeslot($aTime){
                         <select class="sectionLineInput" name="symptom" >
                             <option>--Select--</option>
                             <?php
-                            $fileName = 'AllSymptoms.txt';
-                            $fileContent = file($fileName);
-                            foreach($fileContent as $line) {
-                                echo '<option value="'.trim($line).'">'.$line.'</option>';
+                            $conn = mysqli_connect('localhost' , 'appbfdlk' , 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLinkCSE360');
+                            $sql = "SELECT * FROM AllSymptoms ORDER BY Name";
+                            $result = $conn->query($sql);
+                            if ($result->num_rows>0){
+                                while ($row = $result->fetch_assoc()){
+                                    echo '<option value = "'.$row['Name'].'">'.$row['Name'].'</option>';
+                                }
                             }
                             ?>
                         </select>

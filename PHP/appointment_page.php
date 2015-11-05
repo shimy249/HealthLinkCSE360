@@ -13,7 +13,7 @@ $conn = new mysqli('localhost', 'appbfdlk', 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLin
 $symptom;
 $diseaseID ;
 if(isset($_POST['symptom'])){
-    $symptom = $_POST['symptom'];
+    $symptom = trim($_POST['symptom']);
 }
 
 if(isset($_SESSION['diseaseID'])){
@@ -21,6 +21,8 @@ if(isset($_SESSION['diseaseID'])){
     $form = 2;
 }
 
+echo $symptom;
+echo 'hello';
 if (!isset($_SESSION['userID'])) {header('Location: index.php'); return;}
 $user = $_SESSION["user"];
 $type = $_SESSION["type"];
