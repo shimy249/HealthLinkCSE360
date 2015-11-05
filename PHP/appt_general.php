@@ -9,6 +9,7 @@
 session_start();
 ob_start();
 date_default_timezone_set ('America/Phoenix');
+$conn = new mysqli('localhost', 'appbfdlk', 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLinkCSE360');
 if (!isset($_SESSION['userID'])) {header('Location: index.php'); return;}
 $user = $_SESSION["user"];
 $type = $_SESSION["type"];
@@ -86,11 +87,20 @@ function timeslot($aTime){
         <div class="sectionContent" id="ScheduleAppointment">
             <form action="appt_general.php" method="post">
                 <input type = "hidden" name = "step" value = "3">
+                <?php
+                if ($diseaseID>0){
+                    $sql = "SELECT * FROM DiseaseDefinitions WHERE _id='".$diseaseID."'";
+                    $result = $conn->query($sql);
+                    if ($result->num_rows>0){
+                        $row = $result->fetch_assoc();
+                         echo 'The symptoms you have entered match those of the disease: <text class="p1">'.$row['Name'].'</text>. Please schedule a doctor below:<br><br>';
+                    }
+                }
+                ?>
                 <div class="sectionLine">
                     Select a Doctor:
                     <select class="sectionLineInput" name="schedule_Doctor" >
                         <?php
-                        $conn = new mysqli('localhost', 'appbfdlk', 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLinkCSE360');
                         $sql = "SELECT * FROM UserData WHERE Type = 2";
                         $result = $conn->query($sql);
                         if($result->num_rows>0) {

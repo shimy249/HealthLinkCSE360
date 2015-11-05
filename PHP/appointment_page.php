@@ -91,9 +91,9 @@ $three_days = $now + (3*24*60*60)
         $row = $result->fetch_assoc();
         ?>
         <form action="schedule_emergency.php" method = "post">
-            The symptoms you selected match the known symptoms for the condition: <?php echo $row['Name']?>.
+            The symptoms you selected match the known symptoms for the condition: <text class="p1"><?php echo $row['Name']?></text>.
             We suggest that you schedule an appointment with our emergency ward.
-            However, if you would prefer you may also schedule a general doctor appointment by clicking <a href = "appt_general.php?diseaseID=<?php echo $diseaseID?>">here</a>.
+            However, if you would prefer you may also schedule a general doctor appointment by clicking <a class = "g1" href = "appt_general.php?diseaseID=<?php echo $diseaseID?>">here</a>.
             Please fill out the information below to schedule an emergency appointment:<br><br>
             <div class = "sectionLine">
                 Estimated Time of Arrival:
