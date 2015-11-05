@@ -30,7 +30,7 @@ if ($symptom == '' || $severity == ''){
 
 $conn = mysqli_connect('localhost' , 'appbfdlk' , 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLinkCSE360');
 if($conn) {
-    $sql = "INSERT INTO Conditions(PatientID, Symptom,Severity, Notes, Date) VALUES ('$userID', '$symptom', '$severity', '$notes', '$date')";
+    $sql = "INSERT INTO Conditions(PatientID, Symptom,Severity, Notes, Date) VALUES ('$patientID', '$symptom', '$severity', '$notes', '$date')";
     $conn->query($sql);
     header("Location: ".$source);
     echo mysqli_error($conn);

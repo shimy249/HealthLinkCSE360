@@ -60,10 +60,16 @@ $Doctor = $result->fetch_assoc();
 
     <div class = "subsection" style="display: block; margin: 0 auto; width: 400px; top: 25px;padding-right:10px;padding-bottom: 10px;">
         <center><h2>Electronic Prescription - Interactive Patient Management System</h2></center>
-        <h3>Patient</h3> <?php echo $Patient['FirstName'] .' '.$Patient['LastName'] ;?>
+        <h3>Patient</h3>
+        <?php
+        echo $Patient['FirstName'] .' '.$Patient['LastName'].'<br>' ;
+        echo $Patient['Address'] .', '.$Patient['City'].', ' .$Patient['State'].' '.$patient['Zip'] ;
+        echo '<br>DOB: '.$Patient['DOB'];
+        ?>
         <h3>Doctor</h3> <?php echo $Doctor['FirstName'] .' '.$Doctor['LastName'] ;?>
         <h3>Date</h3> <?php echo $Prescription['Date'];?>
         <h3>Pharmacy Instructions</h3>Drug: <?php echo $Prescription['Medication'];?><br> <?php echo $Prescription['Instructions'];?>
+        <center><button class="submitButton" onclick="window.print();">Print Prescription</button></center>
     </div>
 
 

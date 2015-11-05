@@ -122,6 +122,7 @@ if (isset($_POST['modify_id'])) $modifyID = $_POST['modify_id'];
                         <input type="text" class="sectionLineInput" name="profile_Answer3" >
                     </div>
                     <div class="sectionLine">
+                        User Role:
                         <select name = "profile_Type" class = "sectionLineInput">
                             <option value = '1'>Patient</option>
                             <option value = '2'>Doctor</option>
@@ -253,15 +254,16 @@ if (isset($_POST['modify_id'])) $modifyID = $_POST['modify_id'];
                             Security Answer 3:
                             <input type="text" class="sectionLineInput" name="profile_Answer3"  value = "<?php echo $userRow['a3'];?>">
                         </div>
-                        <div class ="sectionLine">
+                        <div class ="sectionLine" <?php if ($userRow['Type']==7) echo 'style="display:none;"'?>>
+                            User Role:
                             <select name = "profile_Type" class = "sectionLineInput">
-                                <option value = '1'>Patient</option>
-                                <option value = '2'>General Doctor</option>
-                                <option value = '3'>Lab Technician</option>
-                                <option value = '4'>Staff</option>
-                                <option value = '5'>Nurse</option>
-                                <option value = '6'>Emergency Doctor</option>
-                                <option value = '7'>Admin</option>
+                                <option value = '1' <?php if ($userRow['Type']==1) echo 'selected'?>>Patient</option>
+                                <option value = '2' <?php if ($userRow['Type']==2) echo 'selected'?>>General Doctor</option>
+                                <option value = '3' <?php if ($userRow['Type']==3) echo 'selected'?>>Lab Technician</option>
+                                <option value = '4' <?php if ($userRow['Type']==4) echo 'selected'?>>Staff</option>
+                                <option value = '5' <?php if ($userRow['Type']==5) echo 'selected'?>>Nurse</option>
+                                <option value = '6' <?php if ($userRow['Type']==6) echo 'selected'?>>Emergency Doctor</option>
+                                <option value = '7' <?php if ($userRow['Type']==7) echo 'selected'?>>Admin</option>
                             </select>
                         </div>
                         <center><input type="submit"  class="submitButton" value="Update Information" action=""></center>

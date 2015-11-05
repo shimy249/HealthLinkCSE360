@@ -16,6 +16,8 @@ if(isset($_SESSION['diseaseID'])){
 $schedule_DoctorName;
 $ts = getdate();
 $date = $ts[year].'-'.$ts[mon].'-'.$ts[mday];
+$time = $ts[hours].':'.$ts[minutes].':'.$ts[seconds];
+$now = $date.' '.$time;
 $refreshApt;
 if(isset($_POST['schedule_Doctor']) && isset($_POST['schedule_Doctor'])) $refreshApt = true;
 if(refreshApt){
@@ -227,11 +229,8 @@ function timeslot($aTime){
                             while($row=$result->fetch_assoc()){
                                 echo "<div class='appointmentBox'>";
                                 echo '<input name = "vacations[]" type="checkbox" value="'.$row['_id'].'" class = "selectBox" style="top:3px;">';
-                                echo '<span style="display:inline-block; width: 30px;"></span>';
-                                echo '<div style = "display:inline-block;">';
-                                echo 'Start Date: <text class="p1">'.$row['StartDate'].'</text> ';
-                                echo 'End Date: <text class="p1">'.$row['EndDate'].'</text><br>';
-                                echo '</div>';
+                                echo 'Start Date: <text class="o3">'.$row['StartDate'].'</text> ';
+                                echo 'End Date: <text class="o3">'.$row['EndDate'].'</text><br>';
                                 echo '</div>';
                             }
                         }
@@ -334,7 +333,7 @@ function timeslot($aTime){
                             echo '<div class="appointmentBox">';
                             echo 'Labwork Title: <text class = "p1">'.$row['Title'].'</text>';
                             echo '<br>Description: <text class = "p1">'.$row['Description'].'</text>';
-                            echo '<br><a style = "color:#00B74A;" href = "view_labwork.php?labworkID='.$row['_id'].'">Complete Lab Report</a>';
+                            echo '<br><a class = "g1" href = "view_labwork.php?labworkID='.$row['_id'].'">Complete Lab Report</a>';
                             echo '</div>';
                         }
                     }
@@ -359,7 +358,7 @@ function timeslot($aTime){
                             echo '<div class="appointmentBox">';
                             echo 'Labwork Title: <text class = "p1">'.$row['Title'].'</text>';
                             echo '<br>Description: <text class = "p1">'.$row['Description'].'</text>';
-                            echo '<br><a style = "color:#00B74A;" href = "view_labwork.php?labworkID='.$row['_id'].'">Edit Lab Report</a>';
+                            echo '<br><a class = "g1" href = "view_labwork.php?labworkID='.$row['_id'].'">Edit Lab Report</a>';
                             echo '</div>';
                         }
                     }
@@ -384,7 +383,7 @@ function timeslot($aTime){
                             echo '<div class="appointmentBox">';
                             echo 'Date: <text class = "p1">'.$row['Date'].'</text> ';
                             echo 'Medication: <text class = "p1">'.$row['Medication'].'</text> ';
-                            echo '<br><a style = "color:#00B74A;" href = "view_prescription.php?prescriptionID='.$row['_id'].'">View/Print Prescription</a>';
+                            echo '<br><a class = "g1" href = "view_prescription.php?prescriptionID='.$row['_id'].'">View/Print Prescription</a>';
                             echo '</div>';
                         }
                     }
@@ -410,8 +409,8 @@ function timeslot($aTime){
                             echo '<div class="appointmentBox">';
                             echo 'Labwork Title: <text class = "p1">'.$row['Title'].'</text>';
                             echo '<br>Description: <text class = "p1">'.$row['Description'].'</text>';
-                            if ($type==2) echo '<br><a style = "color:#00B74A;" href = "view_labwork.php?labworkID='.$row['_id'].'">Edit Lab Report</a>';
-                            else echo '<br><a style = "color:#00B74A;" href = "view_labwork.php?labworkID='.$row['_id'].'">View Lab Report</a>';
+                            if ($type==2) echo '<br><a class = "g1" href = "view_labwork.php?labworkID='.$row['_id'].'">Edit Lab Report</a>';
+                            else echo '<br><a class = "g1" href = "view_labwork.php?labworkID='.$row['_id'].'">View Lab Report</a>';
                             echo '</div>';
                         }
                     }
@@ -429,7 +428,7 @@ function timeslot($aTime){
                             echo '<div class="appointmentBox">';
                             echo 'Labwork Title: <text class = "p1">'.$row['Title'].'</text>';
                             echo '<br>Description: <text class = "p1">'.$row['Description'].'</text>';
-                            if ($type==2) echo '<br><a style = "color:#00B74A;" href = "view_labwork.php?labworkID='.$row['_id'].'">Complete Lab Report</a>';
+                            if ($type==2) echo '<br><a class = "g1" href = "view_labwork.php?labworkID='.$row['_id'].'">Complete Lab Report</a>';
                             echo '</div>';
                         }
                     }
@@ -440,14 +439,15 @@ function timeslot($aTime){
         </div>
 
         <!-- Alerts -->
-        <div class="subsection" <?php if ($type == 2) echo 'style="display:block;"'; ?>>
+        <div class="subsection" <?php if ($type == 6) echo 'style="display:block;"'; ?>>
             <center><h2>Emergency Ward</h2></center>
             <button class="showHideButton" onclick="showHide('Alerts', this)">x</button>
             <div class="sectionContent" id="Alerts">
+                <h3>Incoming Patients</h3>
                 <div class = "overflow">
                     <?php
                     $conn = mysqli_connect('localhost','appbfdlk', 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLinkCSE360');
-                    $sql = "SELECT * FROM EmergencyAppointments ORDER BY Date DESC";
+                    $sql = "SELECT * FROM EmergencyAppointments WHERE DateTime > '".$now."'ORDER BY Datetime DESC";
                     $result=$conn->query($sql);
                     if($result->num_rows > 0){
                         while($row = $result->fetch_assoc()){
@@ -456,9 +456,31 @@ function timeslot($aTime){
                             $y = $x->fetch_assoc();
                             $name = $y['FirstName']. ' '.$y['LastName'];
                             echo '<div class="appointmentBox">';
-                            echo 'Patient: <text class = "p1">'.$name.'</text>';
-                            echo '<br>Arriving: <text class = "o3">'.$row['Date'].'</text>'.' at '.'<text class = "o3">'.$row['Time'].'</text>';
-                            echo '<br>System Diagnosis: <text class = "p1">'.$row['Diagnosis'].'</text>';
+                            echo '<text class = "p1">'.$name.'</text> ';
+                            echo 'ETA: [<text class = "o3">'.$row['Date'].'</text>]'.'  '.'[<text class = "o3">'.$row['Time'].'</text>]';
+                            echo '<br>System Diagnosis: <text class = "b2">'.$row['Diagnosis'].'</text>';
+                            echo '</div>';
+                        }
+                    }
+                    echo mysqli_error($conn);
+                    ?>
+                </div>
+                <h3>Past Visits</h3>
+                <div class = "overflow">
+                    <?php
+                    $conn = mysqli_connect('localhost','appbfdlk', 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLinkCSE360');
+                    $sql = "SELECT * FROM EmergencyAppointments WHERE Datetime <= '".$now."'ORDER BY Datetime DESC";
+                    $result=$conn->query($sql);
+                    if($result->num_rows > 0){
+                        while($row = $result->fetch_assoc()){
+                            $sql = "SELECT * FROM UserData WHERE _id ='".$row['PatientID']."'";
+                            $x = $conn->query($sql);
+                            $y = $x->fetch_assoc();
+                            $name = $y['FirstName']. ' '.$y['LastName'];
+                            echo '<div class="appointmentBox">';
+                            echo '<text class = "p1">'.$name.'</text> ' ;
+                            echo 'ETA: [<text class = "o3">'.$row['Date'].'</text>]'.' '.'[<text class = "o3">'.$row['Time'].'</text>]';
+                            echo '<br>System Diagnosis: <text class = "b2">'.$row['Diagnosis'].'</text>';
                             echo '</div>';
                         }
                     }
@@ -500,7 +522,7 @@ function timeslot($aTime){
             <div class="sectionContent" id="ManageAppointments">
                 <form action="cancel_appointment.php" method="post">
                     <h3>Past Appointments</h3>
-                    <div class = "overflow" style="max-height: 150px;">
+                    <div class = "overflow" style="max-height: 200px;">
                         <?php
                         $conn = mysqli_connect('localhost','appbfdlk', 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLinkCSE360');
                         $sql = '';
@@ -527,7 +549,7 @@ function timeslot($aTime){
                                         echo 'Time: <text class="o3">' . $time . '</text><br>';
                                         if ($type == 1) echo 'Doctor: <text class="p1">' . $staff . '</text>';
                                         else if ($type == 2) echo 'Patient: <text class="p1">' . $patient . '</text>';
-                                        echo '<br>System Diagnosis: <text class = "g1">'.$diagnosis.'</text>';
+                                        echo '<br>System Diagnosis: <text class = "b2">'.$row['Diagnosis'].'</text>';
                                         echo '</div>';
                                     }
                                 }
@@ -536,7 +558,7 @@ function timeslot($aTime){
                         ?>
                     </div>
                     <h3>Upcoming Appointments</h3>
-                    <div class = "overflow" style="max-height: 150px;">
+                    <div class = "overflow" style="max-height: 250px;">
                         <?php
                         $conn = mysqli_connect('localhost','appbfdlk', 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLinkCSE360');
                         $sql = '';
@@ -564,7 +586,7 @@ function timeslot($aTime){
                                         echo 'Time: <text class="o3">' . $time . '</text><br>';
                                         if ($type == 1) echo 'Doctor: <text class="p1">' . $staff . '</text>';
                                         else if ($type == 2) echo 'Patient: <text class="p1">' . $patient . '</text>';
-                                        echo '<br>System Diagnosis: <text class = "g1">'.$diagnosis.'</text>';
+                                        echo '<br>System Diagnosis: <text class = "b2">'.$row['Diagnosis'].'</text>';
                                         echo '</div>';
                                     }
                                 }

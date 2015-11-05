@@ -1,12 +1,12 @@
 	body{
-		background-color: #333333;
+		background-color: #393939;
 		font-size: 14px;
 		font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
 
 	}
 	.main{
 		position: relative;
-		background-color: #333333;
+		background-color: inherit;
 		padding: 10px;
 		width: 810px;
 
@@ -21,13 +21,19 @@
 		position: absolute;
 		width: 400px;
 	}
+	textarea{
+		width:100%;
+		padding: 5px;
+		border: 1px solid #3BA3D0;
+		background-color: #E4E4E4;
+	}
 	.subsection{
 		display: none;
 		position: relative;
-		background-color: #F8F8F8;
+		background-color: #F3F3F3;
 		color: #333333;
 		width: 376px;
-		border: solid 2px #225E79;
+		border: solid 1px #0772A1;
 		padding: 10px;
 		padding-bottom:5px;
 		margin-bottom: 10px;
@@ -36,7 +42,7 @@
 	.overflow{
 		max-height: 280px;
 		overflow-y: scroll;
-		padding-top: 5px;
+		padding-bottom: -5px;
 	}
 	.sectionLine{
 		position: relative;
@@ -49,7 +55,7 @@
 		right: 0px;
 		width: 180px;
 		border: 1px solid #3BA3D0;
-		background-color: #F3F3F3;
+		background-color: #E4E4E4;
 		font:inherit;
 	}
 	.appointmentBox{
@@ -58,17 +64,19 @@
 		width: 320px;
 		border: 1px solid #3BA3D0;
 		color: #333333;
-		background-color: #F3F3F3;
+		background-color: #E4E4E4;
 		padding: 5px;
 		margin-bottom: 3px;
 		padding-left: 32px;
 	}
 
 	.submitButton{
-		color: #37DB79;
-		background-color: #333333;
+		color: #00B74A;
+		font-weight:bold;
+		background-color: #E4E4E4;
 		margin-top: 6px;
 		margin-bottom: 0px;
+
 	}
 	.showHideButton{
 		position:absolute;
@@ -78,11 +86,12 @@
 		width:27px;
 		height: 25px;
 		color: #333333;
+		background-color: #E4E4E4;
 		border: solid 1px #225E79;
 	}
 	.selectBox{
 		position:absolute;
-		top:9px;
+		top: 3px;
 		left: 5px;
 	}
 	h1{

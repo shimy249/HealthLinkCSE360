@@ -74,7 +74,7 @@ if($conn)
 
 
     if ($conn->query($sql)) {
-        $_SESSION['notification'] = 'Your account was successfully created. You may now log in.';
+        $_SESSION['notification'] = 'Your account was successfully created.';
         header("Location: ".$url);
         return;
     }
