@@ -11,6 +11,10 @@ $type = $_SESSION["type"];
 $userID = $_SESSION['userID'];
 $labworkID = $_GET['labworkID'];
 $notification = $_SESSION['notification'];
+
+if (isset($_SESSION['notification'])) unset($_SESSION['notification']);
+$resultText;
+if(isset($_SESSION['resultText'])) $resultText = $_SESSION['resultText'];
 if (isset($_SESSION['notification'])) unset($_SESSION['notification']);
 
 $conn = mysqli_connect('localhost', 'appbfdlk', 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLinkCSE360');
@@ -44,6 +48,13 @@ $Doctor = $result->fetch_assoc();
     <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'/>
     <title>IPMS - Home </title>
     <script type="text/javascript" src="main.js"></script>
+    <script type="text/javascript">
+        function getLabResult(){
+            document.getElementById("DuplicateResultText1").value = document.getElementById("LabResultText").value;
+            document.getElementById("DuplicateResultText2").value = document.getElementById("LabResultText").value;
+            document.getElementById("DuplicateResultText3").value = document.getElementById("LabResultText").value;
+        }
+    </script>
     <link rel="stylesheet" type="text/css" href="style.css">
     </style></head>
 <body onload="setTimeout(hideNotifications, 5000)">
@@ -64,58 +75,80 @@ $Doctor = $result->fetch_assoc();
         <text class="b4"><?php echo $notification ?></text>
     </div>
 
+        <form action="update_labwork.php?labworkID=<?php echo $labworkID; ?>" method="post" enctype="multipart/form-data" >
+            <div class="subsection" style="display: block; width: 600px;padding-right:10px;padding-bottom: 10px;">
+                <center><h2><?php echo $Labwork['Title']; ?></h2></center>
+                <h3>Patient</h3> <?php echo $Patient['FirstName'] . ' ' . $Patient['LastName']; ?>
+                <h3>Doctor</h3> <?php echo $Doctor['FirstName'] . ' ' . $Doctor['LastName']; ?>
+                <h3>Date</h3> <?php echo $Labwork['Date']; ?>
+                <h3>Description</h3> <?php echo $Labwork['Description']; ?>
+                <h3>Results</h3>
+                <div style="border: 1px solid #AAAAAA; padding:10px; margin-bottom:10px;" >
+                    <?php if ($type != 3) echo $Labwork['Report'].'<br><br>'; ?>
+                    <div<?php if ($type != 3) echo 'style="display:none"'; ?>>
+                        <textarea id="LabResultText" style="width: 100%; height: 500px;" name="resultText"><?php if ($resultText) echo $resultText; else echo $Labwork['Report']; ?></textarea>
+                        <center><input type="submit"  name = "bSave" value="Save Entry" class="submitButton" ></center>
+                    </div>
+                </div>
+                <div>
+                    <div class="subsection" style="margin: 0 auto; display:block; border: 1px solid #AAAAAA">
+                        <div>
+                            <input type="hidden" id="DuplicateResultText1" name="report">
+                            <h3>Add Attachment</h3>
+                            <div class = "sectionLine">
+                                File:
+                                <div class = "sectionLineInput">
+                                    <input type="file" name="ufile"><br/>
+                                </div>
+                            </div>
+                            <center><input type="submit"  name = "bAttach" value="Attach File" class="submitButton" ></center>
 
-    <div class="subsection"
-         style="display: block; margin: 0 auto; width: 600px; top: 25px;padding-right:10px;padding-bottom: 10px;">
-        <center><h2>Labwork Results - <?php echo $Labwork['Title']; ?></h2></center>
-        <h3>Patient</h3> <?php echo $Patient['FirstName'] . ' ' . $Patient['LastName']; ?>
-        <h3>Doctor</h3> <?php echo $Doctor['FirstName'] . ' ' . $Doctor['LastName']; ?>
-        <h3>Date</h3> <?php echo $Labwork['Date']; ?>
-        <h3>Description</h3> <?php echo $Labwork['Description']; ?>
+                        </div>
+                        <div>
+                            <h3>Attachments</h3>
+                            <div class="overflow" style="max-height:500px;">
+                                <?php
+                                $sql = "SELECT * FROM LabAttachemnts WHERE labReportId='" . $labworkID . "'";
+                                $result = $conn->query($sql);
+                                if ($result->num_rows > 0) {
+                                    while ($row = $result->fetch_assoc()) {
+                                        $file = $row["sysName"];
+                                        $filepath = "/HealthLinkCSE360/PHP/uploads/" . basename($file);
+                                        echo '<div class="appointmentBox">';
+                                        if ($type == 3) echo '<input name = "files[]" type="checkbox" value="' . $row['_id'] . '" class = "selectBox">';
+                                        echo '<a style = "color: #00B74A" href = "' . $filepath . '">' . $row['origName'] . '</a>';
+                                        echo ' <text class = "o3">' . $row['uploadTime'] . '</text>';
 
-        <h3>Results</h3> <?php if ($type != 3) echo $Labwork['Report']; ?>
-        <h3>Upload Results</h3>
+                                        echo '</div>';
+                                    }
+                                }
+                                ?>
+                            </div>
 
-        <form action="update_labwork.php?labworkID=<?php echo $labworkID; ?>"
-              method="post" <?php if ($type != 3) echo 'style="display:none"'; ?> enctype="multipart/form-data">
-            File:
-            <input type="file" name="ufile"><br/>
+                            <center><input type="submit"  name = "bRemove" value="Remove Selected Attachments" class="submitButton" ></center>
+                        </div>
+                    </div>
+                </div>
 
-            <h3>Enter Below</h3>
-            <textarea style="width: 100%; height: 300px;" name="report"><?php echo $Labwork['Report']; ?></textarea>
-            <center><input type="submit" class="submitButton" value="Save"></center>
-        </form>
 
-        <h3>Attachments</h3>
-
-        <form action="delete_LabAttach.php?labworkID=<?php echo $labworkID; ?>"
-              method="post" <?php if ($type != 3) echo 'style="display:none"'; ?>>
-            <div class="overflow" style="max-height:500px;">
                 <?php
-
-                $sql = "SELECT * FROM LabAttachemnts WHERE labReportId='" . $labworkID . "'";
+                $conn = mysqli_connect('localhost','appbfdlk', 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLinkCSE360');
+                $sql = "SELECT * FROM Labwork WHERE _id='".$labworkID."'";
                 $result = $conn->query($sql);
-                if ($result->num_rows > 0) {
-                    while ($row = $result->fetch_assoc()) {
-                        $file = $row["sysName"];
-                        $filepath = "/HealthLinkCSE360/PHP/uploads/" . basename($file);
-                        echo '<div class="appointmentBox">';
-                        echo '<input name = "files[]" type="checkbox" value="' . $row['_id'] . '" class = "selectBox">';
-                        echo '<a style = "color: #00B74A" href = "' . $filepath . '">' . $row['origName'] . '</a>';
-                        echo ' <text class = "o3">' . $row['uploadTime'] . '</text>';
-
-                        echo '</div>';
-                    }
+                $published = false;
+                if ($result->num_rows>0){
+                    $row = $result->fetch_assoc();
+                    if ($row['Published'] == 1) $published = true;
                 }
                 ?>
+                <div <?php if ($type != 3 || $published) echo 'style="display:none"'; ?>">
+                <div <?php  if ($type != 3) echo 'style="display:none;'?>><input type="submit"  name = "bPublish" value="Save and Publish" class="submitButton" style="font-weight:bold;font-size:16px;"></div>
             </div>
-            <center><input type="submit" class="submitButton" value="Delete Selected"></center>
-
+            </div>
         </form>
 
 
 
-    </div>
 
 
 </div>

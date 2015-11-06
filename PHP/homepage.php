@@ -329,7 +329,7 @@ function timeslot($aTime){
                 <div class = "overflow">
                     <?php
                     $conn = mysqli_connect('localhost','appbfdlk', 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLinkCSE360');
-                    $sql = "SELECT * FROM Labwork WHERE Report IS NULL";
+                    $sql = "SELECT * FROM Labwork WHERE Published IS NULL";
                     $result=$conn->query($sql);
                     if($result->num_rows > 0){
                         while($row = $result->fetch_assoc()){
@@ -354,7 +354,7 @@ function timeslot($aTime){
                 <div class = "overflow">
                     <?php
                     $conn = mysqli_connect('localhost','appbfdlk', 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLinkCSE360');
-                    $sql = "SELECT * FROM Labwork WHERE Report IS NOT NULL";
+                    $sql = "SELECT * FROM Labwork WHERE Published IS NOT NULL";
                     $result=$conn->query($sql);
                     if($result->num_rows > 0){
                         while($row = $result->fetch_assoc()){
