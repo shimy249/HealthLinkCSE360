@@ -50,7 +50,7 @@ if($conn) {
 
     if ($firstname == '' || $lastname == '' || $email == '' || $username == '' || $password == '' || $dob == '' || $ssn == '' || $gender == '' || $address == '' || $city == '' || $state == '' || $zip == '' || $phone == '' || $q1 == '' || $a1 == '' || $q2 == '' || $a2 == '' || $q3 == '' || $a3 == ''){
         $_SESSION['notification'] = 'Please fill out all fields to update your profile';
-        header("Location: homepage.php");
+        header("Location: ".$url);
         return;
     }
 
