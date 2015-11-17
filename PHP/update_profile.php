@@ -15,6 +15,9 @@ if($conn) {
 
     $user = $_SESSION["user"];
     $type = $_SESSION["type"];
+    if(isset($_POST['profile_Type'])){
+        $type = $_POST['profile_Type'];
+    }
     $firstname = $_POST['profile_FirstName'];
     $lastname = $_POST['profile_LastName'];
     $email = $_POST['profile_Email'];
