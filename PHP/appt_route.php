@@ -17,6 +17,7 @@ if ($diseaseID > 0){
     $result = $conn->query($sql);
     $row = $result->fetch_assoc();
     if ($row['Emergency']== 1){ //emergency condition
+        //echo 'emergency';
         $url = 'appointment_page.php';
     }
     else { //general condition
@@ -25,5 +26,5 @@ if ($diseaseID > 0){
 }else{ //no condition
     $url = 'appt_general.php?';
 }
-
+echo $url;
 header("Location: ".$url);

@@ -97,7 +97,7 @@ $Doctor = $result->fetch_assoc();
                             <h3>Add Attachment</h3>
                             <div class = "sectionLine">
                                 File:
-                                <div class = "sectionLineInput">
+                                <div class = "sectionLineInput" style="width: 240px;">
                                     <input type="file" name="ufile"><br/>
                                 </div>
                             </div>

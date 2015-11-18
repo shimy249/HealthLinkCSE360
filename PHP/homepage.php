@@ -254,7 +254,7 @@ function timeslot($aTime){
                     <div class="sectionLine">
                         Symptom:
                         <select class="sectionLineInput" required name="Symptom" >
-                            <option>--Select--</option>
+                            <option value="">--Select--</option>
                             <?php
                             $conn = mysqli_connect('localhost' , 'appbfdlk' , 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLinkCSE360');
                             $sql = "SELECT * FROM AllSymptoms ORDER BY Name";
@@ -270,7 +270,7 @@ function timeslot($aTime){
                     <div class="sectionLine">
                         Severity:
                         <select class="sectionLineInput" required  name="Severity" >
-                            <option>--Select--</option>
+                            <option value="">--Select--</option>
                             <option value="1">1 - Hardly Noticeable</option>
                             <option value="2">2 - Mild</option>
                             <option value="3">3 - Moderate</option>
@@ -501,8 +501,8 @@ function timeslot($aTime){
                 <form action="appointment_page.php" method="post">
                     <div class="sectionLine">
                         Primary Symptom:
-                        <select class="sectionLineInput" required name="symptom" >
-                            <option>--Select--</option>
+                        <select class="sectionLineInput" name="symptom" >
+                            <option value="">None (General Checkup)</option>
                             <?php
                             $conn = mysqli_connect('localhost' , 'appbfdlk' , 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLinkCSE360');
                             $sql = "SELECT * FROM AllSymptoms ORDER BY Name";

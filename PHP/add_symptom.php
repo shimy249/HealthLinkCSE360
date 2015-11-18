@@ -21,13 +21,17 @@ $severity = $_POST['Severity'];
 $notes = $_POST['Notes'];
 
 echo $userID. $symptom. $severity. $notes. $date;
-
+return;
 if ($symptom == '' || $severity == ''){
     $_SESSION['notification'];
     header("Location: ".$source);
     return;
 }
-
+if ($symptom == ""){
+    $_SESSION['notification'] = "Please select a symptom";
+    header("Location: ".$source);
+    return;
+}
 $conn = mysqli_connect('localhost' , 'appbfdlk' , 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLinkCSE360');
 if($conn) {
     $sql = "INSERT INTO Conditions(PatientID, Symptom,Severity, Notes, Date) VALUES ('$patientID', '$symptom', '$severity', '$notes', '$date')";

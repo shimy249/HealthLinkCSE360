@@ -12,6 +12,8 @@ $conn = new mysqli('localhost', 'appbfdlk', 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLin
 
 $symptom;
 $diseaseID ;
+$form;
+
 if(isset($_POST['symptom'])){
     $symptom = trim($_POST['symptom']);
 }
@@ -52,7 +54,7 @@ $three_days = $now + (3*24*60*60)
 <?php
 ?>
 <div class="main">
-    <h1>IPMS - Home Page</h1>
+    <h1>IPMS - Schedule Appointment</h1>
     <div style="position:absolute;right:15px;top:10px;color:white;text-align:right;">
         Logged in as <text class="o4"><b><?php echo $user; ?></b></text><br>
         <a href = "homepage.php" style = "color: 63AFD0;">Home page</a> | <a href = "logout.php" style = "color: 63AFD0;">Log out</a>
