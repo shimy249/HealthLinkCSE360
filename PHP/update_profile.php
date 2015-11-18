@@ -15,6 +15,9 @@ if($conn) {
 
     $user = $_SESSION["user"];
     $type = $_SESSION["type"];
+    if(isset($_POST['profile_Type'])){
+        $type = $_POST['profile_Type'];
+    }
     $firstname = $_POST['profile_FirstName'];
     $lastname = $_POST['profile_LastName'];
     $email = $_POST['profile_Email'];
@@ -47,7 +50,7 @@ if($conn) {
 
     if ($firstname == '' || $lastname == '' || $email == '' || $username == '' || $password == '' || $dob == '' || $ssn == '' || $gender == '' || $address == '' || $city == '' || $state == '' || $zip == '' || $phone == '' || $q1 == '' || $a1 == '' || $q2 == '' || $a2 == '' || $q3 == '' || $a3 == ''){
         $_SESSION['notification'] = 'Please fill out all fields to update your profile';
-        header("Location: homepage.php");
+        header("Location: ".$url);
         return;
     }
 
