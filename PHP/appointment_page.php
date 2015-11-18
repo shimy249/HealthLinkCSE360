@@ -16,6 +16,10 @@ $form;
 
 if(isset($_POST['symptom'])){
     $symptom = trim($_POST['symptom']);
+    if ($_POST['symptom'] == ''){
+        header("Location: appt_general.php");
+        return;
+    }
 }
 
 if(isset($_SESSION['diseaseID'])){

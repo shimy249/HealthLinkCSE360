@@ -85,12 +85,12 @@ $Doctor = $result->fetch_assoc();
                 <h3>Results</h3>
                 <div style="border: 1px solid #AAAAAA; padding:10px; margin-bottom:10px;" >
                     <?php if ($type != 3) echo $Labwork['Report'].'<br><br>'; ?>
-                    <div<?php if ($type != 3) echo 'style="display:none"'; ?>>
-                        <textarea id="LabResultText" style="width: 100%; height: 500px;" name="resultText"><?php if ($resultText) echo $resultText; else echo $Labwork['Report']; ?></textarea>
+                    <div>
+                        <textarea id="LabResultText" style="width: 100%; height: 500px;" name="resultText" <?php if ($type != 3) echo 'readonly'; ?>><?php if ($resultText) echo $resultText; else echo $Labwork['Report']; ?></textarea>
                         <center><input type="submit"  name = "bSave" value="Save Entry" class="submitButton" ></center>
                     </div>
                 </div>
-                <div>
+                <div <?php if ($type != 3) echo 'style="display:none"'; ?>>
                     <div class="subsection" style="margin: 0 auto; display:block; border: 1px solid #AAAAAA">
                         <div>
                             <input type="hidden" id="DuplicateResultText1" name="report">

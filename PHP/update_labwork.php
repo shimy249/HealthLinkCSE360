@@ -38,6 +38,8 @@ else if ($_POST['bAttach']){
 }
 else if ($_POST['bPublish']){
     echo 'publish';
+    $sql = "UPDATE Labwork SET Report = '".$report."' WHERE _id='". $labworkID."'";
+    $conn->query($sql);
     $sql = "UPDATE Labwork SET Published = '1',Report = '".$report."' WHERE _id='". $labworkID."'";
     $conn->query($sql);
 }
