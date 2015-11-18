@@ -10,6 +10,7 @@ session_start();
 $conn = new mysqli('localhost', 'appbfdlk', 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLinkCSE360');
 $_SESSION['diseaseID'] =  $_POST['selected_disease'];
 $diseaseID = $_POST['selected_disease'];
+$symptom = $_POST['symptom'];
 $userID = $_SESSION['userID'];
 $url = '';
 $ts = getdate();
@@ -34,6 +35,10 @@ if ($diseaseID > 0){
     }
 }else{ //no condition
     $url = 'appt_general.php?';
+    if ($symptom) {
+        $sql = "INSERT INTO Conditions(PatientID, Symptom,Severity, Notes, Date) VALUES ('$userID', '$symptom', 3, 'Added by appointment tool', '$date')";
+        $conn->query($sql);
+    }
 }
 echo $url;
 header("Location: ".$url);

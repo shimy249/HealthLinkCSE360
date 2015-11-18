@@ -27,8 +27,7 @@ if(isset($_SESSION['diseaseID'])){
     $form = 2;
 }
 
-echo $symptom;
-echo 'hello';
+
 if (!isset($_SESSION['userID'])) {header('Location: index.php'); return;}
 $user = $_SESSION["user"];
 $type = $_SESSION["type"];
@@ -73,6 +72,7 @@ $three_days = $now + (3*24*60*60)
         Choose option that most closely resembles your current health condition. If none of these options match your condition, select <q><i>None of these symptoms describe my condition</i></q>
         <form action="appt_route.php" method = "post">
             <input type = "hidden" name = "step" value = "2">
+            <input type = "hidden" name = "symptom" value="<?php echo $symptom;?>"
             <?php
             $conn = mysqli_connect('localhost' , 'appbfdlk' , 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLinkCSE360');
             $sql = "SELECT * FROM DiseaseDefinitions WHERE SymptomList LIKE '%".$symptom."%'";
