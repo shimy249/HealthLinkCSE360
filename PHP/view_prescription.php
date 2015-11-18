@@ -39,7 +39,7 @@ $Doctor = $result->fetch_assoc();
 <html>
 <head>
     <meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
-    <title>IPMS - Home </title>
+    <title>IPIMS - View Prescription</title>
     <script type="text/javascript" src="main.js"></script>
     <link rel="stylesheet" type="text/css" href="style.css">
     </style></head>
@@ -48,7 +48,7 @@ $Doctor = $result->fetch_assoc();
 
 ?>
 <div class="main">
-    <h1>View Prescription</h1>
+    <h1>IPIMS - View Prescription</h1>
     <div style="position:absolute;right:15px;top:10px;color:white;text-align:right;">
         Logged in as <text class="o4"><b><?php echo $user; ?></b></text><br>
         <a href = "homepage.php" style = "color: 63AFD0;">Home page</a> | <a href = "logout.php" style = "color: 63AFD0;">Log out</a>

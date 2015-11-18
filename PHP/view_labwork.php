@@ -49,7 +49,7 @@ $Doctor = $result->fetch_assoc();
 <html>
 <head>
     <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'/>
-    <title>IPMS - Home </title>
+    <title>IPIMS - View Labwork</title>
     <script type="text/javascript" src="main.js"></script>
     <script type="text/javascript">
         function getLabResult(){
@@ -65,7 +65,7 @@ $Doctor = $result->fetch_assoc();
 
 ?>
 <div class="main">
-    <h1>Labwork Results</h1>
+    <h1>IPIMS - View Labwork</h1>
 
     <div style="position:absolute;right:15px;top:10px;color:white;text-align:right;">
         Logged in as

@@ -17,7 +17,7 @@ if (isset($_POST['modify_id'])) $modifyID = $_POST['modify_id'];
 <html>
 <head>
     <meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
-    <title>IPMS - Admin Home </title>
+    <title>IPIMS - Admin Home</title>
     <script type="text/javascript" src="main.js"></script>
     <link rel="stylesheet" type="text/css" href="style.css">
     </style></head>
@@ -25,7 +25,7 @@ if (isset($_POST['modify_id'])) $modifyID = $_POST['modify_id'];
 <?php
 ?>
 <div class="main">
-    <h1>Admin Home Page</h1>
+    <h1>IPIMS - Admin Home</h1>
     <div style="position:absolute;right:15px;top:10px;color:white;text-align:right;">
         Logged in as <text class="o4"><b><?php echo $user; ?></b></text><br>
         <a href = "admin_home.php" style = "color: 63AFD0;">Home page</a> | <a href = "logout.php" style = "color: 63AFD0;">Log out</a>
@@ -347,7 +347,7 @@ if (isset($_POST['modify_id'])) $modifyID = $_POST['modify_id'];
             <button class="showHideButton" onclick="showHide('CreateSymptom', this)">x</button>
             <div class="sectionContent" id="StatInfo" style="display: block; max-height:none;">
                 <form action = "define_symptom.php" method = "post">
-                    End users can only select symptoms from a predefined list. You can add define a new symptom below<br>
+                    End users can only select symptoms from a predefined list. You can define a new symptom below<br><br>
                     <div class = "sectionLine">
                         Symptom:
                         <input type="text" class="sectionLineInput" required name="symptom"  >

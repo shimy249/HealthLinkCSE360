@@ -62,7 +62,7 @@ function timeslot($aTime){
 <html>
 <head>
     <meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
-    <title>IPMS - Home </title>
+    <title>IPIMS - Home Page</title>
     <script type="text/javascript" src="main.js"></script>
     <link rel="stylesheet" type="text/css" href="style.css">
     </style></head>
@@ -70,7 +70,7 @@ function timeslot($aTime){
 <?php
 ?>
 <div class="main">
-    <h1>IPMS - Home Page</h1>
+    <h1>IPIMS - Home Page</h1>
     <div style="position:absolute;right:15px;top:10px;color:white;text-align:right;">
         Logged in as <text class="o4"><b><?php echo $user; ?></b></text><br>
         <a href = "homepage.php" style = "color: 63AFD0;">Home page</a> | <a href = "logout.php" style = "color: 63AFD0;">Log out</a>

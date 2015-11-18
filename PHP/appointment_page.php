@@ -50,7 +50,7 @@ $three_days = $now + (3*24*60*60)
 <html>
 <head>
     <meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
-    <title>Request Appointment</title>
+    <title>IPIMS - Schedule Appointment</title>
     <script type="text/javascript" src="main.js"></script>
     <link rel="stylesheet" type="text/css" href="style.css">
     </style></head>
@@ -58,7 +58,7 @@ $three_days = $now + (3*24*60*60)
 <?php
 ?>
 <div class="main">
-    <h1>IPMS - Schedule Appointment</h1>
+    <h1>IPIMS - Schedule Appointment</h1>
     <div style="position:absolute;right:15px;top:10px;color:white;text-align:right;">
         Logged in as <text class="o4"><b><?php echo $user; ?></b></text><br>
         <a href = "homepage.php" style = "color: 63AFD0;">Home page</a> | <a href = "logout.php" style = "color: 63AFD0;">Log out</a>

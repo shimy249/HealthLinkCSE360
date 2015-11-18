@@ -17,7 +17,7 @@ $_SESSION['notification'] = '';
 	</style></head>
 <body onload="setTimeout(hideNotifications, 5000)">
 <div class="main">
-	<center><h1>Interactive Patient Management System</h1></center>
+	<center><h1>Interactive Patient Information Management System</h1></center>
 	<div id="notifications" style="width:100%;text-align:center;">
 		<text class="b4"><?php echo $notification; ?></text>
 	</div>
