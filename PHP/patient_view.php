@@ -249,7 +249,7 @@ if($conn){
             <button class="showHideButton" onclick="showHide('downloadFile', this)">x</button>
             <div class="sectionContent" id="downloadFile">
                 <div class = "overflow" style = "max-height:400px;">
-                    <form action="DownFile.php" method="post">
+                    <form action="delete_file.php?patient_ID=<?php echo $_GET['patient_ID'];?>" method="post">
                         <?php
                         $conn = mysqli_connect('localhost','appbfdlk', 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLinkCSE360');
                         $sql = "SELECT * FROM UploadFiles WHERE userId = '".$_GET["patient_ID"]."'ORDER BY _id DESC";
@@ -259,9 +259,11 @@ if($conn){
                                 $file = $row["sysName"];
                                 $filepath = "/HealthLinkCSE360/PHP/uploads/".basename($file);
                                 echo '<div class="appointmentBox">';
+                                echo '<button type="submit" name="X" value='.$file.'>X</button>';
                                 echo '<a style = "color: #00B74A" href = "'.$filepath.'">'.$row['origName'].'</a>';
                                 echo ' <text class = "o3">'.$row['uploadTime'].'</text>';
                                 if ($row['notes']) echo '<br><text class = "p1">'.$row['notes'].'</text>';
+
                                 echo '</div>';
                             }
                         }
