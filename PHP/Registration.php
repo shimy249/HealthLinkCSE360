@@ -57,7 +57,7 @@ if($conn)
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
         $_SESSION['notification'] = 'This username is already taken, please try again';
-        header("Location: index.php");
+        header("Location: " . $url);
         return;
     }
     //check if email exists

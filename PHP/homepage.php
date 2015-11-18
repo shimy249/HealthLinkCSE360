@@ -315,6 +315,57 @@ function timeslot($aTime){
             </div>
         </div>
 
+        <!-- Alerts -->
+        <div class="subsection" <?php if ($type == 1) echo 'style="display:block;"'; ?>>
+            <center><h2>Emergency Ward</h2></center>
+            <button class="showHideButton" onclick="showHide('Alerts', this)">x</button>
+            <div class="sectionContent" id="Alerts">
+                <h3>Upcoming Visits</h3>
+                <div class = "overflow">
+                    <?php
+                    $conn = mysqli_connect('localhost','appbfdlk', 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLinkCSE360');
+                    $sql = "SELECT * FROM EmergencyAppointments WHERE Datetime > '".$now."'AND PatientID = '".$userID."' ORDER BY Datetime DESC";
+                    $result=$conn->query($sql);
+                    if($result->num_rows > 0){
+                        while($row = $result->fetch_assoc()){
+                            $sql = "SELECT * FROM UserData WHERE _id ='".$row['PatientID']."'";
+                            $x = $conn->query($sql);
+                            $y = $x->fetch_assoc();
+                            $name = $y['FirstName']. ' '.$y['LastName'];
+                            echo '<div class="appointmentBox">';
+                            echo '<text class = "p1">'.$name.'</text> ';
+                            echo ' on <text class = "o3">'.$row['Date'].'</text>'.' at '.'<text class = "o3">'.$row['Time'].'</text>';
+                            echo '<br>System Diagnosis: <text class = "b2">'.$row['Diagnosis'].'</text>';
+                            echo '</div>';
+                        }
+                    }
+                    echo mysqli_error($conn);
+                    ?>
+                </div>
+                <h3>Past Visits</h3>
+                <div class = "overflow">
+                    <?php
+                    $conn = mysqli_connect('localhost','appbfdlk', 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLinkCSE360');
+                    $sql = "SELECT * FROM EmergencyAppointments WHERE Datetime < '".$now."'AND PatientID = '".$userID."' ORDER BY Datetime DESC";
+                    $result=$conn->query($sql);
+                    if($result->num_rows > 0){
+                        while($row = $result->fetch_assoc()){
+                            $sql = "SELECT * FROM UserData WHERE _id ='".$row['PatientID']."'";
+                            $x = $conn->query($sql);
+                            $y = $x->fetch_assoc();
+                            $name = $y['FirstName']. ' '.$y['LastName'];
+                            echo '<div class="appointmentBox">';
+                            echo '<text class = "p1">'.$name.'</text> ' ;
+                            echo 'ETA: [<text class = "o3">'.$row['Date'].'</text>]'.' '.'[<text class = "o3">'.$row['Time'].'</text>]';
+                            echo '<br>System Diagnosis: <text class = "b2">'.$row['Diagnosis'].'</text>';
+                            echo '</div>';
+                        }
+                    }
+                    echo mysqli_error($conn);
+                    ?>
+                </div>
+            </div>
+        </div>
 
 
     </div>

@@ -394,7 +394,7 @@ if($conn){
                 <div class = "overflow">
                     <?php
                     $conn = mysqli_connect('localhost','appbfdlk', 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLinkCSE360');
-                    $sql = "SELECT * FROM EmergencyAppointments WHERE Datetime < '".$now."'AND PatientID = '".$patientID."' ORDER BY Datetime DESC";
+                    $sql = "SELECT * FROM EmergencyAppointments WHERE Datetime > '".$now."'AND PatientID = '".$patientID."' ORDER BY Datetime DESC";
                     $result=$conn->query($sql);
                     if($result->num_rows > 0){
                         while($row = $result->fetch_assoc()){
@@ -416,7 +416,7 @@ if($conn){
                 <div class = "overflow">
                     <?php
                     $conn = mysqli_connect('localhost','appbfdlk', 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLinkCSE360');
-                    $sql = "SELECT * FROM EmergencyAppointments WHERE Datetime >= '".$now."'AND PatientID = '".$patientID."' ORDER BY Datetime DESC";
+                    $sql = "SELECT * FROM EmergencyAppointments WHERE Datetime <= '".$now."'AND PatientID = '".$patientID."' ORDER BY Datetime DESC";
                     $result=$conn->query($sql);
                     if($result->num_rows > 0){
                         while($row = $result->fetch_assoc()){

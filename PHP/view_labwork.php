@@ -14,7 +14,10 @@ $notification = $_SESSION['notification'];
 
 if (isset($_SESSION['notification'])) unset($_SESSION['notification']);
 $resultText;
-if(isset($_SESSION['resultText'])) $resultText = $_SESSION['resultText'];
+if(isset($_SESSION['resultText'])){
+    $resultText = $_SESSION['resultText'];
+    unset($_SESSION['resultText']);
+}
 if (isset($_SESSION['notification'])) unset($_SESSION['notification']);
 
 $conn = mysqli_connect('localhost', 'appbfdlk', 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLinkCSE360');
@@ -84,7 +87,6 @@ $Doctor = $result->fetch_assoc();
                 <h3>Description</h3> <?php echo $Labwork['Description']; ?>
                 <h3>Results</h3>
                 <div style="border: 1px solid #AAAAAA; padding:10px; margin-bottom:10px;" >
-                    <?php if ($type != 3) echo $Labwork['Report'].'<br><br>'; ?>
                     <div>
                         <textarea id="LabResultText" style="width: 100%; height: 500px;" name="resultText" <?php if ($type != 3) echo 'readonly'; ?>><?php if ($resultText) echo $resultText; else echo $Labwork['Report']; ?></textarea>
                         <center><input type="submit"  name = "bSave" value="Save Entry" class="submitButton" ></center>

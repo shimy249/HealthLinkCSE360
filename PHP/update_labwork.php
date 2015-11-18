@@ -12,12 +12,14 @@ $notification = $_SESSION['notification'];
 $target_dir = getcwd()."/uploads/";
 if(isset($_SESSION['notification'])) unset($_SESSION['notification']);
 $_SESSION['resultText'] = $_POST['resultText'];
-$report = nl2br($_POST['report']);
-
+$report = $_POST['resultText'];
 if($_POST['bSave']){
     echo 'save';
+    $sql = "UPDATE Labwork SET Report = 'Primer' WHERE _id='". $labworkID."'";
+    $conn->query($sql);
     $sql = "UPDATE Labwork SET Report = '".$report."' WHERE _id='". $labworkID."'";
     $conn->query($sql);
+
 }
 else if ($_POST['bAttach']){
     echo 'attach';
