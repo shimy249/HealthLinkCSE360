@@ -21,7 +21,7 @@ $severity = $_POST['Severity'];
 $notes = $_POST['Notes'];
 
 echo $userID. $symptom. $severity. $notes. $date;
-return;
+
 if ($symptom == '' || $severity == ''){
     $_SESSION['notification'];
     header("Location: ".$source);
