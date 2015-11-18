@@ -323,9 +323,14 @@ if (isset($_POST['modify_id'])) $modifyID = $_POST['modify_id'];
                 $res = $conn->query($sql);
                 $prescriptions = $res->num_rows;
 
+                $sql = "SELECT Symptom, COUNT( Symptom ) as total FROM Conditions GROUP BY Symptom";
+                $res = $conn->query($sql);
+
+
 
                 ?>
                 <h3>Number of Patients</h3> <?php echo $patientCount. "   (". $male. " male ". $female." female)";?>
+                <h3></h3>
                 <h3>Number of Doctors</h3> <?php echo $docCount;?>
                 <h3>Number of Other Medical Staff</h3> <?php echo $staffCount;?>
                 <h3>Number of Future Appointments</h3> <?php echo $aptCount;?>
@@ -333,6 +338,14 @@ if (isset($_POST['modify_id'])) $modifyID = $_POST['modify_id'];
                 <h3>Number of Diagnosis Issued</h3> <?php echo $diagCount;?>
                 <h3>Number of Lab Reports Created</h3> <?php echo $labReport;?>
                 <h3>Number of Prescriptions Issued</h3> <?php echo $prescriptions;?>
+                <h3>Patient Conditions</h3>
+                <?php
+                    while($row = $res->fetch_assoc()){
+                        echo $row['Symptom'].":".$row['total']."</br>";
+
+                    }
+                ?>
+
             </div>
 
         </div>
