@@ -312,7 +312,7 @@ function timeslot($aTime){
                                 echo ' Symptom: <text class="o3">'.$row['Symptom'].' ('.$row['Severity'].')</text>';
                                 echo ' Date: <text class="p1">'.$row['Date'].'</text>';
                                 echo '<br>';
-                                echo 'Notes: <text class="p1">'.$row['Notes'].'</text>';
+                                if ($row['Notes'])echo 'Notes: <text class="b2">'.$row['Notes'].'</text>';
                                 echo '</div>';
                             }
                         }

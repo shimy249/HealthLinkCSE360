@@ -72,12 +72,12 @@ $three_days = $now + (3*24*60*60)
         Choose option that most closely resembles your current health condition. If none of these options match your condition, select <q><i>None of these symptoms describe my condition</i></q>
         <form action="appt_route.php" method = "post">
             <input type = "hidden" name = "step" value = "2">
-            <input type = "hidden" name = "symptom" value="<?php echo $symptom;?>"
+            <input type = "hidden" name = "symptom" value="<?php echo $symptom;?>">
             <?php
             $conn = mysqli_connect('localhost' , 'appbfdlk' , 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLinkCSE360');
             $sql = "SELECT * FROM DiseaseDefinitions WHERE SymptomList LIKE '%".$symptom."%'";
             $result = $conn->query($sql);
-            if ($result->num_rows>0){
+            if ($result->num_rows > 0){
                 while ($row = $result->fetch_assoc()){
                     echo '<input type = "radio" name = "selected_disease" value = "'.$row['_id'].'">';
                     echo '<text class = "p1">'.$row['SymptomList'].'</text><br>';
