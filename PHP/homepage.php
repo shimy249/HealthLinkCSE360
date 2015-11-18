@@ -146,6 +146,14 @@ function timeslot($aTime){
                             <input type="text" class="sectionLineInput" required name="profile_Phone" value = "<?php echo $userRow['Phone'];?>">
                         </div>
                         <div class="sectionLine">
+                            Healthcare Provider:
+                            <input type="text" class="sectionLineInput" name="profile_Provider"  value = "<?php echo $userRow['HealthcareProvider'];?>">
+                        </div>
+                        <div class="sectionLine">
+                            Policy Number:
+                            <input type="text" class="sectionLineInput" name="profile_Policy"  value = "<?php echo $userRow['PolicyNumber'];?>">
+                        </div>
+                        <div class="sectionLine">
                             Security Question 1:
                             <input type="text" class="sectionLineInput" required name="profile_Question1" value = "<?php echo $userRow['q1'];?>" >
                         </div>
@@ -295,7 +303,7 @@ function timeslot($aTime){
                     <div class = "overflow">
                         <?php
                         $conn = mysqli_connect('localhost','appbfdlk', 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLinkCSE360');
-                        $sql = "SELECT * FROM Conditions WHERE PatientID='".$userID."'";
+                        $sql = "SELECT * FROM Conditions WHERE PatientID='".$userID."'ORDER BY _id DESC";
                         $result=$conn->query($sql);
                         if($result->num_rows>0){
                             while($row=$result->fetch_assoc()){

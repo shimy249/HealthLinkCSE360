@@ -98,6 +98,14 @@ if (isset($_POST['modify_id'])) $modifyID = $_POST['modify_id'];
                             <input type="text" class="sectionLineInput" required name="profile_Phone">
                         </div>
                         <div class="sectionLine">
+                            Healthcare Provider:
+                            <input type="text" class="sectionLineInput" name="profile_Provider">
+                        </div>
+                        <div class="sectionLine">
+                            Policy Number:
+                            <input type="text" class="sectionLineInput" name="profile_Policy">
+                        </div>
+                        <div class="sectionLine">
                             Security Question 1:
                             <input type="text" class="sectionLineInput" required name="profile_Question1" >
                         </div>
@@ -230,6 +238,14 @@ if (isset($_POST['modify_id'])) $modifyID = $_POST['modify_id'];
                         <div class="sectionLine">
                             Phone:
                             <input type="text" class="sectionLineInput" required name="profile_Phone" value = "<?php echo $userRow['Phone'];?>">
+                        </div>
+                        <div class="sectionLine">
+                            Healthcare Provider:
+                            <input type="text" class="sectionLineInput" name="profile_Provider" value = "<?php echo $userRow['HealthcareProvider'];?>">
+                        </div>
+                        <div class="sectionLine">
+                            Policy Number:
+                            <input type="text" class="sectionLineInput" name="profile_Policy" value = "<?php echo $userRow['PolicyNumber'];?>">
                         </div>
                         <div class="sectionLine">
                             Security Question 1:

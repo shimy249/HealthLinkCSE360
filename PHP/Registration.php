@@ -35,6 +35,8 @@ if($conn)
     $a2 = $_POST['profile_Answer2'];
     $q3 = $_POST['profile_Question3'];
     $a3 = $_POST['profile_Answer3'];
+    $provider = $_POST['profile_Provider'];
+    $policy = $_POST['profile_Policy'];
     $url = 'index.php';
     $type = 1; //created from index.php registration form
     if (isset($_POST['admin'])){ //if the admin registers the user the user
@@ -69,8 +71,8 @@ if($conn)
         return;
     }
     //insertion query creating new instance
-    $sql = "INSERT INTO UserData (FirstName,LastName, DOB, Gender, SSN, Phone, Email, UserName,Password,Address,City, State, Zip, Type,q1,a1,q2,a2, q3,a3 )
-    VALUES ('$firstname','$lastname', '$dob', '$gender', '$ssn', '$phone', '$email', '$username', '$password','$address', '$city', '$state','$zip',$type, '$q1','$a1','$q2','$a2','$q3','$a3')";
+    $sql = "INSERT INTO UserData (FirstName,LastName, DOB, Gender, SSN, Phone, Email, UserName,Password,Address,City, State, Zip, Type,q1,a1,q2,a2, q3,a3, HealthcareProvider,PolicyNumber)
+    VALUES ('$firstname','$lastname', '$dob', '$gender', '$ssn', '$phone', '$email', '$username', '$password','$address', '$city', '$state','$zip',$type, '$q1','$a1','$q2','$a2','$q3','$a3', $provider, $policy)";
 
 
     if ($conn->query($sql)) {

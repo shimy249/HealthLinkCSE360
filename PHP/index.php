@@ -30,11 +30,11 @@ $_SESSION['notification'] = '';
 				<form action="login_check.php" method="post">
 					<div class="sectionLine">
 						Username:
-						<input type="text" class="sectionLineInput" name="login_Username" >
+						<input type="text" class="sectionLineInput" required name="login_Username" >
 					</div>
 					<div class="sectionLine">
 						Password:
-						<input type="password" class="sectionLineInput" name="login_Password" >
+						<input type="password" class="sectionLineInput" required name="login_Password" >
 					</div>
 					<center><input type="submit"  class="submitButton" value="Log In"></center>
 				</form>
@@ -47,7 +47,7 @@ $_SESSION['notification'] = '';
 			<div class="sectionContent" id="Forgot" style="display: none; max-height:none;">
 				<form action="forgot.php" method="post">
 					<div class="sectionLine">
-						Email Address: <input type="text" class="sectionLineInput" name="email" >
+						Email Address: <input type="text" class="sectionLineInput" required name="email" >
 					</div>
 					<center><input type="submit" class = "submitButton" value="Submit"></center>
 				</form>
@@ -61,23 +61,23 @@ $_SESSION['notification'] = '';
 				<form action="Registration.php" method="post">
 					<div class="sectionLine">
 						First Name:
-						<input type="text" class="sectionLineInput" name="profile_FirstName" >
+						<input type="text" class="sectionLineInput" required name="profile_FirstName" >
 					</div>
 					<div class="sectionLine">
 						Last Name:
-						<input type="text" class="sectionLineInput" name="profile_LastName">
+						<input type="text" class="sectionLineInput" required name="profile_LastName">
 					</div>
 					<div class="sectionLine">
 						Email Address:
-						<input type="text" class="sectionLineInput" name="profile_Email">
+						<input type="text" class="sectionLineInput" required name="profile_Email">
 					</div>
 					<div class="sectionLine">
 						Username:
-						<input type="text" class="sectionLineInput" name="profile_Username">
+						<input type="text" class="sectionLineInput" required name="profile_Username">
 					</div>
 					<div class="sectionLine">
 						Password:
-						<input type="text" class="sectionLineInput" name="profile_Password" >
+						<input type="text" class="sectionLineInput" required name="profile_Password" >
 					</div>
 					<div class="sectionLine">
 						Date Of Birth:
@@ -85,19 +85,19 @@ $_SESSION['notification'] = '';
 					</div>
 					<div class="sectionLine">
 						Social Security Number:
-						<input type="text" class="sectionLineInput" name="profile_SocialSecurity">
+						<input type="text" class="sectionLineInput" required name="profile_SocialSecurity">
 					</div>
 					<div class="sectionLine">
 						Gender:
-						<select class="sectionLineInput" name="profile_Gender"><option value = "M">Male</option><option value = "F">Female</option></select>
+						<select class="sectionLineInput" required name="profile_Gender"><option value = "M">Male</option><option value = "F">Female</option></select>
 					</div>
 					<div class="sectionLine">
 						Street Address:
-						<input type="text" class="sectionLineInput" name="profile_Address">
+						<input type="text" class="sectionLineInput" required name="profile_Address">
 					</div>
 					<div class="sectionLine">
 						City:
-						<input type="text" class="sectionLineInput" name="profile_City">
+						<input type="text" class="sectionLineInput" required name="profile_City">
 					</div>
 					<div class="sectionLine">
 						State:
@@ -105,35 +105,43 @@ $_SESSION['notification'] = '';
 					</div>
 					<div class="sectionLine">
 						Zip:
-						<input type="text" class="sectionLineInput" name="profile_Zip">
+						<input type="text" class="sectionLineInput" required name="profile_Zip">
 					</div>
 					<div class="sectionLine">
 						Phone:
-						<input type="text" class="sectionLineInput" name="profile_Phone">
+						<input type="text" class="sectionLineInput" required name="profile_Phone">
+					</div>
+					<div class="sectionLine">
+						Healthcare Provider:
+						<input type="text" class="sectionLineInput" name="profile_Provider">
+					</div>
+					<div class="sectionLine">
+						Policy Number:
+						<input type="text" class="sectionLineInput" name="profile_Policy">
 					</div>
 					<div class="sectionLine">
 						Security Question 1:
-						<input type="text" class="sectionLineInput" name="profile_Question1" >
+						<input type="text" class="sectionLineInput" required name="profile_Question1" >
 					</div>
 					<div class="sectionLine">
 						Security Answer 1:
-						<input type="text" class="sectionLineInput" name="profile_Answer1" >
+						<input type="text" class="sectionLineInput" required name="profile_Answer1" >
 					</div>
 					<div class="sectionLine">
 						Security Question 2:
-						<input type="text" class="sectionLineInput" name="profile_Question2" >
+						<input type="text" class="sectionLineInput" required name="profile_Question2" >
 					</div>
 					<div class="sectionLine">
 						Security Answer 2:
-						<input type="text" class="sectionLineInput" name="profile_Answer2" >
+						<input type="text" class="sectionLineInput" required name="profile_Answer2" >
 					</div>
 					<div class="sectionLine">
 						Security Question 3:
-						<input type="text" class="sectionLineInput" name="profile_Question3" >
+						<input type="text" class="sectionLineInput" required name="profile_Question3" >
 					</div>
 					<div class="sectionLine">
 						Security Answer 3:
-						<input type="text" class="sectionLineInput" name="profile_Answer3" >
+						<input type="text" class="sectionLineInput" required name="profile_Answer3" >
 					</div>
 
 

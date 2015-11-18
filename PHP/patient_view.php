@@ -202,7 +202,7 @@ if($conn){
                     <div class = "overflow">
                         <?php
                         $conn = mysqli_connect('localhost','appbfdlk', 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLinkCSE360');
-                        $sql = "SELECT * FROM Conditions WHERE PatientID='".$patientID."'";
+                        $sql = "SELECT * FROM Conditions WHERE PatientID='".$patientID."' ORDER BY _id DESC";
                         $result=$conn->query($sql);
                         if($result->num_rows>0){
                             while($row=$result->fetch_assoc()){

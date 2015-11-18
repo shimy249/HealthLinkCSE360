@@ -37,7 +37,8 @@ if($conn) {
     $a2 = $_POST['profile_Answer2'];
     $q3 = $_POST['profile_Question3'];
     $a3 = $_POST['profile_Answer3'];
-
+    $provider = $_POST['profile_Provider'];
+    $policy = $_POST['profile_Policy'];
     //depending if personal profile update or by admin
     $notification = "Personal Information updated successfully";
     $modifyID = $_SESSION['userID'];
@@ -54,7 +55,7 @@ if($conn) {
         return;
     }
 
-    $sql = "UPDATE UserData SET FirstName='" . $firstname . "',LastName='" . $lastname . "', DOB='" . $dob . "', Gender='" . $gender . "', SSN='" . $ssn . "', Phone='" . $phone . "', Email='" . $email . "', UserName='" . $username . "',Password='" . $password . "',Address='" . $address . "',City='" . $city. "',State='" . $state . "',Zip='" . $zip . "',Type='" . $type . "',q1='" . $q1 . "',a1='" . $a1 . "',q2='" . $q2 . "',a2='" . $a2 . "', q3='" . $q3 . "',a3='" . $a3 . "' WHERE _id='" . $modifyID . "'";
+    $sql = "UPDATE UserData SET HealthcareProvider='" . $provider . "',PolicyNumber='" . $policy . "',FirstName='" . $firstname . "',LastName='" . $lastname . "', DOB='" . $dob . "', Gender='" . $gender . "', SSN='" . $ssn . "', Phone='" . $phone . "', Email='" . $email . "', UserName='" . $username . "',Password='" . $password . "',Address='" . $address . "',City='" . $city. "',State='" . $state . "',Zip='" . $zip . "',Type='" . $type . "',q1='" . $q1 . "',a1='" . $a1 . "',q2='" . $q2 . "',a2='" . $a2 . "', q3='" . $q3 . "',a3='" . $a3 . "' WHERE _id='" . $modifyID . "'";
     if ($conn->query($sql) === TRUE) {
         $_SESSION['notification'] = $notification;
         if (!isset($_POST['modify_id'])) $_SESSION["user"] = $username;
