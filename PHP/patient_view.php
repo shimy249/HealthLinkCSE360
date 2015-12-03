@@ -11,7 +11,6 @@ date_default_timezone_set ('America/Phoenix');
 if (!isset($_SESSION['userID'])) {header('Location: index.php'); return;}
 $user = $_SESSION["user"];
 $type = $_SESSION["type"];
-echo $type;
 $userID = $_SESSION['userID'];
 $notification = $_SESSION['notification'];
 $patientID = $_GET['patient_ID'];
@@ -40,12 +39,12 @@ if($conn){
 <div class="main">
     <div id="header">
         <h1>IPIMS - Patient - <?php echo $patientName; ?></h1>
-        <div style="position:absolute;right:15px;top:10px;color:white;text-align:right;">
+        <div style="position:absolute;right:15px;top:10px;color:black;text-align:right;">
             Logged in as <text class="o4"><b><?php echo $user; ?></b></text><br>
-            <a href = "homepage.php" style = "color: 63AFD0;">Home page</a> | <a href = "logout.php" style = "color: 63AFD0;">Log out</a>
+            <a href = "homepage.php" style = "color: 3BA3D0;">Home page</a> | <a href = "logout.php" style = "color: 3BA3D0;">Log out</a>
         </div>
         <div id="notifications" style="width:100%;text-align:center;">
-            <text class="b4"><?php echo $notification ?></text>
+            <text class="o4"><b><?php echo $notification ?></b></text>
         </div>
     </div>
 
@@ -238,7 +237,7 @@ if($conn){
                     </div>
                     <input type="hidden" name="patId" <?php echo "value='".$_GET["patient_ID"]."'" ?> >
                     Notes:
-                    <textarea id="notes" style="width: 100%;background-color:#F3F3F3" name="notes"></textarea>
+                    <textarea id="notes" style="width: 100%;" name="notes"></textarea>
                     <center><input type="submit" class="submitButton" value="Upload File"></center>
                 </form>
             </div>
@@ -249,7 +248,8 @@ if($conn){
             <button class="showHideButton" onclick="showHide('downloadFile', this)">x</button>
             <div class="sectionContent" id="downloadFile">
                 <div class = "overflow" style = "max-height:400px;">
-                    <form action="DownFile.php" method="post">
+                    <form action="delete_file.php?patient_ID=<?php echo $_GET['patient_ID'];?>" method="post">
+                        <input type = "hidden" name="source" value="patient_view.php?patient_ID=<?php echo $patientID?>">
                         <?php
                         $conn = mysqli_connect('localhost','appbfdlk', 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLinkCSE360');
                         $sql = "SELECT * FROM UploadFiles WHERE userId = '".$_GET["patient_ID"]."'ORDER BY _id DESC";
@@ -259,13 +259,17 @@ if($conn){
                                 $file = $row["sysName"];
                                 $filepath = "/HealthLinkCSE360/PHP/uploads/".basename($file);
                                 echo '<div class="appointmentBox">';
-                                echo '<a style = "color: #00B74A" href = "'.$filepath.'">'.$row['origName'].'</a>';
+                                echo '<input name = "files[]" type="checkbox" value="' . $row['_id'] . '" class = "selectBox">';
+                                echo '<a style = "color: #3BA3D0" href = "'.$filepath.'">'.$row['origName'].'</a>';
                                 echo ' <text class = "o3">'.$row['uploadTime'].'</text>';
                                 if ($row['notes']) echo '<br><text class = "p1">'.$row['notes'].'</text>';
                                 echo '</div>';
                             }
                         }
                         ?>
+                        <center><input type="submit"  class="submitButton"  value="Delete Selected" action="submit"></center>
+
+                </form>
                 </div>
 
                 </form>
@@ -314,7 +318,7 @@ if($conn){
                             echo '</div>';
                         }
                     }
-                    else echo 'There are no prescriptions.<br><br>'
+
                     ?>
                 </div>
             </div>
@@ -361,7 +365,7 @@ if($conn){
                             echo '</div>';
                         }
                     }
-                    else echo 'There are no completed lab reports.<br><br>'
+
                     ?>
                 </div>
                 <h3>Pending Lab Reports</h3>
@@ -379,7 +383,7 @@ if($conn){
                             echo '</div>';
                         }
                     }
-                    else echo 'There are no pending lab reports.<br><br>'
+
                     ?>
                 </div>
             </div>
@@ -394,7 +398,7 @@ if($conn){
                 <div class = "overflow">
                     <?php
                     $conn = mysqli_connect('localhost','appbfdlk', 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLinkCSE360');
-                    $sql = "SELECT * FROM EmergencyAppointments WHERE Datetime > '".$now."'AND PatientID = '".$patientID."' ORDER BY Datetime DESC";
+                    $sql = "SELECT * FROM EmergencyAppointments WHERE Datetime <= '".$now."'AND PatientID = '".$patientID."' ORDER BY Datetime DESC";
                     $result=$conn->query($sql);
                     if($result->num_rows > 0){
                         while($row = $result->fetch_assoc()){
@@ -416,7 +420,7 @@ if($conn){
                 <div class = "overflow">
                     <?php
                     $conn = mysqli_connect('localhost','appbfdlk', 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLinkCSE360');
-                    $sql = "SELECT * FROM EmergencyAppointments WHERE Datetime <= '".$now."'AND PatientID = '".$patientID."' ORDER BY Datetime DESC";
+                    $sql = "SELECT * FROM EmergencyAppointments WHERE Datetime > '".$now."'AND PatientID = '".$patientID."' ORDER BY Datetime DESC";
                     $result=$conn->query($sql);
                     if($result->num_rows > 0){
                         while($row = $result->fetch_assoc()){

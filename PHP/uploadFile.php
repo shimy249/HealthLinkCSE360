@@ -14,7 +14,7 @@ if(isset($_FILES['file'])){
     $unique_name = $target_dir . basename(uniqid() . $_FILES['file']['name']);
 
     $conn = mysqli_connect('localhost','appbfdlk', 'ohDAUdCL4AQZ0', 'appbfdlk_HealthLinkCSE360');
-    $sql = "INSERT INTO UploadFiles(origName, sysName, userId) VALUES('". $_FILES['file']['name']."', '". $unique_name."','". $_POST['patId']. "')";
+    $sql = "INSERT INTO UploadFiles(origName, sysName, userId, notes) VALUES('". $_FILES['file']['name']."', '". $unique_name."','". $_POST['patId']. "','".$_POST['notes']."')";
     echo $sql;
     $conn->query($sql);
     if(move_uploaded_file($_FILES['file']['tmp_name'], $unique_name)){

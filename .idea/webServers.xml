@@ -1,14 +1,2 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
-  <component name="WebServers">
-    <option name="servers">
-      <webServer id="b06ec14e-3459-4517-b3ba-1df52cfb76cf" name="appbykevin.io" url="http://appbykevin.io">
-        <fileTransfer host="appbykevin.io" port="21" rootFolder="/public_html/HealthLinkCSE360" password="dfc5dfc2dfeedfebdfffdfcedfe9dfe6df9edfebdffbdff0df9a" username="appbfdlk">
-          <advancedOptions>
-            <advancedOptions dataProtectionLevel="Private" />
-          </advancedOptions>
-        </fileTransfer>
-      </webServer>
-    </option>
-  </component>
-</project>
+<project version="4" />

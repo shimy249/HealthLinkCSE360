@@ -67,33 +67,30 @@ $Doctor = $result->fetch_assoc();
 <div class="main">
     <h1>IPIMS - View Labwork</h1>
 
-    <div style="position:absolute;right:15px;top:10px;color:white;text-align:right;">
-        Logged in as
-        <text class="o4"><b><?php echo $user; ?></b></text>
-        <br>
-        <a href="homepage.php" style="color: 63AFD0;">Home page</a> | <a href="logout.php" style="color: 63AFD0;">Log
-            out</a>
+    <div style="position:absolute;right:15px;top:10px;color:black;text-align:right;">
+        Logged in as <text class="o4"><b><?php echo $user; ?></b></text><br>
+        <a href = "homepage.php" style = "color: 63AFD0;">Home page</a> | <a href = "logout.php" style = "color: 63AFD0;">Log out</a>
     </div>
     <div id="notifications" style="width:100%;text-align:center;">
-        <text class="b4"><?php echo $notification ?></text>
+        <text class="o4"><b><?php echo $notification ?></b></text>
     </div>
 
         <form action="update_labwork.php?labworkID=<?php echo $labworkID; ?>" method="post" enctype="multipart/form-data" >
-            <div class="subsection" style="display: block; width: 600px;padding-right:10px;padding-bottom: 10px;">
+            <div class = "subsection" style="display: block; margin: 0 auto; width: 600px; top: 25px;padding-right:10px;padding-bottom: 10px;">
                 <center><h2><?php echo $Labwork['Title']; ?></h2></center>
                 <h3>Patient</h3> <?php echo $Patient['FirstName'] . ' ' . $Patient['LastName']; ?>
                 <h3>Doctor</h3> <?php echo $Doctor['FirstName'] . ' ' . $Doctor['LastName']; ?>
                 <h3>Date</h3> <?php echo $Labwork['Date']; ?>
                 <h3>Description</h3> <?php echo $Labwork['Description']; ?>
                 <h3>Results</h3>
-                <div style="border: 1px solid #AAAAAA; padding:10px; margin-bottom:10px;" >
+                <div style="padding:10px; margin-bottom:10px; background-color: #E4E4E4;" >
                     <div>
                         <textarea id="LabResultText" style="width: 100%; height: 500px;" name="resultText" <?php if ($type != 3) echo 'readonly'; ?>><?php if ($resultText) echo $resultText; else echo $Labwork['Report']; ?></textarea>
-                        <center><input type="submit"  name = "bSave" value="Save Entry" class="submitButton" ></center>
+                        <center><input type="submit"  name = "bSave" value="Save Entry" class="submitButton" <?php if ($type != 3) echo 'style="display:none;"'; ?> ></center>
                     </div>
                 </div>
-                <div <?php if ($type != 3) echo 'style="display:none"'; ?>>
-                    <div class="subsection" style="margin: 0 auto; display:block; border: 1px solid #AAAAAA">
+                <div style="background-color: #E4E4E4;<?php if ($type != 3) echo 'display:none'?>">
+                    <div class="subsection" style="margin: 0 auto;display:block; background-color: #E4E4E4;">
                         <div>
                             <input type="hidden" id="DuplicateResultText1" name="report">
                             <h3>Add Attachment</h3>

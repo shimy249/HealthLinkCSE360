@@ -73,12 +73,12 @@ function timeslot($aTime){
 ?>
 <div class="main">
     <h1>IPIMS - Schedule Appointment</h1>
-    <div style="position:absolute;right:15px;top:10px;color:white;text-align:right;">
+    <div style="position:absolute;right:15px;top:10px;color:black;text-align:right;">
         Logged in as <text class="o4"><b><?php echo $user; ?></b></text><br>
         <a href = "homepage.php" style = "color: 63AFD0;">Home page</a> | <a href = "logout.php" style = "color: 63AFD0;">Log out</a>
     </div>
     <div id="notifications" style="width:100%;text-align:center;">
-        <text class="b4"><?php echo $notification ?></text>
+        <text class="o4"><b><?php echo $notification ?></b></text>
     </div>
 
     <div class = "subsection" style="margin: 0 auto; width: 400px; top: 25px;padding-right:10px;padding-bottom: 10px;display:block;">
@@ -93,7 +93,7 @@ function timeslot($aTime){
                     $result = $conn->query($sql);
                     if ($result->num_rows>0){
                         $row = $result->fetch_assoc();
-                         echo 'The symptoms you have entered match those of the disease: <text class="p1">'.$row['Name'].'</text>. Please schedule a doctor below:<br><br>';
+                         echo 'The symptoms you have entered match those of the disease: <text class="p1">'.$row['Name'].'</text>.<br><br> Please schedule a doctor below:<br><br>';
                     }
                 }
                 ?>

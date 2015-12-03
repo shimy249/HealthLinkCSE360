@@ -71,12 +71,12 @@ function timeslot($aTime){
 ?>
 <div class="main">
     <h1>IPIMS - Home Page</h1>
-    <div style="position:absolute;right:15px;top:10px;color:white;text-align:right;">
+    <div style="position:absolute;right:15px;top:10px;color:black;text-align:right;">
         Logged in as <text class="o4"><b><?php echo $user; ?></b></text><br>
         <a href = "homepage.php" style = "color: 63AFD0;">Home page</a> | <a href = "logout.php" style = "color: 63AFD0;">Log out</a>
     </div>
     <div id="notifications" style="width:100%;text-align:center;">
-        <text class="b4"><?php echo $notification ?></text>
+        <text class="o4"><b><?php echo $notification ?></b></text>
     </div>
     <div class="column" style='left:10px; top: 80px;'>
 
@@ -287,7 +287,7 @@ function timeslot($aTime){
                         </select>
                     </div>
                     Additional Notes:
-                    <textarea id="AdditionalNotes" style="width: 100%;background-color:#F3F3F3" name="Notes"></textarea>
+                    <textarea id="AdditionalNotes" style="width: 100%;" name="Notes"></textarea>
                     <center><input type="submit" class="submitButton" value="Add Symptom"></center>
                 </form>
             </div>
@@ -399,7 +399,7 @@ function timeslot($aTime){
                             echo '</div>';
                         }
                     }
-                    else echo 'There are no pending lab reports.<br><br>'
+
                     ?>
                 </div>
             </div>
@@ -424,7 +424,6 @@ function timeslot($aTime){
                             echo '</div>';
                         }
                     }
-                    else echo 'There are no pending lab reports.<br><br>'
                     ?>
                 </div>
             </div>
@@ -449,7 +448,7 @@ function timeslot($aTime){
                             echo '</div>';
                         }
                     }
-                    else echo 'There are no prescriptions.<br><br>'
+
                     ?>
                 </div>
             </div>
@@ -476,7 +475,7 @@ function timeslot($aTime){
                             echo '</div>';
                         }
                     }
-                    else echo 'There are no completed lab reports.<br><br>'
+
                     ?>
                 </div>
                 <h3>Pending Lab Reports</h3>
@@ -494,7 +493,6 @@ function timeslot($aTime){
                             echo '</div>';
                         }
                     }
-                    else echo 'There are no pending lab reports.<br><br>'
                     ?>
                 </div>
             </div>

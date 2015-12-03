@@ -26,12 +26,12 @@ if (isset($_POST['modify_id'])) $modifyID = $_POST['modify_id'];
 ?>
 <div class="main">
     <h1>IPIMS - Admin Home</h1>
-    <div style="position:absolute;right:15px;top:10px;color:white;text-align:right;">
+    <div style="position:absolute;right:15px;top:10px;color:black;text-align:right;">
         Logged in as <text class="o4"><b><?php echo $user; ?></b></text><br>
-        <a href = "admin_home.php" style = "color: 63AFD0;">Home page</a> | <a href = "logout.php" style = "color: 63AFD0;">Log out</a>
+        <a href = "homepage.php" style = "color: 63AFD0;">Home page</a> | <a href = "logout.php" style = "color: 63AFD0;">Log out</a>
     </div>
     <div id="notifications" style="width:100%;text-align:center;">
-        <text class="b4"><?php echo $notification ?></text>
+        <text class="o4"><b><?php echo $notification ?></b></text>
     </div>
 
     <!-- Left Column -->
