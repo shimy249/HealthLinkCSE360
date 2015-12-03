@@ -73,7 +73,7 @@ function timeslot($aTime){
     <h1>IPIMS - Home Page</h1>
     <div style="position:absolute;right:15px;top:10px;color:black;text-align:right;">
         Logged in as <text class="o4"><b><?php echo $user; ?></b></text><br>
-        <a href = "homepage.php" style = "color: 63AFD0;">Home page</a> | <a href = "logout.php" style = "color: 63AFD0;">Log out</a>
+        <a href = "homepage.php" style = "color: 3BA3D0;">Home page</a> | <a href = "logout.php" style = "color: 3BA3D0;">Log out</a>
     </div>
     <div id="notifications" style="width:100%;text-align:center;">
         <text class="o4"><b><?php echo $notification ?></b></text>
